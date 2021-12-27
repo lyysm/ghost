@@ -110,6 +110,8 @@ projectFilesBackup
 /content/adapters/storage/**/*
 /content/adapters/scheduling/**/*
 !/content/themes/casper
+# 集成casper主题
+!/content/themes/casper/**
 !/README.md
 !/content/**/README.md
 
