@@ -4,21 +4,22 @@ import boundOneWay from 'ghost-admin/utils/bound-one-way';
 import config from 'ghost-admin/config/environment';
 import isNumber from 'ghost-admin/utils/isNumber';
 import moment from 'moment';
-import {action, computed} from '@ember/object';
-import {alias, mapBy} from '@ember/object/computed';
-import {capitalize} from '@ember/string';
-import {inject as controller} from '@ember/controller';
-import {get} from '@ember/object';
-import {htmlSafe} from '@ember/template';
-import {isBlank} from '@ember/utils';
-import {isArray as isEmberArray} from '@ember/array';
-import {isHostLimitError, isServerUnreachableError} from 'ghost-admin/services/ajax';
-import {isInvalidError} from 'ember-ajax/errors';
-import {isVersionMismatchError} from 'ghost-admin/services/ajax';
-import {inject as service} from '@ember/service';
-import {task, taskGroup, timeout} from 'ember-concurrency';
+import { action, computed } from '@ember/object';
+import { alias, mapBy } from '@ember/object/computed';
+import { capitalize } from '@ember/string';
+import { inject as controller } from '@ember/controller';
+import { get } from '@ember/object';
+import { htmlSafe } from '@ember/template';
+import { isBlank } from '@ember/utils';
+import { isArray as isEmberArray } from '@ember/array';
+import { isHostLimitError, isServerUnreachableError } from 'ghost-admin/services/ajax';
+import { isInvalidError } from 'ember-ajax/errors';
+import { isVersionMismatchError } from 'ghost-admin/services/ajax';
+import { inject as service } from '@ember/service';
+import { task, taskGroup, timeout } from 'ember-concurrency';
 
-const DEFAULT_TITLE = '(Untitled)';
+// 默认文章标题
+const DEFAULT_TITLE = '(未命名)';
 
 // time in ms to save after last content edit
 const AUTOSAVE_TIMEOUT = 3000;
@@ -142,10 +143,10 @@ export default Controller.extend({
     _tagNames: mapBy('post.tags', 'name'),
 
     hasDirtyAttributes: computed(...watchedProps, {
-        get() {
+        get () {
             return this._hasDirtyAttributes();
         },
-        set(key, value) {
+        set (key, value) {
             return value;
         }
     }),
@@ -161,7 +162,7 @@ export default Controller.extend({
     }),
 
     canManageSnippets: computed('session.user.{isAdmin,isEditor}', function () {
-        let {user} = this.session;
+        let { user } = this.session;
         if (user.get('isAdmin') || user.get('isEditor')) {
             return true;
         }
@@ -182,7 +183,7 @@ export default Controller.extend({
     /* actions ---------------------------------------------------------------*/
 
     actions: {
-        updateScratch(mobiledoc) {
+        updateScratch (mobiledoc) {
             this.set('post.scratch', mobiledoc);
 
             // save 3 seconds after last edit
@@ -190,13 +191,13 @@ export default Controller.extend({
             // force save at 60 seconds
             this._timedSaveTask.perform();
         },
-        updateTitleScratch(title) {
+        updateTitleScratch (title) {
             this.set('post.titleScratch', title);
         },
 
         // updates local willPublish/Schedule values, does not get applied to
         // the post's `status` value until a save is triggered
-        setSaveType(newType) {
+        setSaveType (newType) {
             if (newType === 'publish') {
                 this.set('willPublish', true);
                 this.set('willSchedule', false);
@@ -209,18 +210,18 @@ export default Controller.extend({
             }
         },
 
-        save(options) {
+        save (options) {
             return this.saveTask.perform(options);
         },
 
         // used to prevent unexpected background saves. Triggered when opening
         // publish menu, starting a manual save, and when leaving the editor
-        cancelAutosave() {
+        cancelAutosave () {
             this._autosaveTask.cancelAll();
             this._timedSaveTask.cancelAll();
         },
 
-        toggleLeaveEditorModal(transition) {
+        toggleLeaveEditorModal (transition) {
             let leaveTransition = this.leaveEditorTransition;
 
             // "cancel" was clicked in the "are you sure?" modal so we just
@@ -253,7 +254,7 @@ export default Controller.extend({
 
                 // we genuinely have unsaved data, show the modal
                 if (this.post) {
-                    Object.assign(this._leaveModalReason, {status: this.post.status});
+                    Object.assign(this._leaveModalReason, { status: this.post.status });
                 }
                 console.log('showing leave editor modal', this._leaveModalReason); // eslint-disable-line
                 this.set('showLeaveEditorModal', true);
@@ -261,11 +262,11 @@ export default Controller.extend({
         },
 
         // called by the "are you sure?" modal
-        leaveEditor() {
+        leaveEditor () {
             let transition = this.leaveEditorTransition;
 
             if (!transition) {
-                this.notifications.showAlert('Sorry, there was an error in the application. Please let the Ghost team know what happened.', {type: 'error'});
+                this.notifications.showAlert('Sorry, there was an error in the application. Please let the Ghost team know what happened.', { type: 'error' });
                 return;
             }
 
@@ -275,7 +276,7 @@ export default Controller.extend({
             return transition.retry();
         },
 
-        openDeletePostModal() {
+        openDeletePostModal () {
             if (!this.get('post.isNew')) {
                 this.modals.open('modals/delete-post', {
                     post: this.post
@@ -285,11 +286,11 @@ export default Controller.extend({
             }
         },
 
-        toggleEmailPreviewModal() {
+        toggleEmailPreviewModal () {
             this.toggleProperty('showEmailPreviewModal');
         },
 
-        openPostPreviewModal() {
+        openPostPreviewModal () {
             this.modals.open('modals/post-preview', {
                 post: this.post,
                 saveTask: this.saveTask,
@@ -302,7 +303,7 @@ export default Controller.extend({
             });
         },
 
-        toggleReAuthenticateModal() {
+        toggleReAuthenticateModal () {
             if (this.showReAuthenticateModal) {
                 // closing, re-attempt save if needed
                 if (this._reauthSave) {
@@ -315,15 +316,15 @@ export default Controller.extend({
             this.toggleProperty('showReAuthenticateModal');
         },
 
-        openUpgradeModal() {
+        openUpgradeModal () {
             this.set('showUpgradeModal', true);
         },
 
-        closeUpgradeModal() {
+        closeUpgradeModal () {
             this.set('showUpgradeModal', false);
         },
 
-        setKoenigEditor(koenig) {
+        setKoenigEditor (koenig) {
             this._koenig = koenig;
 
             // remove any empty cards when displaying a draft post
@@ -335,11 +336,11 @@ export default Controller.extend({
             }
         },
 
-        updateWordCount(counts) {
+        updateWordCount (counts) {
             this.set('wordCount', counts);
         },
 
-        setFeatureImage(url) {
+        setFeatureImage (url) {
             this.post.set('featureImage', url);
 
             if (this.post.isDraft) {
@@ -347,7 +348,7 @@ export default Controller.extend({
             }
         },
 
-        clearFeatureImage() {
+        clearFeatureImage () {
             this.post.set('featureImage', null);
             this.post.set('featureImageAlt', null);
             this.post.set('featureImageCaption', null);
@@ -357,7 +358,7 @@ export default Controller.extend({
             }
         },
 
-        setFeatureImageAlt(text) {
+        setFeatureImageAlt (text) {
             this.post.set('featureImageAlt', text);
 
             if (this.post.isDraft) {
@@ -365,7 +366,7 @@ export default Controller.extend({
             }
         },
 
-        setFeatureImageCaption(html) {
+        setFeatureImageCaption (html) {
             this.post.set('featureImageCaption', html);
 
             if (this.post.isDraft) {
@@ -388,14 +389,14 @@ export default Controller.extend({
             this.notifications.closeAlerts('snippet.save');
             this.notifications.showNotification(
                 `Snippet saved as "${snippet.name}"`,
-                {type: 'success'}
+                { type: 'success' }
             );
             return snippetRecord;
         }).catch((error) => {
             if (!snippetRecord.errors.isEmpty) {
                 this.notifications.showAlert(
                     `Snippet save failed: ${snippetRecord.errors.messages.join('. ')}`,
-                    {type: 'error', key: 'snippet.save'}
+                    { type: 'error', key: 'snippet.save' }
                 );
             }
             snippetRecord.rollbackAttributes();
@@ -405,7 +406,7 @@ export default Controller.extend({
 
     toggleUpdateSnippetModal: action(function (snippetRecord, updatedProperties = {}) {
         if (snippetRecord) {
-            this.set('snippetToUpdate', {snippetRecord, updatedProperties});
+            this.set('snippetToUpdate', { snippetRecord, updatedProperties });
         } else {
             this.set('snippetToUpdate', null);
         }
@@ -416,7 +417,7 @@ export default Controller.extend({
             return Promise.reject();
         }
 
-        const {snippetRecord, updatedProperties: {mobiledoc}} = this.snippetToUpdate;
+        const { snippetRecord, updatedProperties: { mobiledoc } } = this.snippetToUpdate;
         snippetRecord.set('mobiledoc', mobiledoc);
 
         return snippetRecord.save().then(() => {
@@ -424,14 +425,14 @@ export default Controller.extend({
             this.notifications.closeAlerts('snippet.save');
             this.notifications.showNotification(
                 `Snippet "${snippetRecord.name}" updated`,
-                {type: 'success'}
+                { type: 'success' }
             );
             return snippetRecord;
         }).catch((error) => {
             if (!snippetRecord.errors.isEmpty) {
                 this.notifications.showAlert(
                     `Snippet save failed: ${snippetRecord.errors.messages.join('. ')}`,
-                    {type: 'error', key: 'snippet.save'}
+                    { type: 'error', key: 'snippet.save' }
                 );
             }
             snippetRecord.rollbackAttributes();
@@ -494,7 +495,7 @@ export default Controller.extend({
             let isPublishing = status === 'published' && !this.post.isPublished;
             let isScheduling = status === 'scheduled' && !this.post.isScheduled;
             if (options.sendEmailWhenPublished && (isPublishing || isScheduling)) {
-                options.adapterOptions = Object.assign({}, options.adapterOptions, {sendEmailWhenPublished: options.sendEmailWhenPublished});
+                options.adapterOptions = Object.assign({}, options.adapterOptions, { sendEmailWhenPublished: options.sendEmailWhenPublished });
             }
         }
 
@@ -672,7 +673,7 @@ export default Controller.extend({
 
     // convenience method for saving the post and performing post-save cleanup
     _savePostTask: task(function* (options = {}) {
-        let {post} = this;
+        let { post } = this;
 
         const previousEmailOnlyValue = this.post.emailOnly;
 
@@ -775,19 +776,19 @@ export default Controller.extend({
     // load supplementel data such as the members count in the background
     backgroundLoaderTask: task(function* () {
         try {
-            let membersResponse = yield this.store.query('member', {limit: 1, filter: 'subscribed:true'});
+            let membersResponse = yield this.store.query('member', { limit: 1, filter: 'subscribed:true' });
             this.set('memberCount', get(membersResponse, 'meta.pagination.total'));
         } catch (error) {
             this.set('memberCount', 0);
         }
 
-        yield this.store.query('snippet', {limit: 'all'});
+        yield this.store.query('snippet', { limit: 'all' });
     }).restartable(),
 
     /* Public methods --------------------------------------------------------*/
 
     // called by the new/edit routes to change the post model
-    setPost(post) {
+    setPost (post) {
         // don't do anything else if we're setting the same post
         if (post === this.post) {
             this.set('shouldFocusTitle', post.get('isNew'));
@@ -816,10 +817,10 @@ export default Controller.extend({
         window.onbeforeunload = () => {
             if (this.hasDirtyAttributes) {
                 return '==============================\n\n'
-                     + 'Hey there! It looks like you\'re in the middle of writing'
-                     + ' something and you haven\'t saved all of your content.'
-                     + '\n\nSave before you go!\n\n'
-                     + '==============================';
+                    + 'Hey there! It looks like you\'re in the middle of writing'
+                    + ' something and you haven\'t saved all of your content.'
+                    + '\n\nSave before you go!\n\n'
+                    + '==============================';
             }
         };
     },
@@ -828,7 +829,7 @@ export default Controller.extend({
     // editor.edit->edit, or editor->any. Triggers `toggleLeaveEditorModal` action
     // which will either finish autosave then retry transition or abort and show
     // the "are you sure?" modal
-    willTransition(transition) {
+    willTransition (transition) {
         let post = this.post;
 
         // exit early and allow transition if we have no post, occurs if reset
@@ -874,7 +875,7 @@ export default Controller.extend({
     },
 
     // called when the editor route is left or the post model is swapped
-    reset() {
+    reset () {
         let post = this.post;
 
         // make sure the save tasks aren't still running in the background
@@ -940,7 +941,7 @@ export default Controller.extend({
 
     /* Private methods -------------------------------------------------------*/
 
-    _hasDirtyAttributes() {
+    _hasDirtyAttributes () {
         let post = this.post;
 
         if (!post) {
@@ -950,7 +951,7 @@ export default Controller.extend({
         // if the Adapter failed to save the post isError will be true
         // and we should consider the post still dirty.
         if (post.get('isError')) {
-            this._leaveModalReason = {reason: 'isError', context: post.errors.messages};
+            this._leaveModalReason = { reason: 'isError', context: post.errors.messages };
             return true;
         }
 
@@ -959,13 +960,13 @@ export default Controller.extend({
         let currentTags = (this._tagNames || []).join(', ');
         let previousTags = (this._previousTagNames || []).join(', ');
         if (currentTags !== previousTags) {
-            this._leaveModalReason = {reason: 'tags are different', context: {currentTags, previousTags}};
+            this._leaveModalReason = { reason: 'tags are different', context: { currentTags, previousTags } };
             return true;
         }
 
         // titleScratch isn't an attr so needs a manual dirty check
         if (this.titleScratch !== this.title) {
-            this._leaveModalReason = {reason: 'title is different', context: {current: this.title, scratch: this.titleScratch}};
+            this._leaveModalReason = { reason: 'title is different', context: { current: this.title, scratch: this.titleScratch } };
             return true;
         }
 
@@ -978,7 +979,7 @@ export default Controller.extend({
             let scratchJSON = JSON.stringify(scratch);
 
             if (scratchJSON !== mobiledocJSON) {
-                this._leaveModalReason = {reason: 'mobiledoc is different', context: {current: mobiledocJSON, scratch: scratchJSON}};
+                this._leaveModalReason = { reason: 'mobiledoc is different', context: { current: mobiledocJSON, scratch: scratchJSON } };
                 return true;
             }
         }
@@ -989,23 +990,23 @@ export default Controller.extend({
             let changedAttributes = Object.keys(post.changedAttributes());
 
             if (changedAttributes.length) {
-                this._leaveModalReason = {reason: 'post.changedAttributes.length > 0', context: post.changedAttributes()};
+                this._leaveModalReason = { reason: 'post.changedAttributes.length > 0', context: post.changedAttributes() };
             }
             return changedAttributes.length ? true : false;
         }
 
         // we've covered all the non-tracked cases we care about so fall
         // back on Ember Data's default dirty attribute checks
-        let {hasDirtyAttributes} = post;
+        let { hasDirtyAttributes } = post;
 
         if (hasDirtyAttributes) {
-            this._leaveModalReason = {reason: 'post.hasDirtyAttributes === true', context: post.changedAttributes()};
+            this._leaveModalReason = { reason: 'post.hasDirtyAttributes === true', context: post.changedAttributes() };
         }
 
         return hasDirtyAttributes;
     },
 
-    _showSaveNotification(prevStatus, status, delayed) {
+    _showSaveNotification (prevStatus, status, delayed) {
         // scheduled messaging is completely custom
         if (status === 'scheduled') {
             return this._showScheduledNotification(delayed);
@@ -1021,10 +1022,10 @@ export default Controller.extend({
             actions = `<a href="${path}" target="_blank">View ${type}</a>`;
         }
 
-        notifications.showNotification(message, {type: 'success', actions: (actions && htmlSafe(actions)), delayed});
+        notifications.showNotification(message, { type: 'success', actions: (actions && htmlSafe(actions)), delayed });
     },
 
-    async _showScheduledNotification(delayed) {
+    async _showScheduledNotification (delayed) {
         let {
             publishedAtUTC,
             emailRecipientFilter,
@@ -1053,15 +1054,15 @@ export default Controller.extend({
 
         let actions = htmlSafe(`<a href="${previewUrl}" target="_blank">View Preview</a>`);
 
-        return this.notifications.showNotification(title, {description, actions, type: 'success', delayed});
+        return this.notifications.showNotification(title, { description, actions, type: 'success', delayed });
     },
 
-    _showErrorAlert(prevStatus, status, error, delay) {
+    _showErrorAlert (prevStatus, status, error, delay) {
         let message = messageMap.errors.post[prevStatus][status];
         let notifications = this.notifications;
         let errorMessage;
 
-        function isString(str) {
+        function isString (str) {
             return toString.call(str) === '[object String]';
         }
 
@@ -1074,7 +1075,7 @@ export default Controller.extend({
             // TODO: remove this once validations are fixed
             errorMessage = error[0];
         } else if (error && error.payload && error.payload.errors && error.payload.errors[0].message) {
-            return this.notifications.showAPIError(error, {key: 'post.save'});
+            return this.notifications.showAPIError(error, { key: 'post.save' });
         } else {
             errorMessage = 'Unknown Error';
         }
@@ -1082,7 +1083,7 @@ export default Controller.extend({
         message += `: ${errorMessage}`;
         message = htmlSafe(message);
 
-        notifications.showAlert(message, {type: 'error', delayed: delay, key: 'post.save'});
+        notifications.showAlert(message, { type: 'error', delayed: delay, key: 'post.save' });
     }
 
 });
