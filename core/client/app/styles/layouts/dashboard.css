@@ -452,22 +452,7 @@ a.gh-dashboard-container {
     transform-origin: top right;
 }
 
-.gh-dashboard-careers {
-    display: grid;
-    justify-content: space-between;
-    grid-gap: 30px;
-    grid-template-columns: 3fr 1fr;
-}
 
-.gh-dashboard-careers p {
-    margin-bottom: 0;
-}
-
-.gh-dashboard-careers-cta {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 
 
