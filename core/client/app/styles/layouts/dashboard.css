@@ -469,44 +469,7 @@ a.gh-dashboard-container {
     justify-content: center;
 }
 
-.gh-dashboard-join-community {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    border-radius: 3px;
-    padding: 54px;
-    min-height: 440px;
-    background-size: cover;
-    background-position: center;
-    color: #fff;
-}
 
-.gh-dashboard-join-community h2 {
-    color: #fff;
-    font-size: 2.6rem;
-    letter-spacing: -0.2px;
-    margin-bottom: 16px;
-}
-
-.gh-dashboard-join-community p {
-    font-size: 1.8rem;
-    opacity: 0.75;
-    max-width: 480px;
-    line-height: 1.5em;
-    letter-spacing: -0.2px;
-}
-
-.gh-dashboard-join-community a.footer-link {
-    align-self: center;
-    margin-bottom: -32px;
-    font-size: 1.2rem;
-    color: #fff;
-}
-
-.gh-dashboard-join-community a:hover {
-    opacity: 0.8;
-}
 
 /* Chart.js requires relative width to be in vw units to make responsive re-rendering work */
 @media (max-width: 1600px) {
@@ -945,13 +908,7 @@ a.gh-dashboard-container {
         min-height: 140px;
     }
 
-    .gh-dashboard-join-community {
-        padding: 44px 32px;
-    }
 
-    .gh-dashboard-join-community .footer-link {
-        margin-bottom: -24px;
-    }
 
     .gh-dashboard-container.start-contents .gh-dashboard-box {
         grid-template-columns: 1fr;
