@@ -1,27 +1,27 @@
 import BaseValidator from './base';
 import validator from 'validator';
-import {isBlank} from '@ember/utils';
+import { isBlank } from '@ember/utils';
 
 export default BaseValidator.create({
     properties: ['email', 'role'],
 
-    email(model) {
+    email (model) {
         let email = model.get('email');
 
         if (isBlank(email)) {
-            model.get('errors').add('email', 'Please enter an email.');
+            model.get('errors').add('email', '请输入电子邮件地址。');
             this.invalidate();
         } else if (!validator.isEmail(email)) {
-            model.get('errors').add('email', 'Invalid Email.');
+            model.get('errors').add('email', '无效电子邮件。');
             this.invalidate();
         }
     },
 
-    role(model) {
+    role (model) {
         let role = model.get('role');
 
         if (isBlank(role)) {
-            model.get('errors').add('role', 'Please select a role.');
+            model.get('errors').add('role', '请选择一个角色。');
             model.get('hasValidated').pushObject('role');
             this.invalidate();
         }

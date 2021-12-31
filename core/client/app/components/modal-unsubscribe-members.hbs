@@ -6,9 +6,9 @@
 {{#if (not this.confirmed)}}
     <div class="modal-body" data-test-state="unsubscribe-unconfirmed">
         <p>
-            You're about to unsubscribe
-            <strong data-test-text="unsubscribe-count">{{gh-pluralize this.model.memberCount "member"}}</strong> from email newsletters.
-            Are you sure?
+            您即将取消订阅
+            <strong data-test-text="unsubscribe-count">{{gh-pluralize this.model.memberCount "member"}}</strong> 来自电子邮件的文章推送。
+            是否确认？
         </p>
     </div>
 {{else}}
@@ -27,7 +27,7 @@
                 {{svg-jar "check-circle" class="w4 h4 stroke-green mr2"}}
                 <p class="ma0 pa0">
                     <span class="fw6" data-test-text="unsubscribe-count">{{gh-pluralize this.response.stats.successful "member"}}</span>
-                    successfully unsubscribed
+                    已成功取消订阅
                 </p>
             </div>
             {{#if this.response.stats.unsuccessful}}
@@ -36,7 +36,7 @@
                     <div>
                         <p class="ma0 pa0">
                             <span class="fw5" data-test-text="invalid-count">{{gh-pluralize this.response.stats.unsuccessful "member"}}</span>
-                            failed to unsubscribe
+                            取消订阅失败
                         </p>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
 <div class="modal-footer">
     {{#if (not this.confirmed)}}
         <button {{action "closeModal"}} class="gh-btn" data-test-button="cancel">
-            <span>Cancel</span>
+            <span>取消</span>
         </button>
 
         <GhTaskButton
@@ -60,7 +60,7 @@
         />
     {{else}}
         <button {{action "closeModal"}} class="gh-btn gh-btn-black" data-test-button="close-modal">
-            <span>Close</span>
+            <span>关闭</span>
         </button>
     {{/if}}
 </div>

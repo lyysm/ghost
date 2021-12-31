@@ -1,15 +1,15 @@
 <div class="flex flex-column h-100" {{css-transition "gh-nav-contextual"}} data-test-nav-menu="design" ...attributes>
     <header class="gh-nav-header">
-        <LinkTo @route="settings" class="gh-nav-menu-back-button">{{svg-jar "arrow-left-small"}} Settings</LinkTo>
+        <LinkTo @route="settings" class="gh-nav-menu-back-button">{{svg-jar "arrow-left-small"}} 设置</LinkTo>
     </header>
     <section class="gh-nav-body gh-nav-design">
         <div class="gh-nav-top" {{on "click" this.transitionBackToIndex}}>
             <div class="gh-nav-list gh-nav-main">
-                <LinkTo @route="settings.design" class="gh-nav-menu-title" @current-when="settings.design.index" {{on "click" this.closeAllSections}}>Site design</LinkTo>
+                <LinkTo @route="settings.design" class="gh-nav-menu-title" @current-when="settings.design.index" {{on "click" this.closeAllSections}}>站点设计</LinkTo>
 
                 {{#let (eq this.openSection "brand") as |isOpen|}}
                     <button class="gh-nav-design-tab {{if isOpen "active"}}" type="button" {{on "click" (fn this.toggleSection "brand")}} data-test-nav-toggle="general">
-                        {{svg-jar "paintbrush"}} Brand
+                        {{svg-jar "paintbrush"}} 品牌
                         <span class="gh-nav-button-expand">{{svg-jar (if isOpen "arrow-up-stroke" "arrow-down-stroke")}}</span>
                     </button>
                     {{#liquid-if isOpen}}
@@ -45,8 +45,8 @@
             <div class="gh-change-theme">
                 <LinkTo class="gh-nav-design-tab" @route="settings.design.change-theme" {{on "click" this.closeAllSections}} data-test-nav="change-theme">
                     <div>
-                        <span>Change theme</span>
-                        <span class="active-theme" data-test-text="current-theme">Current: {{this.activeTheme.name}}{{#if this.activeTheme.package.version}} - v{{this.activeTheme.package.version}}{{/if}}</span>
+                        <span>切换主题</span>
+                        <span class="active-theme" data-test-text="current-theme">当前: {{this.activeTheme.name}}{{#if this.activeTheme.package.version}} - v{{this.activeTheme.package.version}}{{/if}}</span>
                     </div>
                     <div class="gh-nav-design-tabicon">{{svg-jar "sync"}}</div>
                 </LinkTo>

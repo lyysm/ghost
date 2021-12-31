@@ -1,5 +1,5 @@
 <header class="modal-header">
-    <h1>Are you sure you want to disconnect?</h1>
+    <h1>您确定要断开连接吗？</h1>
 </header>
 <a class="close" href="" role="button" title="Close" {{action "closeModal"}}>{{svg-jar "close"}}<span class="hidden">Close</span></a>
 
@@ -8,6 +8,6 @@
 </div>
 
 <div class="modal-footer">
-    <button {{action "closeModal"}} class="gh-btn"><span>Cancel</span></button>
+    <button {{action "closeModal"}} class="gh-btn"><span>取消</span></button>
     <GhTaskButton @buttonText="Disconnect" @successText="Disconnected" @task={{this.disconnectStripe}} @class="gh-btn gh-btn-red gh-btn-icon" />
 </div>

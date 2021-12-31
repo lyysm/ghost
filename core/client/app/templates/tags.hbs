@@ -1,12 +1,12 @@
 <section class="gh-canvas">
     <GhCanvasHeader class="gh-canvas-header">
-        <h2 class="gh-canvas-title" data-test-screen-title>Tags</h2>
+        <h2 class="gh-canvas-title" data-test-screen-title>标签</h2>
         <section class="view-actions">
             <div class="gh-contentfilter gh-btn-group">
-                <button class="gh-btn {{if (eq this.type "public") "gh-btn-group-selected"}}" {{action "changeType" "public"}}><span>Public tags</span></button>
-                <button class="gh-btn {{if (eq this.type "internal") "gh-btn-group-selected"}}" {{action "changeType" "internal"}}><span>Internal tags</span></button>
+                <button class="gh-btn {{if (eq this.type "public") "gh-btn-group-selected"}}" {{action "changeType" "public"}}><span>公共标签</span></button>
+                <button class="gh-btn {{if (eq this.type "internal") "gh-btn-group-selected"}}" {{action "changeType" "internal"}}><span>私有标签</span></button>
             </div>
-            <LinkTo @route="tag.new" class="gh-btn gh-btn-primary"><span>New tag</span></LinkTo>
+            <LinkTo @route="tag.new" class="gh-btn gh-btn-primary"><span>新建标签</span></LinkTo>
         </section>
     </GhCanvasHeader>
 
@@ -14,9 +14,9 @@
         <ol class="tags-list gh-list {{unless this.sortedTags "no-posts"}}">
             {{#if this.sortedTags}}
                 <li class="gh-list-row header">
-                    <div class="gh-list-header gh-list-cellwidth-70">Tag</div>
-                    <div class="gh-list-header gh-list-cellwidth-10">Slug</div>
-                    <div class="gh-list-header gh-list-cellwidth-10">No. of posts</div>
+                    <div class="gh-list-header gh-list-cellwidth-70">标签</div>
+                    <div class="gh-list-header gh-list-cellwidth-10">别名</div>
+                    <div class="gh-list-header gh-list-cellwidth-10">关联文章</div>
                     <div class="gh-list-header gh-list-cellwidth-10"></div>
                 </li>
                 <VerticalCollection @items={{this.sortedTags}} @key="id" @containerSelector=".gh-main" @estimateHeight={{60}} @bufferSize={{20}} as |tag|>
@@ -26,9 +26,9 @@
                 <li class="no-posts-box">
                     <div class="no-posts">
                             {{svg-jar "tags-placeholder" class="gh-tags-placeholder"}}
-                            <h3>You haven't created any {{this.type}} tags yet!</h3>
+                            <h3>您尚未创建任何 {{this.type}} 标签</h3>
                             <LinkTo @route="tag.new" class="gh-btn gh-btn-primary gh-btn-lg gh-btn-green">
-                                <span>Create a new tag</span>
+                                <span>创建新标签</span>
                             </LinkTo>
                     </div>
                 </li>

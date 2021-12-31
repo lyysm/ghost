@@ -1,6 +1,6 @@
 <section class="gh-canvas">
     <GhCanvasHeader class="gh-canvas-header break tablet members-header">
-        <h2 class="gh-canvas-title" data-test-screen-title>Members</h2>
+        <h2 class="gh-canvas-title" data-test-screen-title>用户</h2>
         <section class="view-actions">
             <div class="view-actions-bottom-row">
                 <div class="relative gh-members-header-search">
@@ -42,21 +42,21 @@
                     >
                         <li>
                             <LinkTo @route="members.import" class="mr2" data-test-link="import-csv">
-                                <span>Import members</span>
+                                <span>导入用户</span>
                             </LinkTo>
                         </li>
                         <li class="{{if this.members.length "" "disabled"}}">
                             {{#if this.members.length}}
                                 <button class="mr2" {{on "click" this.exportData}}>
                                     {{#if this.showingAll}}
-                                        <span>Export all members</span>
+                                        <span>导出所有用户</span>
                                     {{else}}
-                                    <span>Export selected members ({{this.members.length}})</span>
+                                    <span>导出所选用户 ({{this.members.length}})</span>
                                     {{/if}}
                                 </button>
                             {{else}}
                                 <button class="mr2" disabled="true">
-                                    <span>Export selected members (0)</span>
+                                    <span>导出所选用户 (0)</span>
                                 </button>
                             {{/if}}
                         </li>
@@ -64,29 +64,29 @@
                             <li class="divider"></li>
                             <li>
                                 <button class="mr2" {{on "click" this.toggleAddMembersLabelModal}} data-test-button="add-label-selected">
-                                    <span>Add label for selected members ({{this.members.length}})</span>
+                                    <span>为所选用户添加标签 ({{this.members.length}})</span>
                                 </button>
                             </li>
                             <li>
                                 <button class="mr2" {{on "click" this.toggleRemoveMembersLabelModal}} data-test-button="remove-label-selected">
-                                    <span>Remove label from selected members ({{this.members.length}})</span>
+                                    <span>删除选定用户的标签 ({{this.members.length}})</span>
                                 </button>
                             </li>
                             <li>
                                 <button class="mr2" {{on "click" this.toggleUnsubscribeMembersModal}} data-test-button="remove-label-selected">
-                                    <span>Unsubscribe selected members ({{this.members.length}})</span>
+                                    <span>取消所选用户订阅({{this.members.length}})</span>
                                 </button>
                             </li>
                             <li class="divider"></li>
                             <li>
                                 <button class="mr2" {{on "click" this.toggleDeleteMembersModal}} data-test-button="delete-selected">
-                                    <span class="red">Delete selected members ({{this.members.length}})</span>
+                                    <span class="red">删除所选用户 ({{this.members.length}})</span>
                                 </button>
                             </li>
                         {{/if}}
                     </GhDropdown>
                 </span>
-                <LinkTo @route="member.new" class="gh-btn gh-btn-primary" data-test-new-member-button="true"><span>New member</span></LinkTo>
+                <LinkTo @route="member.new" class="gh-btn gh-btn-primary" data-test-new-member-button="true"><span>新用户</span></LinkTo>
             </div>
         </section>
     </GhCanvasHeader>
@@ -100,8 +100,8 @@
                         <tr>
                             <th>{{this.listHeader}}</th>
                             <th>Open rate</th>
-                            <th>Location</th>
-                            <th>Created</th>
+                            <th>位置</th>
+                            <th>创建时间</th>
                             {{#each this.filterColumnLabels as |filterColumn|}}
                                 <th>{{filterColumn}}</th>
                             {{/each}}
@@ -121,12 +121,12 @@
                 <div class="no-posts">
                 {{svg-jar "members-placeholder" class="gh-members-placeholder"}}
                 {{#if this.showingAll}}
-                    <h3>No members yet</h3>
+                    <h3>还没有用户</h3>
                     <GhMembersNoMembers @afterCreate={{this.refreshData}} />
                 {{else}}
-                    <h3>No members match the current filter</h3>
+                    <h3>没有与当前过滤匹配的成员</h3>
                     <LinkTo @route="members" @query={{hash filter=null}} class="gh-btn gh-btn-lg">
-                        <span>Show all members</span>
+                        <span>显示所有用户</span>
                     </LinkTo>
                 {{/if}}
                 </div>

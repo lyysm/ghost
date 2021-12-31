@@ -1,11 +1,11 @@
 <div class="gh-main-section">
-    <h4 class="gh-main-section-header small bn">Basic settings</h4>
+    <h4 class="gh-main-section-header small bn">基本设置</h4>
     <section class="gh-main-section-block">
         <div class="gh-main-section-content grey columns-2">
             <div>
                 <div class="gh-tag-settings-multiprop">
                     <GhFormGroup @errors={{this.tag.errors}} @hasValidated={{this.tag.hasValidated}} @property="name" class="mr2 flex-auto">
-                        <label for="tag-name">Name</label>
+                        <label for="tag-name">名称</label>
                         <GhTextInput
                             @id="tag-name"
                             @name="name"
@@ -18,13 +18,13 @@
                             <GhErrorMessage @errors={{this.tag.errors}} @property="accentColor" data-test-error="accentColor" />
                         </span>
                         <p class="description">
-                            Start with # to create internal tags
+                            以#开头以创建内部标记
                             <a href="https://ghost.org/help/organising-content/#private-tags" target="_blank" rel="noreferrer">Learn more</a>
                         </p>
                     </GhFormGroup>
 
                     <GhFormGroup @errors={{this.tag.errors}} @hasValidated={{this.tag.hasValidated}} @property="accentColor" class="gh-tag-settings-colorcontainer">
-                        <label for="accent-color">Color</label>
+                        <label for="accent-color">颜色</label>
                         <div class="input-color">
                             <input
                                 type="text"
@@ -56,7 +56,7 @@
                 </div>
 
                 <GhFormGroup @errors={{this.tag.errors}} @hasValidated={{this.tag.hasValidated}} @property="slug">
-                    <label for="tag-slug">Slug</label>
+                    <label for="tag-slug">别名</label>
                     <GhTextInput
                         @value={{this.scratchTag.slug}}
                         @id="tag-slug"
@@ -69,7 +69,7 @@
                 </GhFormGroup>
 
                 <GhFormGroup @class="no-margin" @errors={{this.tag.errors}} @hasValidated={{this.tag.hasValidated}} @property="description">
-                    <label for="tag-description">Description</label>
+                    <label for="tag-description">描述</label>
                     <GhTextarea
                         @id="tag-description"
                         @name="description"

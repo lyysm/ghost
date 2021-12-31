@@ -43,7 +43,7 @@
         <div class="mb4 mt4 flex justify-end">
             <GhTaskButton @buttonText="Save settings"
                 @task={{this.saveSettings}}
-                @successText="Saved"
+                @successText="已保存"
                 @runningText="Saving"
                 @class="gh-btn gh-btn-primary gh-btn-icon"
                 data-test-button="save-members-settings"
@@ -113,9 +113,9 @@
                 <GhTaskButton @buttonText="Save Stripe settings"
                             @task={{this.saveStripeSettings}}
                             @unlinkedTask={{true}}
-                            @successText="Saved"
+                            @successText="已保存"
                             @disabled={{is-empty this.settings.stripeConnectIntegrationToken}}
-                            @runningText="Saving"
+                            @runningText="保存中..."
                             @class="gh-btn gh-btn-green gh-btn-icon"
                         />
             </div>

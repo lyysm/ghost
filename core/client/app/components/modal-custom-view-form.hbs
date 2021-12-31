@@ -55,7 +55,7 @@
             {{on "mousedown" (optional this.noop)}}
             data-test-button="cancel-custom-view-form"
         >
-            <span>Cancel</span>
+            <span>取消</span>
         </button>
     {{else}}
         <button
@@ -64,14 +64,14 @@
             {{on "mousedown" (optional this.noop)}}
             data-test-button="delete-custom-view"
         >
-            <span>{{svg-jar "trash"}} Delete</span>
+            <span>{{svg-jar "trash"}} 删除</span>
         </button
         >
     {{/if}}
 
     <GhTaskButton
-        @buttonText="Save"
-        @successText="Saved"
+        @buttonText="保存"
+        @successText="已保存"
         @task={{this.saveTask}}
         @taskArgs={{this.model}}
         @class="gh-btn gh-btn-black gh-btn-icon"

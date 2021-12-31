@@ -1,9 +1,9 @@
 import Component from '@ember/component';
 import config from 'ghost-admin/config/environment';
-import {action, computed} from '@ember/object';
-import {isBlank} from '@ember/utils';
-import {reads} from '@ember/object/computed';
-import {task, timeout} from 'ember-concurrency';
+import { action, computed } from '@ember/object';
+import { isBlank } from '@ember/utils';
+import { reads } from '@ember/object/computed';
+import { task, timeout } from 'ember-concurrency';
 
 /**
  * Task Button works exactly like Spin button, but with one major difference:
@@ -31,21 +31,21 @@ const GhTaskButton = Component.extend({
     taskArgs: undefined,
     disabled: false,
     defaultClick: false,
-    buttonText: 'Save',
+    buttonText: '保存',
     idleClass: '',
     runningClass: '',
     showSuccess: true, // set to false if you want the spinner to show until a transition occurs
     autoReset: true, // set to false if you want don't want task button to reset after timeout
-    successText: 'Saved',
+    successText: '已保存',
     successClass: 'gh-btn-green',
-    failureText: 'Retry',
+    failureText: '重试',
     failureClass: 'gh-btn-red',
     unlinkedTask: false,
 
     isTesting: undefined,
 
     // Allowed actions
-    action: () => {},
+    action: () => { },
 
     runningText: reads('buttonText'),
 
@@ -110,7 +110,7 @@ const GhTaskButton = Component.extend({
         return !this.isRunning && !this.isSuccess && !this.isFailure;
     }),
 
-    init() {
+    init () {
         this._super(...arguments);
         this._initialPerformCount = this.get('task.performCount');
         if (this.isTesting === undefined) {
@@ -118,7 +118,7 @@ const GhTaskButton = Component.extend({
         }
     },
 
-    click() {
+    click () {
         // let the default click bubble if defaultClick===true - useful when
         // you want to handle a form submit action rather than triggering a
         // task directly
@@ -154,7 +154,7 @@ const GhTaskButton = Component.extend({
 
     // mouseDown can be prevented, this is useful for situations where we want
     // to avoid on-blur events triggering before the button click
-    mouseDown(event) {
+    mouseDown (event) {
         if (this.disableMouseDown) {
             event.preventDefault();
         }

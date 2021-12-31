@@ -1,5 +1,5 @@
 <header class="modal-header" data-test-modal="new-integration">
-    <h1>New custom integration</h1>
+    <h1>新的自定义插件</h1>
 </header>
 {{!-- disable mouseDown so it doesn't trigger focus-out validations --}}
 <button class="close" href title="Close" {{action "closeModal"}} {{action (optional this.noop) on="mouseDown"}}>
@@ -9,7 +9,7 @@
 <div class="modal-body">
     <fieldset>
         <GhFormGroup @errors={{this.integration.errors}} @hasValidated={{this.integration.hasValidated}} @property="name">
-            <label for="new-integration-name" class="fw6">Name</label>
+            <label for="new-integration-name" class="fw6">名称</label>
             <input type="text"
                 value={{this.integration.name}}
                 oninput={{action "updateName" value="target.value"}}
@@ -37,9 +37,9 @@
         {{action (optional this.noop) on="mouseDown"}}
         data-test-button="cancel-new-integration"
     >
-        <span>Cancel</span>
+        <span>取消</span>
     </button>
-    <GhTaskButton @buttonText="Create"
+    <GhTaskButton @buttonText="创建"
         @successText="Created"
         @task={{this.createIntegration}}
         @class="gh-btn gh-btn-black gh-btn-icon"

@@ -9,13 +9,12 @@
         </h3>
         <p>
             <span class="gh-content-entry-meta">
-                By <span class="midgrey-l2 fw5">{{this.authorNames}}</span>
-
+               作者: <span class="midgrey-l2 fw5">{{this.authorNames}}</span>
                 {{#if @post.primaryTag}}
-                    in <span class="midgrey-l2 fw5">{{@post.primaryTag.name}}</span>
+                标签: <span class="midgrey-l2 fw5">{{@post.primaryTag.name}}</span>
                 {{/if}}
 
-                 • <span data-tooltip="{{gh-format-post-time @post.updatedAtUTC "D MMM YYYY"}}">{{gh-format-post-time @post.updatedAtUTC draft=true}}</span>
+                发布于: <span data-tooltip="{{gh-format-post-time @post.updatedAtUTC "D MMM YYYY"}}">{{gh-format-post-time @post.updatedAtUTC draft=true}}</span>
 
             </span>
         </p>
@@ -55,7 +54,7 @@
         <div class="flex items-center">
             {{#if @post.isScheduled}}
             <span class="gh-content-status-scheduled gh-badge nowrap" title="Scheduled" data-tooltip="{{capitalize this.scheduledText}} to {{@post.emailRecipientFilter}} members">
-                Scheduled
+                待发布
                 {{#if @post.emailRecipientFilter}}
                 {{svg-jar "email-stroke"}}
                 {{/if}}
@@ -64,13 +63,13 @@
 
             {{#if @post.isDraft}}
             <span class="gh-content-status-draft gh-badge gh-badge-pink nowrap">
-                Draft
+                草稿
             </span>
             {{/if}}
 
             {{#if @post.isPublished}}
             <span class="gh-content-status-published nowrap">
-                Published
+                已发布
                 {{#if @post.hasEmail}}
                 {{svg-jar "email-stroke"}}
                 {{/if}}

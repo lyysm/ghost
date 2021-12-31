@@ -7,7 +7,7 @@
             </span>
             <div class="apps-card-meta">
                 <h3 class="apps-card-app-title">{{user.name}}</h3>
-                <p class="apps-card-app-desc">Last seen: {{component.lastLoginUTC}}</p>
+                <p class="apps-card-app-desc">最近一次活动：{{component.lastLoginUTC}}</p>
             </div>
         </div>
         <div class="apps-card-right">
@@ -16,7 +16,7 @@
             {{/if}}
             <div class="apps-configured">
                 {{#if user.isSuspended}}
-                    <span class="gh-badge suspended">Suspended</span>
+                    <span class="gh-badge suspended">已禁用</span>
                 {{else}}
                     {{#unless this.session.user.isAuthorOrContributor}}
                         {{#each user.roles as |role|}}

@@ -1,18 +1,18 @@
 <div class="modal-content" {{on-key "Enter" (perform this.deletePostTask)}}>
     <header class="modal-header">
-        <h1>Are you sure you want to delete this {{@data.post.displayName}}?</h1>
+        <h1>您确定要删除此文件吗 {{@data.post.displayName}}?</h1>
     </header>
-    <button type="button" class="close" title="Close" {{on "click" @close}}>{{svg-jar "close"}}<span class="hidden">Close</span></button>
+    <button type="button" class="close" title="Close" {{on "click" @close}}>{{svg-jar "close"}}<span class="hidden">关闭</span></button>
 
     <div class="modal-body">
         <p>
-            You're about to delete "<strong>{{@data.post.title}}</strong>".
-            This is permanent! We warned you, k?
+            您即将删除 "<strong>{{@data.post.title}}</strong>".
+            这是永久性的！确认？
         </p>
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="gh-btn" {{on "click" @close}}><span>Cancel</span></button>
+        <button type="button" class="gh-btn" {{on "click" @close}}><span>取消</span></button>
         <GhTaskButton
             @buttonText="Delete"
             @successText="Deleted"

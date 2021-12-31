@@ -1,23 +1,23 @@
 
 <div class="modal-content" data-test-modal="limits/custom-theme">
     <header class="modal-header">
-        <h1>Upgrade to enable custom themes</h1>
+        <h1>升级以启用自定义主题</h1>
     </header>
-    <button class="close" title="Close" {{on "click" @close}}>{{svg-jar "close"}}<span class="hidden">Close</span></button>
+    <button class="close" title="Close" {{on "click" @close}}>{{svg-jar "close"}}<span class="hidden">关闭</span></button>
 
     <div class="modal-body">
         <p>
             {{#if @data.message}}
                 {{html-safe @data.message}}
             {{else}}
-                Your current plan only supports official themes. You can install them from the <a href="https://ghost.org/marketplace/">Ghost theme marketplace</a>.
+                您当前的计划仅支持官方主题。您可以从 <a href="https://ghost.org/marketplace/">Ghost 主题商店获取</a>.
             {{/if}}
         </p>
     </div>
 
     <div class="modal-footer">
         <button {{on "click" @close}} class="gh-btn" data-test-button="cancel-upgrade">
-            <span>Cancel</span>
+            <span>取消</span>
         </button>
 
         <LinkTo @route="pro" class="gh-btn gh-btn-green" {{on "click" @close}} data-test-button="upgrade-plan">

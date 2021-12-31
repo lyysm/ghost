@@ -1,9 +1,9 @@
 <section class="gh-canvas">
     <GhCanvasHeader class="gh-canvas-header">
         <h2 class="gh-canvas-title" data-test-screen-title>
-            <LinkTo @route="settings">Settings</LinkTo>
+            <LinkTo @route="settings">设置</LinkTo>
             <span>{{svg-jar "arrow-right"}}</span>
-            <LinkTo @route="settings.staff" data-test-staff-link={{true}}>Staff</LinkTo>
+            <LinkTo @route="settings.staff" data-test-staff-link={{true}}>成员</LinkTo>
             <span>{{svg-jar "arrow-right"}}</span>
             {{this.user.name}}
 
@@ -25,14 +25,14 @@
                     <GhDropdownButton @dropdownName="user-actions-menu" @classNames="gh-btn gh-btn-white gh-btn-icon icon-only user-actions-cog" @title="User Actions" data-test-user-actions={{true}}>
                         <span>
                             {{svg-jar "settings"}}
-                            <span class="hidden">User Settings</span>
+                            <span class="hidden">用户设置</span>
                         </span>
                     </GhDropdownButton>
                     <GhDropdown @name="user-actions-menu" @tagName="ul" @classNames="user-actions-menu dropdown-menu dropdown-align-right">
                         {{#if this.canMakeOwner}}
                             <li>
                                 <button {{action "toggleTransferOwnerModal"}}>
-                                    Make owner
+                                    成为所有者
                                 </button>
                                 {{#if this.showTransferOwnerModal}}
                                     <GhFullscreenModal @modal="transfer-owner"
@@ -45,20 +45,20 @@
                         {{#if this.deleteUserActionIsVisible}}
                             <li>
                                 <button {{action "toggleDeleteUserModal"}} class="delete" data-test-delete-button>
-                                    Delete user
+                                    删除用户
                                 </button>
                             </li>
                             {{#if this.user.isActive}}
                                 <li>
                                     <button {{action "toggleSuspendUserModal"}} class="suspend" data-test-suspend-button>
-                                        Suspend user
+                                        禁用
                                     </button>
                                 </li>
                             {{/if}}
                             {{#if this.user.isSuspended}}
                                 <li>
                                     <button {{action "toggleUnsuspendUserModal"}} class="unsuspend" data-test-unsuspend-button>
-                                        Un-suspend user
+                                        取消禁用
                                     </button>
                                 </li>
                             {{/if}}
@@ -105,7 +105,7 @@
     </GhCanvasHeader>
 
     {{#if user.isLocked}}
-        <p class="gh-box gh-box-alert">{{svg-jar "info"}}This user account is locked. To sign in, ask this user to perform a password reset on their account.</p>
+        <p class="gh-box gh-box-alert">{{svg-jar "info"}}此用户帐户已锁定。若要登录，请要求此用户对其帐户执行密码重置。</p>
     {{/if}}
 
     {{!-- <div class="bg-"> --}}
@@ -114,7 +114,7 @@
             <form class="user-profile" novalidate="novalidate" autocomplete="off" {{action (perform this.save) on="submit"}}>
 
                 <figure class="user-cover" style={{background-image-style this.user.coverImageUrl}}>
-                    <button type="button" class="gh-btn gh-btn-default user-cover-edit" {{action "toggleUploadCoverModal"}}><span>Change cover</span></button>
+                    <button type="button" class="gh-btn gh-btn-default user-cover-edit" {{action "toggleUploadCoverModal"}}><span>更换封面</span></button>
                     {{#if this.showUploadCoverModal}}
                         <GhFullscreenModal @modal="upload-image"
                             @model={{hash model=this.user imageProperty="coverImage"}}
@@ -125,7 +125,7 @@
 
                 <figure class="user-image bg-whitegrey">
                     <div id="user-image" class="img" style={{background-image-style this.user.profileImageUrl}}><span class="hidden">{{this.user.name}}"s picture</span></div>
-                    <button type="button" {{action "toggleUploadImageModal"}} class="edit-user-image">Edit picture</button>
+                    <button type="button" {{action "toggleUploadImageModal"}} class="edit-user-image">编辑图片</button>
                     {{#if this.showUploadImageModal}}
                         <GhFullscreenModal @modal="upload-image"
                             @model={{hash model=this.user imageProperty="profileImage" paramsHash=(hash purpose="profile_image")}}
@@ -138,7 +138,7 @@
                     <fieldset class="user-details-bottom">
 
                         <GhFormGroup @errors={{this.user.errors}} @hasValidated={{this.user.hasValidated}} @property="name" @class="first-form-group">
-                            <label for="user-name">Full name</label>
+                            <label for="user-name">姓名</label>
                             <GhTextInput
                                 @id="user-name"
                                 @class="user-name"
@@ -151,12 +151,12 @@
                             {{#if this.user.errors.name}}
                                 <GhErrorMessage @errors={{this.user.errors}} @property="name" data-test-error="user-name" />
                             {{else}}
-                                <p>Use your real name so people can recognize you</p>
+                                <p>用你的真名，这样别人就能认出你</p>
                             {{/if}}
                         </GhFormGroup>
 
                         <GhFormGroup @errors={{this.user.errors}} @hasValidated={{this.user.hasValidated}} @property="slug">
-                            <label for="user-slug">Slug</label>
+                            <label for="user-slug">别名</label>
                             <GhTextInput
                                 @class="user-name"
                                 @id="user-slug"
@@ -173,7 +173,7 @@
                         </GhFormGroup>
 
                         <GhFormGroup @errors={{this.user.errors}} @hasValidated={{this.user.hasValidated}} @property="email">
-                            <label for="user-email">Email</label>
+                            <label for="user-email">电子邮件</label>
                             {{!-- Administrators only see text of Owner's email address but not input --}}
                             {{#if this.canChangeEmail}}
                                 <GhTextInput
@@ -193,14 +193,14 @@
                             {{else}}
                                 <span>{{this.user.email}}</span>
                             {{/if}}
-                            <p>Used for notifications</p>
+                            <p>用于接收通知</p>
                         </GhFormGroup>
 
                         {{#if this.rolesDropdownIsVisible}}
                             <div class="form-group">
                                 <label for="user-role">Role</label>
                                 <div class="gh-input pointer" {{on "click" (action "toggleRoleSelectionModal")}}>{{this.user.role.name}}{{svg-jar "arrow-down-small"}}</div>
-                                <p>What permissions should this user have?</p>
+                                <p>此用户应具有哪些权限？</p>
                             </div>
 
                             {{#if this.showRoleSelectionModal}}
@@ -215,7 +215,7 @@
                         {{/if}}
 
                         <GhFormGroup @errors={{this.user.errors}} @hasValidated={{this.user.hasValidated}} @property="location">
-                            <label for="user-location">Location</label>
+                            <label for="user-location">地区</label>
                             <GhTextInput
                                 @id="user-location"
                                 @value={{readonly this.user.location}}
@@ -223,11 +223,11 @@
                                 @focus-out={{action "validate" "location" target=this.user}}
                                 data-test-location-input={{true}} />
                             <GhErrorMessage @errors={{this.user.errors}} @property="location" data-test-error="user-location" />
-                            <p>Where in the world do you live?</p>
+                            <p>你住在世界的什么地方？</p>
                         </GhFormGroup>
 
                         <GhFormGroup @errors={{this.user.errors}} @hasValidated={{this.user.hasValidated}} @property="website">
-                            <label for="user-website">Website</label>
+                            <label for="user-website">网站</label>
                             <GhTextInput
                                 @type="url"
                                 @id="user-website"
@@ -239,11 +239,11 @@
                                 @focus-out={{action "validate" "website" target=this.user}}
                                 data-test-website-input={{true}} />
                             <GhErrorMessage @errors={{this.user.errors}} @property="website" data-test-error="user-website" />
-                            <p>Have a website or blog other than this one? Link it!</p>
+                            <p>除了这个，还有别的网站或博客吗？链接起来！</p>
                         </GhFormGroup>
 
                         <GhFormGroup @errors={{this.user.errors}} @hasValidated={{this.user.hasValidated}} @property="facebook">
-                            <label for="user-facebook">Facebook profile</label>
+                            <label for="user-facebook">Facebook</label>
                             <GhTextInput
                                 @type="url"
                                 @placeholder="https://www.facebook.com/username"
@@ -256,11 +256,11 @@
                                 data-test-facebook-input={{true}}
                             />
                             <GhErrorMessage @errors={{this.user.errors}} @property="facebook" data-test-error="user-facebook" />
-                            <p>URL of your personal Facebook Profile</p>
+                            <p>您的个人Facebook的URL</p>
                         </GhFormGroup>
 
                         <GhFormGroup @errors={{this.user.errors}} @hasValidated={{this.user.hasValidated}} @property="twitter">
-                            <label for="user-twitter">Twitter profile</label>
+                            <label for="user-twitter">Twitter</label>
                             <GhTextInput
                                 @type="url"
                                 @placeholder="https://twitter.com/username"
@@ -273,11 +273,11 @@
                                 data-test-twitter-input={{true}}
                             />
                             <GhErrorMessage @errors={{this.user.errors}} @property="twitter" data-test-error="user-twitter" />
-                            <p>URL of your personal Twitter profile</p>
+                            <p>您的个人Twitter的URL</p>
                         </GhFormGroup>
 
                         <GhFormGroup @errors={{this.user.errors}} @hasValidated={{this.user.hasValidated}} @property="bio" @class="bio-container">
-                            <label for="user-bio">Bio</label>
+                            <label for="user-bio">个人简介</label>
                             <GhTextarea
                                 @id="user-bio"
                                 @value={{readonly this.user.bio}}
@@ -287,8 +287,8 @@
                             />
                             <GhErrorMessage @errors={{this.user.errors}} @property="bio" data-test-error="user-bio" />
                             <p>
-                                Recommended: <strong>200</strong> characters. 
-                                You've used {{gh-count-down-characters this.user.bio 200}}
+                                推荐: <strong>200</strong> 字.
+                                你已经使用 {{gh-count-down-characters this.user.bio 200}}
                             </p>
                         </GhFormGroup>
 
@@ -304,7 +304,7 @@
                         <fieldset class="user-details-form">
                             {{#if this.isOwnProfile}}
                                 <GhFormGroup @errors={{this.user.errors}} @hasValidated={{this.user.hasValidated}} @property="password">
-                                    <label for="user-password-old">Old password</label>
+                                    <label for="user-password-old">原密码</label>
                                     <GhTextInput
                                         @type="password"
                                         @id="user-password-old"
@@ -321,7 +321,7 @@
                             {{/if}}
 
                             <GhFormGroup @errors={{this.user.errors}} @hasValidated={{this.user.hasValidated}} @property="newPassword">
-                                <label for="user-password-new">New password</label>
+                                <label for="user-password-new">新密码</label>
                                 <GhTextInput
                                     @value={{readonly this.user.newPassword}}
                                     @type="password"
@@ -337,7 +337,7 @@
                             </GhFormGroup>
 
                             <GhFormGroup @errors={{this.user.errors}} @hasValidated={{this.user.hasValidated}} @property="ne2Password">
-                                <label for="user-new-password-verification">Verify password</label>
+                                <label for="user-new-password-verification">验证密码</label>
                                 <GhTextInput
                                     @value={{readonly this.user.ne2Password}}
                                     @type="password"
@@ -352,7 +352,7 @@
                             </GhFormGroup>
 
                             <div class="form-group">
-                                <GhTaskButton @buttonText="Change Password" @idleClass="gh-btn-red" @class="gh-btn gh-btn-icon button-change-password" @task={{this.user.saveNewPassword}} data-test-save-pw-button="true" />
+                                <GhTaskButton @buttonText="修改密码" @idleClass="gh-btn-red" @class="gh-btn gh-btn-icon button-change-password" @task={{this.user.saveNewPassword}} data-test-save-pw-button="true" />
                             </div>
                         </fieldset>
                     </div>

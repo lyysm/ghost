@@ -1,43 +1,43 @@
 import PostsController from './posts';
 
 const TYPES = [{
-    name: 'All pages',
+    name: '所有页面',
     value: null
 }, {
-    name: 'Draft pages',
+    name: '草稿',
     value: 'draft'
 }, {
-    name: 'Published pages',
+    name: '已发布',
     value: 'published'
 }, {
-    name: 'Scheduled pages',
+    name: '待发布',
     value: 'scheduled'
 }, {
-    name: 'Featured pages',
+    name: '已推荐',
     value: 'featured'
 }];
 
 const ORDERS = [{
-    name: 'Newest',
+    name: '最新版本',
     value: null
 }, {
-    name: 'Oldest',
+    name: '最古老的',
     value: 'published_at asc'
 }, {
-    name: 'Recently updated',
+    name: '最近更新',
     value: 'updated_at desc'
 }];
 
 /* eslint-disable ghost/ember/alias-model-in-controller */
 export default PostsController.extend({
-    init() {
+    init () {
         this._super(...arguments);
         this.availableTypes = TYPES;
         this.availableOrders = ORDERS;
     },
 
     actions: {
-        openEditor(page) {
+        openEditor (page) {
             this.transitionToRoute('editor.edit', 'page', page.get('id'));
         }
     }

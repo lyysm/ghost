@@ -33,13 +33,13 @@
                         </li>
                         <li role="presentation">
                             <LinkTo @route="settings.staff.user" @model={{this.session.user.slug}} @classNames="dropdown-item" @role="menuitem" @tabindex="-1" data-test-nav="user-profile">
-                                Your profile
+                                个人信息
                             </LinkTo>
                         </li>
                         <li class="divider" role="separator"></li>
                         <li role="presentation">
                             <a class="dropdown-item" role="menuitem" tabindex="-1" href="https://ghost.org/docs/" target="_blank">
-                                Support center
+                                支持中心
                             </a>
                         </li>
                         {{!-- <li role="presentation">
@@ -52,7 +52,7 @@
                         </li> --}}
                         <li role="presentation">
                             <a class="dropdown-item" role="menuitem" tabindex="-1" href="https://ghost.org/help/topic/setting-up/" target="_blank">
-                                How to use Ghost
+                                如何使用 Ghost
                             </a>
                         </li>
 
@@ -73,7 +73,7 @@
                         <li class="divider" role="separator"></li>
                         <li role="presentation">
                             <LinkTo @route="signout" @classNames="dropdown-item user-menu-signout" @role="menuitem" @tabindex="-1">
-                                Sign out
+                                注销
                             </LinkTo>
                         </li>
                     </ul>

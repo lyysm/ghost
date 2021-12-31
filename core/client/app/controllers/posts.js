@@ -1,49 +1,49 @@
 import Controller from '@ember/controller';
-import {DEFAULT_QUERY_PARAMS} from 'ghost-admin/helpers/reset-query-params';
-import {alias} from '@ember/object/computed';
-import {computed} from '@ember/object';
-import {get} from '@ember/object';
-import {inject as service} from '@ember/service';
+import { DEFAULT_QUERY_PARAMS } from 'ghost-admin/helpers/reset-query-params';
+import { alias } from '@ember/object/computed';
+import { computed } from '@ember/object';
+import { get } from '@ember/object';
+import { inject as service } from '@ember/service';
 
 const TYPES = [{
-    name: 'All posts',
+    name: '所有文章',
     value: null
 }, {
-    name: 'Draft posts',
+    name: '草稿',
     value: 'draft'
 }, {
-    name: 'Published posts',
+    name: '已发布',
     value: 'published'
 }, {
-    name: 'Scheduled posts',
+    name: '待发布',
     value: 'scheduled'
 }, {
-    name: 'Featured posts',
+    name: '已推荐',
     value: 'featured'
 }];
 
 const VISIBILITIES = [{
-    name: 'All access',
+    name: '所有权限',
     value: null
 }, {
-    name: 'Public',
+    name: '公开',
     value: 'public'
 }, {
-    name: 'Members-only',
+    name: '仅注册用户',
     value: 'members'
 }, {
-    name: 'Paid members-only',
+    name: '仅付款用户',
     value: 'paid'
 }];
 
 const ORDERS = [{
-    name: 'Newest',
+    name: '最新',
     value: null
 }, {
-    name: 'Oldest',
+    name: '最早',
     value: 'published_at asc'
 }, {
-    name: 'Recently updated',
+    name: '最近更新',
     value: 'updated_at desc'
 }];
 
@@ -63,7 +63,7 @@ export default Controller.extend({
     availableVisibilities: null,
     availableOrders: null,
 
-    init() {
+    init () {
         this._super(...arguments);
         this.availableTypes = TYPES;
         this.availableOrders = ORDERS;
@@ -81,24 +81,24 @@ export default Controller.extend({
     postsInfinityModel: alias('model'),
 
     showingAll: computed('type', 'author', 'tag', function () {
-        let {type, author, tag, visibility} = this.getProperties(['type', 'visibility', 'author', 'tag']);
+        let { type, author, tag, visibility } = this.getProperties(['type', 'visibility', 'author', 'tag']);
 
         return !type && !visibility && !author && !tag;
     }),
 
     selectedType: computed('type', function () {
         let types = this.get('availableTypes');
-        return types.findBy('value', this.get('type')) || {value: '!unknown'};
+        return types.findBy('value', this.get('type')) || { value: '!unknown' };
     }),
 
     selectedVisibility: computed('visibility', function () {
         let visibilities = this.get('availableVisibilities');
-        return visibilities.findBy('value', this.get('visibility')) || {value: '!unknown'};
+        return visibilities.findBy('value', this.get('visibility')) || { value: '!unknown' };
     }),
 
     selectedOrder: computed('order', function () {
         let orders = this.get('availableOrders');
-        return orders.findBy('value', this.get('order')) || {value: '!unknown'};
+        return orders.findBy('value', this.get('order')) || { value: '!unknown' };
     }),
 
     _availableTags: computed(function () {
@@ -108,9 +108,9 @@ export default Controller.extend({
     availableTags: computed('_availableTags.[]', function () {
         let tags = this.get('_availableTags')
             .filter(tag => tag.get('id') !== null)
-            .sort((tagA, tagB) => tagA.name.localeCompare(tagB.name, undefined, {ignorePunctuation: true}));
+            .sort((tagA, tagB) => tagA.name.localeCompare(tagB.name, undefined, { ignorePunctuation: true }));
         let options = tags.toArray();
-        options.unshiftObject({name: 'All tags', slug: null});
+        options.unshiftObject({ name: '所有标签', slug: null });
 
         return options;
     }),
@@ -119,7 +119,7 @@ export default Controller.extend({
         let tag = this.get('tag');
         let tags = this.get('availableTags');
 
-        return tags.findBy('slug', tag) || {slug: '!unknown'};
+        return tags.findBy('slug', tag) || { slug: '!unknown' };
     }),
 
     _availableAuthors: computed(function () {
@@ -130,7 +130,7 @@ export default Controller.extend({
         let authors = this.get('_availableAuthors');
         let options = authors.toArray();
 
-        options.unshiftObject({name: 'All authors', slug: null});
+        options.unshiftObject({ name: '所有作者', slug: null });
 
         return options;
     }),
@@ -139,7 +139,7 @@ export default Controller.extend({
         let author = this.get('author');
         let authors = this.get('availableAuthors');
 
-        return authors.findBy('slug', author) || {slug: '!unknown'};
+        return authors.findBy('slug', author) || { slug: '!unknown' };
     }),
 
     snippets: computed(function () {
@@ -147,27 +147,27 @@ export default Controller.extend({
     }),
 
     actions: {
-        changeType(type) {
+        changeType (type) {
             this.set('type', get(type, 'value'));
         },
 
-        changeVisibility(visibility) {
+        changeVisibility (visibility) {
             this.set('visibility', get(visibility, 'value'));
         },
 
-        changeAuthor(author) {
+        changeAuthor (author) {
             this.set('author', get(author, 'slug'));
         },
 
-        changeTag(tag) {
+        changeTag (tag) {
             this.set('tag', get(tag, 'slug'));
         },
 
-        changeOrder(order) {
+        changeOrder (order) {
             this.set('order', get(order, 'value'));
         },
 
-        openEditor(post) {
+        openEditor (post) {
             this.transitionToRoute('editor.edit', 'post', post.get('id'));
         }
     }

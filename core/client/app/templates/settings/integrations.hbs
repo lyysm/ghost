@@ -1,9 +1,9 @@
 <section class="gh-canvas">
     <GhCanvasHeader class="gh-canvas-header">
         <h2 class="gh-canvas-title" data-test-screen-title>
-            <LinkTo @route="settings">Settings</LinkTo>
+            <LinkTo @route="settings">设置</LinkTo>
             <span>{{svg-jar "arrow-right"}}</span>
-            Integrations
+            插件
         </h2>
     </GhCanvasHeader>
 
@@ -56,13 +56,13 @@
                     {{!-- <img class="w-100 h-100" style="object-fit:contain;padding:0 8px;" src="assets/img/more.png" alt="Three dots" /> --}}
                     {{svg-jar "circle-ellipsis" class="w5"}}
                 </div>
-                <div class="f8 mt1">More</div>
+                <div class="f8 mt1">更多</div>
             </a>
         </div>
     </div>
 
     <section class="gh-main-section">
-        <h4 class="gh-main-section-header small">Built-in integrations</h4>
+        <h4 class="gh-main-section-header small">内置插件</h4>
         <div class="apps-grid">
             {{#unless this.zapierDisabled}}
             <div class="apps-grid-cell" data-test-app="zapier">
@@ -72,7 +72,7 @@
                         <figure class="apps-card-app-icon" style="background-image:url(assets/img/zapier.svg);background-size:36px;"></figure>
                         <div class="apps-card-meta">
                             <h3 class="apps-card-app-title">Zapier</h3>
-                            <p class="apps-card-app-desc">Automation for your favorite apps</p>
+                            <p class="apps-card-app-desc">让您喜爱的应用程序实现自动化</p>
                         </div>
                     </div>
                     <div class="gh-card-right">
@@ -93,7 +93,7 @@
                         <figure class="apps-card-app-icon" style="background-image:url(assets/img/slackicon.png); background-size: 36px;"></figure>
                         <div class="apps-card-meta">
                             <h3 class="apps-card-app-title">Slack</h3>
-                            <p class="apps-card-app-desc">A messaging app for teams</p>
+                            <p class="apps-card-app-desc">一款面向团队的消息应用程序</p>
                         </div>
                     </div>
                     <div class="gh-card-right">
@@ -141,7 +141,7 @@
                         <figure class="apps-card-app-icon id-unsplash" style="background-image:url(assets/icons/unsplash.svg); background-size:30px;"></figure>
                         <div class="apps-card-meta">
                             <h3 class="apps-card-app-title">Unsplash</h3>
-                            <p class="apps-card-app-desc">Beautiful, free photos</p>
+                            <p class="apps-card-app-desc">漂亮的免费照片</p>
                         </div>
                     </div>
                     <div class="gh-card-right">
@@ -164,7 +164,7 @@
                         <figure class="apps-card-app-icon id-unsplash" style="background-image:url(assets/icons/firstpromoter.png); background-size:30px;"></figure>
                         <div class="apps-card-meta">
                             <h3 class="apps-card-app-title">FirstPromoter</h3>
-                            <p class="apps-card-app-desc">Launch your member referral program</p>
+                            <p class="apps-card-app-desc">启动您的会员推荐计划</p>
                         </div>
                     </div>
                     <div class="gh-card-right">
@@ -172,7 +172,7 @@
                             {{#if this.settings.firstpromoter}}
                                 <span class="gh-badge" data-test-app-status>Active</span>
                             {{else}}
-                                <span data-test-app-status>Configure</span>
+                                <span data-test-app-status>配置</span>
                             {{/if}}
                             {{svg-jar "arrow-right"}}
                         </div>
@@ -185,7 +185,7 @@
     </section>
 
     <section class="gh-main-section">
-        <h4 class="gh-main-section-header small">Custom integrations</h4>
+        <h4 class="gh-main-section-header small">自定义插件</h4>
         <div class="apps-grid">
             {{#each this.integrations as |integration|}}
                 <div class="apps-grid-cell" data-test-custom-integration>
@@ -208,7 +208,7 @@
                             </div>
                             <div class="gh-card-right">
                                 <div class="apps-configured">
-                                    <span>Configure</span>
+                                    <span>配置</span>
                                     {{svg-jar "arrow-right"}}
                                 </div>
                             </div>
@@ -222,10 +222,10 @@
                     {{else}}
                         <div class="flex flex-column items-center pa5 pt15 pb15">
                             <p class="ma0 pa0 tc midgrey lh-title mt2 mb4">
-                                Create your own custom Ghost integrations with dedicated API keys & webhooks
+                                使用专用产品创建您自己的自定义Ghost插件 API keys & webhooks
                             </p>
                             <LinkTo @route="settings.integrations.new" class="gh-btn gh-btn-green gh-btn-icon" data-test-button="new-integration">
-                                <span>{{svg-jar "add" class="w3 h3"}} Add custom integration</span>
+                                <span>{{svg-jar "add" class="w3 h3"}} 添加自定义插件</span>
                             </LinkTo>
                         </div>
                     {{/if}}

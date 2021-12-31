@@ -20,7 +20,7 @@
                             {{or this.member.name this.member.email}}
                             {{#unless (or this.member.name this.member.email)}}
                                 {{#if this.member.isNew}}
-                                <span class="midgrey">New member</span>
+                                <span class="midgrey">新建用户</span>
                                 {{/if}}
                             {{/unless}}
                         </h3>
@@ -38,9 +38,9 @@
                                     {{or this.member.geolocation.country "Unknown location"}}
                                 {{/if}}
                             {{else}}
-                                Unknown location
+                                未知位置
                             {{/if}}
-                            – Created on {{moment-format @member.createdAtUTC "D MMM YYYY"}}
+                            – 于 {{moment-format @member.createdAtUTC "D MMM YYYY"}} 创建
                         </p>
                         {{/unless}}
                     </div>
@@ -55,14 +55,14 @@
                 <div>
                     <div class="gh-cp-member-email-name">
                         <GhFormGroup @errors={{this.member.errors}} @hasValidated={{this.member.hasValidated}} @property="name" @classNames="max-width">
-                            <label for="member-name">Name</label>
+                            <label for="member-name">姓名</label>
                             <GhTextInput @id="member-name" @name="name" @value={{this.scratchMember.name}} @tabindex="1"
                                 @focus-out={{action "setProperty" "name" this.scratchMember.name}} data-test-input="member-name" />
                             <GhErrorMessage @errors={{member.errors}} @property="name" />
                         </GhFormGroup>
 
                         <GhFormGroup @errors={{this.member.errors}} @hasValidated={{this.member.hasValidated}} @property="email" @classNames="max-width">
-                            <label for="member-email">Email</label>
+                            <label for="member-email">电子邮箱</label>
                             <GhTextInput @value={{this.scratchMember.email}} @id="member-email" @name="email" @tabindex="2"
                                 @autocapitalize="off" @autocorrect="off" @autocomplete="off"
                                 @focus-out={{action "setProperty" "email" this.scratchMember.email}} data-test-input="member-email"/>
@@ -71,7 +71,7 @@
                     </div>
 
                     <GhFormGroup @classNames="gh-member-labels">
-                        <label for="label-input">Labels</label>
+                        <label for="label-input">标签</label>
                         <GhMemberLabelInputLabs
                             @onChange={{action "setLabels"}}
                             @onLabelEdit={{@onLabelEdit}}
@@ -82,19 +82,19 @@
                     </GhFormGroup>
 
                     <GhFormGroup @errors={{this.member.errors}} @hasValidated={{this.member.hasValidated}} @property="note" @classNames="mb0 gh-member-note">
-                        <label for="member-note">Note <span class="midgrey-l2 fw4">(not visible to member)</span></label>
+                        <label for="member-note">备注 <span class="midgrey-l2 fw4">(对该用户不可见)</span></label>
                         <GhTextarea @id="member-note" @name="note" @class="gh-member-details-textarea" @tabindex="3"
                             @value={{this.scratchMember.note}} @focus-out={{action "setProperty" "note" this.scratchMember.note}} data-test-input="member-note" />
                         <GhErrorMessage @errors={{this.member.errors}} @property="note" />
-                        <p> Maximum: <b>500</b> characters. You’ve used
+                        <p> 最大: <b>500</b> 字符. 你已经使用
                             {{gh-count-down-characters this.scratchMember.note 500}}</p>
                     </GhFormGroup>
 
                     <GhFormGroup @classNames="gh-members-subscribed-checkbox mb0">
                         <div class="flex justify-between items-center">
                             <div>
-                                <h4 class="gh-setting-title m">Subscribed to newsletter</h4>
-                                <p class="gh-setting-desc">If disabled, member will <em>not</em> receive newsletter emails</p>
+                                <h4 class="gh-setting-title m">订阅文章推送</h4>
+                                <p class="gh-setting-desc">如果禁用，用户将 <em>不会</em> 接收推送电子邮件</p>
                             </div>
                             <div class="for-switch">
                                 <label class="switch" for="subscribed-checkbox">
@@ -108,7 +108,7 @@
                 </div>
             </div>
 
-            <h4 class="gh-main-section-header small bn">Subscriptions</h4>
+            <h4 class="gh-main-section-header small bn">订阅</h4>
 
             {{#unless this.products}}
             <div class="gh-main-section-content bordered">
@@ -116,9 +116,9 @@
                     {{#unless this.isCreatingComplimentary}}
                     <div class="gh-members-no-data gh-members-no-subs">
                         <span class="lightgrey nt10">{{svg-jar "no-data-subscription"}}</span>
-                        <h4>No subscriptions</h4>
+                        <h4>没有订阅</h4>
                         <p>
-                            This member doesn't have any subscriptions.
+                            此成员没有任何订阅。
                         </p>
                     </div>
                     {{/unless}}
@@ -131,12 +131,12 @@
                                 {{#if (feature "multipleProducts")}}
                                     {{!-- {{if has multiple products!}} --}}
                                     <button type="button" class="gh-btn gh-btn-text green gh-btn-icon gh-btn-addproduct" {{action (toggle "showMemberProductModal" this)}}>
-                                        <span>{{svg-jar "add"}} Add complimentary subscription</span>
+                                        <span>{{svg-jar "add"}} 添加免费订阅</span>
                                     </button>
                                     {{!-- {{/if}} --}}
                                 {{else}}
                                     <button type="button" class="gh-btn gh-btn-text green gh-btn-icon gh-btn-addproduct" {{action "addCompedSubscription"}}>
-                                        <span>{{svg-jar "add"}} Add complimentary subscription</span>
+                                        <span>{{svg-jar "add"}} 添加免费订阅</span>
                                     </button>
                                 {{/if}}
                             {{/if}}
@@ -152,7 +152,7 @@
                         <h3 class="gh-memberproduct-name">
                             {{product.name}}
                             {{#if (gt product.subscriptions.length 1)}}
-                            <span class="gh-memberproduct-subcount">{{product.subscriptions.length}} subscriptions</span>
+                            <span class="gh-memberproduct-subcount">{{product.subscriptions.length}} 订阅</span>
                             {{/if}}
                         </h3>
 
@@ -163,30 +163,30 @@
                                         <span class="gh-cp-memberproduct-pricelabel">{{sub.price.nickname}}</span>
                                         &ndash;
                                         {{#if sub.cancel_at_period_end}}
-                                            <span class="gh-cp-memberproduct-renewal">Has access until {{sub.validUntil}}</span>
-                                            <span class="gh-badge archived">Cancelled</span>
+                                            <span class="gh-cp-memberproduct-renewal">有权访问，直到 {{sub.validUntil}}</span>
+                                            <span class="gh-badge archived">已取消</span>
                                         {{else}}
-                                            <span class="gh-cp-memberproduct-renewal">Renews {{sub.validUntil}}</span>
-                                            <span class="gh-badge active">Active</span>
+                                            <span class="gh-cp-memberproduct-renewal">续订 {{sub.validUntil}}</span>
+                                            <span class="gh-badge active">活动的</span>
                                         {{/if}}
                                     </div>
                                     {{#if sub.cancellationReason}}
-                                        <div class="gh-memberproduct-cancelreason"><span class="fw6">Cancellation reason:</span> {{sub.cancellationReason}}</div>
+                                        <div class="gh-memberproduct-cancelreason"><span class="fw6">取消原因:</span> {{sub.cancellationReason}}</div>
                                     {{/if}}
                                     {{#if sub.offer}}
                                         <div>
                                             <span class="gh-cp-memberproduct-pricelabel"> {{sub.offer.name}} </span>
-                                            offer
+                                            优惠
                                             {{#if (eq sub.offer.type 'fixed')}}
                                                 ({{currency-symbol sub.offer.currency}}{{gh-price-amount sub.offer.amount}} off)
                                             {{else}}
                                                 ({{sub.offer.amount}}% off)
                                             {{/if}}
-                                            applied to subscription
+                                            适用于订阅
                                         </div>
                                     {{/if}}
                                     <div class="gh-memberproduct-created">
-                                        Created on {{sub.startDate}}
+                                        创建日期： {{sub.startDate}}
                                     </div>
                                 </div>
 
@@ -203,13 +203,13 @@
                                             <GhDropdownButton @dropdownName="subscription-menu-complimentary" @classNames="gh-btn gh-btn-outline gh-btn-icon gh-btn-subscription-action icon-only" @title="Actions">
                                                 <span>
                                                     {{svg-jar "dotdotdot"}}
-                                                    <span class="hidden">Subscription menu</span>
+                                                    <span class="hidden">订阅菜单</span>
                                                 </span>
                                             </GhDropdownButton>
                                             <GhDropdown @name="subscription-menu-complimentary" @tagName="ul" @classNames="product-actions-menu dropdown-menu dropdown-align-right">
                                                 <li>
                                                     <button {{action "removeComplimentary" product.id}}>
-                                                        <span class="red">Remove complimentary subscription</span>
+                                                        <span class="red">删除免费订阅</span>
                                                     </button>
                                                 </li>
                                             </GhDropdown>
@@ -220,7 +220,7 @@
                                             <GhDropdownButton @dropdownName="subscription-menu-{{sub.id}}" @classNames="gh-btn gh-btn-outline gh-btn-icon gh-btn-subscription-action icon-only" @title="Actions">
                                                 <span>
                                                     {{svg-jar "dotdotdot"}}
-                                                    <span class="hidden">Subscription menu</span>
+                                                    <span class="hidden">订阅菜单</span>
                                                 </span>
                                             </GhDropdownButton>
                                             <GhDropdown @name="subscription-menu-{{sub.id}}" @tagName="ul" @classNames="product-actions-menu dropdown-menu dropdown-align-right">
@@ -238,11 +238,11 @@
                                                 <li>
                                                 {{#if sub.cancel_at_period_end}}
                                                     <button {{action "continueSubscription" sub.id}}>
-                                                        <span>Continue subscription</span>
+                                                        <span>继续订阅</span>
                                                     </button>
                                                 {{else}}
                                                     <button {{action "cancelSubscription" sub.id}}>
-                                                        <span class="red">Cancel subscription</span>
+                                                        <span class="red">取消订阅</span>
                                                     </button>
                                                 {{/if}}
                                                 </li>
@@ -257,10 +257,10 @@
                         <div class="gh-memberproduct-subscription">
                             <div>
                                 <div>
-                                    <span class="gh-cp-memberproduct-pricelabel">Complimentary</span>
-                                    <span class="gh-badge active">Active</span>
+                                    <span class="gh-cp-memberproduct-pricelabel">免费赠送</span>
+                                    <span class="gh-badge active">活动的</span>
                                 </div>
-                                <div class="gh-memberproduct-created">Created on</div>
+                                <div class="gh-memberproduct-created">创建日期：</div>
                             </div>
                             <div class="flex items-center">
                                 <div class="gh-product-card-price">
@@ -268,7 +268,7 @@
                                         <span class="currency-symbol">$</span>
                                         <span class="amount">0</span>
                                     </div>
-                                    <div class="period">yearly</div>
+                                    <div class="period">每年一次</div>
                                 </div>
                                 <span class="action-menu">
                                     <GhDropdownButton @dropdownName="subscription-menu-complimentary" @classNames="gh-btn gh-btn-outline gh-btn-icon gh-btn-subscription-action icon-only" @title="Actions">
@@ -296,7 +296,7 @@
                                         <GhLoadingSpinner />
                                     {{else}}
                                         <button type="button" class="gh-btn gh-btn-text green gh-btn-icon gh-btn-addproduct" {{action "addCompedSubscription"}}>
-                                            <span>{{svg-jar "add"}} Add complimentary subscription</span>
+                                            <span>{{svg-jar "add"}} 添加免费订阅</span>
                                         </button>
                                     {{/if}}
                                 </div>
@@ -316,7 +316,7 @@
                                 class="gh-btn gh-btn-text green gh-btn-icon gh-btn-addproduct"
                                 {{action (toggle "showMemberProductModal" this)}}
                             >
-                                <span>{{svg-jar "add"}} Add complimentary subscription</span>
+                                <span>{{svg-jar "add"}} 添加免费订阅</span>
                             </button>
                         {{/if}}
                     </div>

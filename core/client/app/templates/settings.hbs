@@ -1,85 +1,85 @@
 <section class="gh-canvas">
     <GhCanvasHeader class="gh-canvas-header">
         <h2 class="gh-canvas-title" data-test-screen-title>
-            Settings
+            设置
         </h2>
     </GhCanvasHeader>
 
     <section class="view-container">
-        <div class="gh-setting-header gh-first-header">Website</div>
+        <div class="gh-setting-header gh-first-header">站点</div>
         <div class="gh-settings-main-grid">
             <LinkTo class="gh-setting-group" @route="settings.general" data-test-nav="general">
                 <span class="yellow">{{svg-jar "settings"}}</span>
                 <div>
-                    <h4>General</h4>
-                    <p>Basic publication details and site metadata</p>
+                    <h4>常规</h4>
+                    <p>基本信息和站点元数据</p>
                 </div>
             </LinkTo>
             <LinkTo class="gh-setting-group" @route="settings.design" data-test-nav="design">
                 <span class="blue">{{svg-jar "paint-palette"}}</span>
                 <div>
-                    <h4>Design</h4>
-                    <p>Customize your site and manage themes</p>
+                    <h4>设计</h4>
+                    <p>自定义您的站点并管理主题</p>
                 </div>
             </LinkTo>
             <LinkTo class="gh-setting-group" @route="settings.navigation" data-test-nav="navigation">
                 <span class="pink">{{svg-jar "compass-2"}}</span>
                 <div>
-                    <h4>Navigation</h4>
-                    <p>Set up primary and secondary menus</p>
+                    <h4>导航</h4>
+                    <p>设置主菜单和二级菜单</p>
                 </div>
             </LinkTo>
 
             <LinkTo class="gh-setting-group" @route="settings.staff" data-test-nav="navigation">
                 <span class="green">{{svg-jar "staff"}}</span>
                 <div>
-                    <h4>Staff</h4>
-                    <p>Manage authors, editor and collaborators</p>
+                    <h4>成员</h4>
+                    <p>管理作者、编辑和合作者</p>
                 </div>
             </LinkTo>
         </div>
 
-        <div class="gh-setting-header">Members</div>
+        <div class="gh-setting-header">用户</div>
         <div class="gh-settings-main-grid">
             <LinkTo class="gh-setting-group" @route="settings.membership" data-test-nav="members-membership">
                 <span class="blue">{{svg-jar "members"}}</span>
                 <div>
-                    <h4>Membership</h4>
-                    <p>Access, subscription, and pricing options</p>
+                    <h4>用户</h4>
+                    <p>访问、订阅和定价选项</p>
                 </div>
             </LinkTo>
             <LinkTo class="gh-setting-group" @route="settings.members-email" data-test-nav="members-email">
                 <span class="yellow">{{svg-jar "email-stroke"}}</span>
                 <div>
-                    <h4>Email newsletter</h4>
-                    <p>Customize emails and set email addresses</p>
+                    <h4>电子邮件订阅</h4>
+                    <p>自定义电子邮件并设置电子邮件地址</p>
                 </div>
             </LinkTo>
         </div>
 
-        <div class="gh-setting-header">Advanced</div>
+        <div class="gh-setting-header">高级</div>
         <div class="gh-settings-main-grid">
             <LinkTo class="gh-setting-group" @route="settings.integrations" data-test-nav="navigation">
                 <span class="yellow">{{svg-jar "module"}}</span>
                 <div>
-                    <h4>Integrations</h4>
-                    <p>Make Ghost work with apps and tools</p>
+                    <h4>插件</h4>
+                    <p>让Ghost与应用程序和工具协同工作</p>
                 </div>
             </LinkTo>
 
             <LinkTo class="gh-setting-group" @route="settings.code-injection" data-test-nav="code-injection">
                 <span class="green">{{svg-jar "brackets"}}</span>
                 <div>
-                    <h4>Code injection</h4>
-                    <p>Add code to your publication</p>
+                    <h4>代码注入</h4>
+                    <p>将自定义代码添加到您的站点中</p>
                 </div>
             </LinkTo>
 
             <LinkTo class="gh-setting-group" @route="settings.labs" data-test-nav="labs">
                 <span class="pink">{{svg-jar "labs"}}</span>
                 <div>
-                    <h4>Labs</h4>
-                    <p>Testing ground for new features</p>
+                    <h4>实验室</h4>
+                    <p>新功能及测试功能</p>
                 </div>
             </LinkTo>
         </div>

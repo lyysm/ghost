@@ -1,13 +1,12 @@
 <div class="modal-content">
     <header class="modal-header">
-        <h1>Offer link</h1>
+        <h1>优惠链接</h1>
     </header>
-    <button type="button" class="close" title="Close" {{on "click" @close}}>{{svg-jar "close"}}<span class="hidden">Close</span></button>
+    <button type="button" class="close" title="Close" {{on "click" @close}}>{{svg-jar "close"}}<span class="hidden">关闭</span></button>
 
     <div class="modal-body">
         <p>
-            You can share this link anywhere. In your newsletter, social media, a podcast, or in-person. It all just works.
-        </p>
+        您可以在任何地方共享此链接。在您的推送、社交媒体、播客或面对面。这一切都很管用。        </p>
         <div class="gh-input-group">
             <GhTextInput
                 @name="url"

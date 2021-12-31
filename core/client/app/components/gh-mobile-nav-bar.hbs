@@ -1,9 +1,9 @@
-<LinkTo @route="dashboard" data-test-mobile-nav="dashboard">{{svg-jar "house"}}Dashboard</LinkTo>
+<LinkTo @route="dashboard" data-test-mobile-nav="dashboard">{{svg-jar "house"}}仪表盘</LinkTo>
 {{#if (eq this.router.currentRouteName "posts")}}
-    <LinkTo @route="posts" @query={{hash type=null}} @classNames="active" data-test-mobile-nav="posts">{{svg-jar "posts"}}Posts</LinkTo>
+    <LinkTo @route="posts" @query={{hash type=null}} @classNames="active" data-test-mobile-nav="posts">{{svg-jar "posts"}}页面</LinkTo>
 {{else}}
-    <LinkTo @route="posts">{{svg-jar "content" data-test-mobile-nav="posts"}}Posts</LinkTo>
+    <LinkTo @route="posts">{{svg-jar "content" data-test-mobile-nav="posts"}}文章</LinkTo>
 {{/if}}
-<LinkTo @route="members" @classNames="gh-nav-main-users" data-test-mobile-nav="members">{{svg-jar "members"}}Members</LinkTo>
-<div role="button" class="gh-mobile-nav-bar-more" {{action "openMobileMenu" target=this.ui data-test-mobile-nav="more"}}>{{svg-jar "icon" class="icon-gh"}}More</div>
+<LinkTo @route="members" @classNames="gh-nav-main-users" data-test-mobile-nav="members">{{svg-jar "members"}}用户</LinkTo>
+<div role="button" class="gh-mobile-nav-bar-more" {{action "openMobileMenu" target=this.ui data-test-mobile-nav="more"}}>{{svg-jar "icon" class="icon-gh"}}更多</div>
 {{yield}}

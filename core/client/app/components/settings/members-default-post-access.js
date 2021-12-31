@@ -1,17 +1,17 @@
 import Component from '@glimmer/component';
-import {action} from '@ember/object';
-import {inject as service} from '@ember/service';
-import {tracked} from '@glimmer/tracking';
+import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
 
 export default class SettingsMembersDefaultPostAccess extends Component {
     @service settings;
     @service feature;
     @tracked showSegmentError;
 
-    get options() {
+    get options () {
         const defaultOptions = [{
-            name: 'Public',
-            description: 'All site visitors to your site, no login required',
+            name: '公开',
+            description: '所有网站访问者均可访问您的网站，无需登录',
             value: 'public',
             icon: 'globe',
             icon_color: 'green'
@@ -40,11 +40,11 @@ export default class SettingsMembersDefaultPostAccess extends Component {
         return defaultOptions;
     }
 
-    get hasVisibilityFilter() {
+    get hasVisibilityFilter () {
         return this.feature.get('multipleProducts') && !['public', 'members', 'paid'].includes(this.settings.get('defaultContentVisibility'));
     }
 
-    get selectedOption() {
+    get selectedOption () {
         if (this.settings.get('membersSignupAccess') === 'none') {
             return this.options.find(o => o.value === 'public');
         }
@@ -55,7 +55,7 @@ export default class SettingsMembersDefaultPostAccess extends Component {
     }
 
     @action
-    setVisibility(segment) {
+    setVisibility (segment) {
         if (segment) {
             this.settings.set('defaultContentVisibility', segment);
             this.showSegmentError = false;
@@ -66,7 +66,7 @@ export default class SettingsMembersDefaultPostAccess extends Component {
     }
 
     @action
-    setDefaultContentVisibility(option) {
+    setDefaultContentVisibility (option) {
         if (this.settings.get('membersSignupAccess') !== 'none') {
             if (option.value === 'filter') {
                 this.settings.set('defaultContentVisibility', '');

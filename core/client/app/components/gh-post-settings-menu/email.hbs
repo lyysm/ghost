@@ -1,6 +1,6 @@
 <div class="settings-menu-header subview">
     <button {{on "click" this.close}} class="back settings-menu-header-action" data-test-button="close-psm-subview">{{svg-jar "arrow-left"}}<span class="hidden">Back</span></button>
-    <h4>Email newsletter</h4>
+    <h4>邮件推送</h4>
     <div style="width:23px;"></div>
 </div>
 
@@ -44,19 +44,18 @@
                     <span class="db mr4 mt3">{{svg-jar "warning" class="w7 h7 fill-red"}}</span>
                 </div>
                 <div class="flex flex-column justify-center">
-                    <p class="ma0 pa0 midgrey">Post failed to send to</p>
+                    <p class="ma0 pa0 midgrey">文章无法发送到</p>
                     <p class="ma0 pa0 f5 lh-solid">{{gh-pluralize this.post.email.emailCount "member"}}</p>
                 </div>
             </div>
             <div class="pa5 pt3 pb3 f7 bb b--whitegrey">
                 <p class="mb2 lh-copy">
-                    Email failed to send when publishing this post. Please verify your email settings if the error persists.
-                </p>
+                发布此帖子时电子邮件发送失败。如果错误仍然存在，请验证您的电子邮件设置。</p>
                 <p class="ma0 pa0">
                     <table class="ma0" style="table-layout: fixed">
                         <tbody>
                             <tr>
-                                <td class="pa1 pl0 fw7 f8 w16 v-top lh-copy">Error:</td>
+                                <td class="pa1 pl0 fw7 f8 w16 v-top lh-copy">错误:</td>
                                 <td class="pa1 pl0 midgrey v-top lh-copy">{{this.post.email.error}}</td>
                             </tr>
                         </tbody>
@@ -67,7 +66,7 @@
                 <table class="ma0" style="table-layout: fixed">
                     <tbody>
                         <tr>
-                            <td class="pa1 pl0 fw7 f8 w16 v-top lh-copy">Subject:</td>
+                            <td class="pa1 pl0 fw7 f8 w16 v-top lh-copy">主题:</td>
                             <td class="pa1 pl0 truncate midgrey v-top lh-copy">{{this.post.email.subject}}</td>
                         </tr>
                         <tr>
@@ -87,7 +86,7 @@
         {{#if this.mailgunError}}
             <p class="gh-box gh-box-alert settings-menu-mailgun-alert">
                 {{svg-jar "info" class="w5 h5 fill-yellow nl1"}}
-                You need to configure Mailgun in <LinkTo @route="settings.members-email" data-test-nav="labs">Settings &rarr; Email newsletter</LinkTo> to enable email newsletters.
+                You need to configure Mailgun in <LinkTo @route="settings.members-email" data-test-nav="labs">设置 &rarr; Email newsletter</LinkTo> to enable email newsletters.
             </p>
         {{/if}}
 
@@ -113,7 +112,7 @@
                     <label class="nowrap flex-auto">Test email</label>
                     <button type="button" class="gh-btn gh-btn-link settings-menu-email-button" {{on "click" this.toggleEmailPreview}} data-test-button="toggle-email-preview">
                         <span class="green">
-                            Preview in browser
+                            在浏览器中预览
                         </span>
                     </button>
                 </div>

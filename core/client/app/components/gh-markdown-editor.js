@@ -2,12 +2,12 @@ import Component from '@ember/component';
 import ShortcutsMixin from 'ghost-admin/mixins/shortcuts';
 import ctrlOrCmd from 'ghost-admin/utils/ctrl-or-cmd';
 import formatMarkdown from 'ghost-admin/utils/format-markdown';
-import {assign} from '@ember/polyfills';
-import {computed} from '@ember/object';
-import {htmlSafe} from '@ember/template';
-import {isEmpty, typeOf} from '@ember/utils';
-import {run} from '@ember/runloop';
-import {inject as service} from '@ember/service';
+import { assign } from '@ember/polyfills';
+import { computed } from '@ember/object';
+import { htmlSafe } from '@ember/template';
+import { isEmpty, typeOf } from '@ember/utils';
+import { run } from '@ember/runloop';
+import { inject as service } from '@ember/service';
 
 /* eslint-disable ghost/ember/no-side-effects */
 // bug in eslint-plugin-ember?
@@ -51,17 +51,17 @@ export default Component.extend(ShortcutsMixin, {
     _uploadedImageUrls: null,
 
     // Closure actions
-    onChange() {},
-    onFullScreenToggle() {},
-    onImageFilesSelected() {},
-    onPreviewToggle() {},
-    onSplitScreenToggle() {},
+    onChange () { },
+    onFullScreenToggle () { },
+    onImageFilesSelected () { },
+    onPreviewToggle () { },
+    onSplitScreenToggle () { },
 
     simpleMDEOptions: computed('options', function () {
         let options = this.options || {};
         let defaultOptions = {
             // use our Showdown config with sanitization for previews
-            previewRender(markdown) {
+            previewRender (markdown) {
                 return formatMarkdown(markdown);
             },
 
@@ -187,28 +187,28 @@ export default Component.extend(ShortcutsMixin, {
         return assign(defaultOptions, options);
     }),
 
-    init() {
+    init () {
         this._super(...arguments);
 
         let shortcuts = {};
-        shortcuts[`${ctrlOrCmd}+shift+i`] = {action: 'openImageFileDialog'};
-        shortcuts['ctrl+alt+s'] = {action: 'toggleSpellcheck'};
+        shortcuts[`${ctrlOrCmd}+shift+i`] = { action: 'openImageFileDialog' };
+        shortcuts['ctrl+alt+s'] = { action: 'toggleSpellcheck' };
 
         if (this.enablePreview) {
-            shortcuts['ctrl+alt+r'] = {action: 'togglePreview'};
+            shortcuts['ctrl+alt+r'] = { action: 'togglePreview' };
         }
         if (this.enableSideBySide) {
-            shortcuts['ctrl+alt+p'] = {action: 'toggleSplitScreen'};
+            shortcuts['ctrl+alt+p'] = { action: 'toggleSplitScreen' };
         }
         if (this.enableHemingway) {
-            shortcuts['ctrl+alt+h'] = {action: 'toggleHemingway'};
+            shortcuts['ctrl+alt+h'] = { action: 'toggleHemingway' };
         }
 
         this.shortcuts = shortcuts;
     },
 
     // extract markdown content from single markdown card
-    didReceiveAttrs() {
+    didReceiveAttrs () {
         this._super(...arguments);
 
         let uploadedImageUrls = this.uploadedImageUrls;
@@ -237,7 +237,7 @@ export default Component.extend(ShortcutsMixin, {
         this._updateButtonState();
     },
 
-    didInsertElement() {
+    didInsertElement () {
         this._super(...arguments);
         this.registerShortcuts();
 
@@ -255,7 +255,7 @@ export default Component.extend(ShortcutsMixin, {
         }
     },
 
-    willDestroyElement() {
+    willDestroyElement () {
         if (this._isSplitScreen) {
             this._disconnectSplitPreview();
         }
@@ -271,13 +271,13 @@ export default Component.extend(ShortcutsMixin, {
 
     actions: {
         // trigger external update, any mobiledoc updates are handled there
-        updateMarkdown(markdown) {
+        updateMarkdown (markdown) {
             this.onChange(markdown);
         },
 
         // store a reference to the simplemde editor so that we can handle
         // focusing and image uploads
-        setEditor(editor) {
+        setEditor (editor) {
             this._editor = editor;
 
             // disable CodeMirror's drag/drop handling as we want to handle that
@@ -295,7 +295,7 @@ export default Component.extend(ShortcutsMixin, {
         },
 
         // used by the title input when the TAB or ENTER keys are pressed
-        focusEditor(position = 'bottom') {
+        focusEditor (position = 'bottom') {
             this._editor.codemirror.focus();
 
             if (position === 'bottom') {
@@ -319,7 +319,7 @@ export default Component.extend(ShortcutsMixin, {
         //   variations in performance, moon cycles, sun spots, or cosmic rays
         // - here be 🐲
         // - (please let it work 🙏)
-        updateFocusState(focused) {
+        updateFocusState (focused) {
             if (focused) {
                 this._editorFocused = true;
             } else {
@@ -329,12 +329,12 @@ export default Component.extend(ShortcutsMixin, {
             }
         },
 
-        openImageFileDialog() {
+        openImageFileDialog () {
             let captureSelection = this._editor.codemirror.hasFocus();
-            this._openImageFileDialog({captureSelection});
+            this._openImageFileDialog({ captureSelection });
         },
 
-        toggleUnsplash() {
+        toggleUnsplash () {
             if (this._showUnsplash) {
                 return this.toggleProperty('_showUnsplash');
             }
@@ -350,7 +350,7 @@ export default Component.extend(ShortcutsMixin, {
             this.toggleProperty('_showUnsplash');
         },
 
-        insertUnsplashPhoto({src, alt, caption}) {
+        insertUnsplashPhoto ({ src, alt, caption }) {
             let image = {
                 alt,
                 url: src,
@@ -360,11 +360,11 @@ export default Component.extend(ShortcutsMixin, {
             this._insertImages([image]);
         },
 
-        togglePreview() {
+        togglePreview () {
             this._togglePreview();
         },
 
-        toggleFullScreen() {
+        toggleFullScreen () {
             let isFullScreen = !this._isFullScreen;
 
             this.set('_isFullScreen', isFullScreen);
@@ -377,7 +377,7 @@ export default Component.extend(ShortcutsMixin, {
             }
         },
 
-        toggleSplitScreen() {
+        toggleSplitScreen () {
             let isSplitScreen = !this._isSplitScreen;
             let previewButton = this._editor.toolbarElements.preview;
 
@@ -414,20 +414,20 @@ export default Component.extend(ShortcutsMixin, {
             this.send('toggleFullScreen');
         },
 
-        toggleSpellcheck() {
+        toggleSpellcheck () {
             this._toggleSpellcheck();
         },
 
-        toggleHemingway() {
+        toggleHemingway () {
             this._toggleHemingway();
         },
 
-        toggleMarkdownHelp() {
+        toggleMarkdownHelp () {
             this.toggleProperty('showMarkdownHelp');
         }
     },
 
-    _preventBodyScroll() {
+    _preventBodyScroll () {
         this._preventBodyScrollId = window.requestAnimationFrame(() => {
             let body = document.querySelector('body');
 
@@ -448,7 +448,7 @@ export default Component.extend(ShortcutsMixin, {
         });
     },
 
-    _insertImages(urls) {
+    _insertImages (urls) {
         let cm = this._editor.codemirror;
 
         // loop through urls and generate image markdown
@@ -465,7 +465,7 @@ export default Component.extend(ShortcutsMixin, {
 
                 return `![${alt}](${url})`;
 
-            // full url object, use attrs we're given
+                // full url object, use attrs we're given
             } else {
                 let image = `![${url.alt}](${url.url})`;
 
@@ -505,7 +505,7 @@ export default Component.extend(ShortcutsMixin, {
     },
 
     // mark the split-pane/full-screen/spellcheck buttons active when they're active
-    _updateButtonState() {
+    _updateButtonState () {
         if (this._editor) {
             let sideBySideButton = this._editor.toolbarElements['side-by-side'];
             let spellcheckButton = this._editor.toolbarElements.spellcheck;
@@ -538,7 +538,7 @@ export default Component.extend(ShortcutsMixin, {
     },
 
     // set up the preview auto-update and scroll sync
-    _connectSplitPreview() {
+    _connectSplitPreview () {
         let cm = this._editor.codemirror;
         let editor = this._editor;
         let editorPane = this.element.querySelector('.gh-markdown-editor-pane');
@@ -571,14 +571,14 @@ export default Component.extend(ShortcutsMixin, {
         this._scrollSync();
     },
 
-    _scrollHandler() {
+    _scrollHandler () {
         if (!this._scrollSyncTicking) {
             requestAnimationFrame(this._scrollSync.bind(this));
         }
         this._scrollSyncTicking = true;
     },
 
-    _scrollSync() {
+    _scrollSync () {
         let editorPane = this._editorPane;
         let previewPane = this._previewPane;
         let height = editorPane.scrollHeight - editorPane.clientHeight;
@@ -589,7 +589,7 @@ export default Component.extend(ShortcutsMixin, {
         this._scrollSyncTicking = false;
     },
 
-    _disconnectSplitPreview() {
+    _disconnectSplitPreview () {
         let cm = this._editor.codemirror;
 
         cm.off('update', cm.sideBySideRenderingFunction);
@@ -601,7 +601,7 @@ export default Component.extend(ShortcutsMixin, {
         delete this._onEditorPaneScroll;
     },
 
-    _openImageFileDialog({captureSelection = true} = {}) {
+    _openImageFileDialog ({ captureSelection = true } = {}) {
         if (captureSelection) {
             // capture the current selection before it's lost by clicking the
             // file input button
@@ -618,12 +618,12 @@ export default Component.extend(ShortcutsMixin, {
 
     // wrap SimpleMDE's built-in preview toggle so that we can trigger a closure
     // action that can apply our own classes higher up in the DOM
-    _togglePreview() {
+    _togglePreview () {
         this.onPreviewToggle(!this._editor.isPreviewActive());
         this._editor.togglePreview();
     },
 
-    _toggleSpellcheck() {
+    _toggleSpellcheck () {
         let cm = this._editor.codemirror;
 
         if (cm.getOption('mode') === 'spell-checker') {
@@ -635,7 +635,7 @@ export default Component.extend(ShortcutsMixin, {
         this._updateButtonState();
     },
 
-    _toggleHemingway() {
+    _toggleHemingway () {
         let cm = this._editor.codemirror;
         let extraKeys = cm.getOption('extraKeys');
         let notificationText = '';
@@ -644,7 +644,7 @@ export default Component.extend(ShortcutsMixin, {
 
         if (this._isHemingwayMode) {
             notificationText = '<span class="gh-notification-title">Hemingway Mode On:</span> Write now; edit later. Backspace disabled.';
-            extraKeys.Backspace = function () {};
+            extraKeys.Backspace = function () { };
         } else {
             notificationText = '<span class="gh-notification-title">Hemingway Mode Off:</span> Normal editing restored.';
             delete extraKeys.Backspace;
@@ -657,7 +657,7 @@ export default Component.extend(ShortcutsMixin, {
 
         this.notifications.showNotification(
             htmlSafe(notificationText),
-            {key: 'editor.hemingwaymode'}
+            { key: 'editor.hemingwaymode' }
         );
     }
 });

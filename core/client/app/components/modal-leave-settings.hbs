@@ -1,17 +1,17 @@
 <header class="modal-header" data-test-modal="unsaved-settings">
-    <h1>Are you sure you want to leave this page?</h1>
+    <h1>您确定要离开此页吗？</h1>
 </header>
-<a class="close" href="" role="button" title="Close" {{action "closeModal"}}>{{svg-jar "close"}}<span class="hidden">Close</span></a>
+<a class="close" href="" role="button" title="Close" {{action "closeModal"}}>{{svg-jar "close"}}<span class="hidden">关闭</span></a>
 
 <div class="modal-body">
     <p>
-        Hey there! It looks like you didn't save the changes you made.
+        看起来您没有保存您所做的更改。
     </p>
 
-    <p>Save before you go!</p>
+    <p> 请再离开前保存！</p>
 </div>
 
 <div class="modal-footer">
-    <button {{action "closeModal"}} class="gh-btn" data-test-stay-button><span>Stay</span></button>
-    <button {{action "confirm"}} class="gh-btn gh-btn-red" data-test-leave-button><span>Leave</span></button>
+    <button {{action "closeModal"}} class="gh-btn" data-test-stay-button><span>留下</span></button>
+    <button {{action "confirm"}} class="gh-btn gh-btn-red" data-test-leave-button><span>离开</span></button>
 </div>

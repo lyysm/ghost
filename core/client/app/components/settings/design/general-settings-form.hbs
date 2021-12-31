@@ -1,8 +1,8 @@
 <div class="gh-stack" ...attributes>
     <div class="gh-stack-item gh-setting-first">
         <div class="flex-grow-1">
-            <div class="gh-setting-title">Site description</div>
-            <div class="gh-setting-desc mb3">Used in your theme, meta data and search results</div>
+            <div class="gh-setting-title">站点描述</div>
+            <div class="gh-setting-desc mb3">在您的主题、元数据和搜索结果中使用</div>
             <div class="gh-setting-action" data-test-setting="description">
                 <GhFormGroup @errors={{this.settings.errors}} @hasValidated={{this.settings.hasValidated}} @property="description" @class="description-container-labs">
                     <GhTextInput
@@ -91,7 +91,7 @@
                 </div>
             {{else}}
                 <button type="button" class="gh-btn gh-btn-white self-center" {{on "click" triggerFileDialog}} data-test-image-upload-btn="icon">
-                    <span>Upload icon</span>
+                    <span>上传图标</span>
                 </button>
             {{/if}}
             <div style="display:none">
@@ -126,7 +126,7 @@
                         </div>
                     {{else}}
                         <button type="button" class="gh-btn gh-btn-white self-start" {{on "click" this.triggerFileDialog}} data-test-image-upload-btn="logo">
-                            <span>Upload logo</span>
+                            <span>上传 logo</span>
                         </button>
                     {{/if}}
                     <div style="display:none">

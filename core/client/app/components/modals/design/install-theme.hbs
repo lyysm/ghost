@@ -8,12 +8,12 @@
         <div class="modal-body">
             {{#if this.isConfirming}}
                 <p data-test-state="confirm">
-                    By clicking below, <strong>{{this.themeName}}</strong> will automatically be activated as the theme for your site.
+                    通过单击下面的， <strong>{{this.themeName}}</strong> 将自动激活为您站点的主题。
                 </p>
 
                 {{#if this.willOverwriteExisting}}
                     <p data-test-state="confirm-overwrite">
-                        This will overwrite your existing version of {{this.themeName}}{{if this.willOverwriteExisting.active ", which is your active theme"}}. All custom changes will be lost.
+                        这将覆盖您的现有版本 {{this.themeName}}{{if this.willOverwriteExisting.active ", which is your active theme"}}。所有自定义更改都将丢失。
                     </p>
                 {{/if}}
             {{/if}}
@@ -21,29 +21,29 @@
             {{#if this.installSuccess}}
                 {{#if this.hasWarningsOrErrors}}
                     <p data-test-state="installed-with-notes">
-                        The theme <strong>"{{this.themeName}}"</strong> was installed successfully but we detected some {{if this.validationErrors "errors" "warnings"}}.
+                        该主题 <strong>"{{this.themeName}}"</strong> 已成功安装，但我们检测到一些 {{if this.validationErrors "errors" "warnings"}}.
                     </p>
                 {{else}}
                     {{!-- Installed with no errors --}}
-                    <p data-test-state="installed-no-notes"><strong>{{this.themeName}}</strong> has been successfully installed and activated as your theme.</p>
+                    <p data-test-state="installed-no-notes"><strong>{{this.themeName}}</strong> 已成功安装并激活为您的主题。</p>
                 {{/if}}
             {{/if}}
 
             {{#if this.installError}}
                 {{!-- Outright failure - not found, not a theme, server error, etc --}}
-                <p data-test-state="failed-error">{{this.themeName}} failed to install.</p>
+                <p data-test-state="failed-error">{{this.themeName}} 安装失败。</p>
                 <p class="error" data-test-text="install-error"><strong class="response">{{this.installError}}</strong></p>
             {{/if}}
 
             {{#if this.installFailure}}
                 {{!-- Invalid theme --}}
-                <p data-test-state="failed-invalid">This theme is invalid and cannot be installed. Contact the theme developer.</p>
+                <p data-test-state="failed-invalid">此主题无效，无法安装。请联系主题开发者。</p>
             {{/if}}
 
             {{#if this.fatalValidationErrors}}
                 <div>
-                    <h2 class="mb0 mt4 f5 fw6">Fatal Errors</h2>
-                    <p class="mb2">Must-fix to install theme</p>
+                    <h2 class="mb0 mt4 f5 fw6">致命错误</h2>
+                    <p class="mb2">必须修复才能安装主题</p>
                 </div>
 
                 <ul class="pa0">
@@ -57,8 +57,8 @@
 
             {{#if this.validationErrors}}
                 <div>
-                    <h2 class="mb0 mt4 f5 fw6">Errors</h2>
-                    <p class="mb2">Highly recommended to fix, functionality <strong>could</strong> be restricted</p>
+                    <h2 class="mb0 mt4 f5 fw6">错误</h2>
+                    <p class="mb2">强烈建议修复，功能 <strong>could</strong> 受到限制</p>
                 </div>
                 <ul class="pa0">
                 {{#each this.validationErrors as |error|}}
@@ -71,7 +71,7 @@
 
             {{#if this.validationWarnings}}
                 <div>
-                    <h2 class="mb0 mt4 f5 fw6">Warnings</h2>
+                    <h2 class="mb0 mt4 f5 fw6">警告</h2>
                 </div>
                 <ul class="pa0">
                 {{#each this.validationWarnings as |error|}}

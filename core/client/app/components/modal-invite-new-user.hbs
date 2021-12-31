@@ -1,16 +1,16 @@
 <header class="modal-header" data-test-modal="invite-staff-user">
-    <h1>Invite a new staff user</h1>
-    <p>Send an invitation for a new person to create a staff account on your site, and select a role that matches what you’d like them to be able to do.</p>
+    <h1>邀请新成员</h1>
+    <p>发送邀请，邀请用户在您的网站上创建帐户，并设置他们的角色。</p>
 </header>
 {{!-- disable mouseDown so it doesn't trigger focus-out validations --}}
 <a class="close" href role="button" title="Close" {{action "closeModal"}} {{action (optional this.noop) on="mouseDown"}}>
-    {{svg-jar "close"}}<span class="hidden">Close</span>
+    {{svg-jar "close"}}<span class="hidden">关闭</span>
 </a>
 
 <div class="modal-body">
     <fieldset>
         <GhFormGroup @errors={{this.errors}} @hasValidated={{this.hasValidated}} @property="email">
-            <label for="new-user-email">Email address</label>
+            <label for="new-user-email">电子邮件地址</label>
             <GhTextInput
                 @class="email"
                 @id="new-user-email"
@@ -40,13 +40,13 @@
 
 <div class="modal-footer">
     {{#if this.limitErrorMessage}}
-        <GhTaskButton @buttonText="Upgrade my plan &rarr;"
+        <GhTaskButton @buttonText="升级我的计划 &rarr;"
             @task={{this.transitionToBilling}}
             @class="gh-btn gh-btn-green gh-btn-icon"
             @disableMouseDown="true"
             data-test-button="upgrade-my-plan" />
     {{else}}
-        <GhTaskButton @buttonText="Send invitation now &rarr;"
+        <GhTaskButton @buttonText="立即发送邀请 &rarr;"
             @successText="Sent"
             @task={{this.sendInvitation}}
             @class="gh-btn gh-btn-black gh-btn-icon"

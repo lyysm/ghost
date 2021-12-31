@@ -1,31 +1,31 @@
 import Controller from '@ember/controller';
 import envConfig from 'ghost-admin/config/environment';
-import {action} from '@ember/object';
-import {inject as service} from '@ember/service';
-import {tracked} from '@glimmer/tracking';
+import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
 
 const DEFAULT_STEPS = {
     'customise-design': {
-        title: 'Customise your site',
-        position: 'Step 1',
+        title: '自定义您的站点',
+        position: '第 1 步',
         next: 'connect-stripe'
     },
     'connect-stripe': {
         title: 'Connect to Stripe',
-        position: 'Step 2',
+        position: '第 2 步',
         next: 'set-pricing',
         back: 'customise-design',
         skip: 'finalise'
     },
     'set-pricing': {
-        title: 'Set up subscriptions',
-        position: 'Step 3',
+        title: '设置订阅',
+        position: '第 3 步',
         next: 'finalise',
         back: 'connect-stripe'
     },
     finalise: {
-        title: 'Launch your site',
-        position: 'Final step',
+        title: '启动您的站点',
+        position: '最后一步',
         back: 'set-pricing'
     }
 };
@@ -73,34 +73,34 @@ export default class LaunchController extends Controller {
         }
     }
 
-    get currentStep() {
+    get currentStep () {
         return this.steps[this.step];
     }
 
     @action
-    storeData(data) {
+    storeData (data) {
         this.data = data;
     }
 
     @action
-    getData() {
+    getData () {
         return this.data;
     }
 
     @action
-    goToStep(step) {
+    goToStep (step) {
         if (step) {
             this.step = step;
         }
     }
 
     @action
-    goNextStep() {
+    goNextStep () {
         this.step = this.currentStep.next;
     }
 
     @action
-    goBackStep() {
+    goBackStep () {
         let step = this.currentStep.back;
 
         while (this.skippedSteps.includes(step)) {
@@ -113,7 +113,7 @@ export default class LaunchController extends Controller {
 
     // TODO: remember when a step is skipped so "back" works as expected
     @action
-    skipStep() {
+    skipStep () {
         let step = this.currentStep.next;
         let skipToStep = this.currentStep.skip;
 
@@ -126,22 +126,22 @@ export default class LaunchController extends Controller {
     }
 
     @action
-    registerPreviewIframe(element) {
+    registerPreviewIframe (element) {
         this.previewIframe = element;
     }
 
     @action
-    refreshPreview() {
+    refreshPreview () {
         this.previewGuid = (new Date()).valueOf();
     }
 
     @action
-    updatePreview(url) {
+    updatePreview (url) {
         this.previewSrc = url;
     }
 
     @action
-    replacePreviewContents(html) {
+    replacePreviewContents (html) {
         if (this.previewIframe) {
             this.previewIframe.contentWindow.document.open();
             this.previewIframe.contentWindow.document.write(html);
@@ -150,12 +150,12 @@ export default class LaunchController extends Controller {
     }
 
     @action
-    close() {
+    close () {
         this.router.transitionTo('dashboard');
     }
 
     @action
-    reset() {
+    reset () {
         this.data = null;
         this.step = 'customise-design';
         this.skippedSteps = [];

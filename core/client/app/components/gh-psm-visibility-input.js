@@ -1,11 +1,11 @@
 import Component from '@ember/component';
-import {computed} from '@ember/object';
-import {inject as service} from '@ember/service';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
 
 const VISIBILITIES = [
-    {label: 'Public', name: 'public'},
-    {label: 'Members only', name: 'members'},
-    {label: 'Paid-members only', name: 'paid'}
+    { label: '公开', name: 'public' },
+    { label: '仅注册用户', name: 'members' },
+    { label: '仅付费用户', name: 'paid' }
 ];
 
 export default Component.extend({
@@ -20,18 +20,18 @@ export default Component.extend({
         return this.get('post.visibility') || this.settings.get('defaultContentVisibility');
     }),
 
-    init() {
+    init () {
         this._super(...arguments);
         this.availableVisibilities = [...VISIBILITIES];
         if (this.feature.get('multipleProducts')) {
             this.availableVisibilities.push(
-                {label: 'Specific tier(s)', name: 'filter'}
+                { label: 'Specific tier(s)', name: 'filter' }
             );
         }
     },
 
     actions: {
-        updateVisibility(newVisibility) {
+        updateVisibility (newVisibility) {
             this.post.set('visibility', newVisibility);
             if (newVisibility !== 'filter') {
                 this.post.set('visibilityFilter', null);

@@ -1,9 +1,9 @@
 <section class="gh-canvas">
     <GhCanvasHeader class="gh-canvas-header">
         <h2 class="gh-canvas-title" data-test-screen-title>
-            <LinkTo @route="settings">Settings</LinkTo>
+            <LinkTo @route="settings">设置</LinkTo>
             <span>{{svg-jar "arrow-right"}}</span>
-            Staff
+            成员
         </h2>
         {{!-- Do not show Invite user button to authors --}}
         {{#unless this.currentUser.isAuthorOrContributor}}
@@ -18,7 +18,7 @@
                         >
                             <span>
                                 {{svg-jar "settings"}}
-                                <span class="hidden">Actions</span>
+                                <span class="hidden">行为</span>
                             </span>
                         </GhDropdownButton>
                         <GhDropdown
@@ -28,13 +28,13 @@
                         >
                             <li >
                                 <button {{on "click" (action "toggleResetAllPasswordsModal")}}>
-                                    <span>Reset all passwords</span>
+                                    <span>重置所有密码</span>
                                 </button>
                             </li>
                         </GhDropdown>
                     </span>
                 {{/if}}
-                <button class="gh-btn gh-btn-primary" {{on "click" (action "toggleInviteUserModal")}} data-test-button="invite-staff-user"><span>Invite people</span></button>
+                <button class="gh-btn gh-btn-primary" {{on "click" (action "toggleInviteUserModal")}} data-test-button="invite-staff-user"><span>邀请</span></button>
             </section>
         {{/unless}}
     </GhCanvasHeader>
@@ -56,7 +56,7 @@
     {{#unless this.currentUser.isAuthorOrContributor}}
         {{#if this.invites}}
         <section class="gh-main-section gh-invited-users apps-first-header" data-test-invited-users>
-            <h4 class="gh-main-section-header small">Invited users</h4>
+            <h4 class="gh-main-section-header small">受邀用户</h4>
             <div class="apps-grid">
 
                 {{#each this.sortedInvites as |invite|}}
@@ -70,11 +70,11 @@
                                         <p class="apps-card-app-desc">
                                             {{#if invite.pending}}
                                                 <span class="description-error">
-                                                    Invitation not sent - please try again
+                                                    邀请未发送-请重试
                                                 </span>
                                             {{else}}
                                                 <span class="description" data-test-invite-description>
-                                                    Invitation sent: {{component.createdAt}},
+                                                    已发送邀请: {{component.createdAt}},
                                                     {{if component.isExpired "expired" "expires"}} {{component.expiresAt}}
                                                 </span>
                                             {{/if}}
@@ -84,13 +84,13 @@
                                 <div class="apps-card-right">
                                     <div class="apps-configured">
                                         {{#if component.isSending}}
-                                            <span>Sending Invite...</span>
+                                            <span>正在发送邀请...</span>
                                         {{else}}
                                             <a class="apps-configured-action red-hover" href="#revoke" {{action "revoke" target=component}} data-test-revoke-button>
-                                                Revoke
+                                                撤销
                                             </a>
                                             <a class="apps-configured-action green-hover" href="#resend" {{action "resend" target=component}} data-test-resend-button>
-                                                Resend
+                                                重新发送
                                             </a>
 
                                             <span class="apps-configured-action gh-badge {{invite.role.lowerCaseName}}" data-test-role-name>{{invite.role.name}}</span>
@@ -108,7 +108,7 @@
     {{/unless}}
 
     <section class="gh-main-section gh-active-users {{unless this.invites "apps-first-header"}}" data-test-active-users>
-        <h4 class="gh-main-section-header small">Active users</h4>
+        <h4 class="gh-main-section-header small">启用的成员</h4>
         <div class="apps-grid">
             {{!-- For authors/contributors, only show their own user --}}
             {{#if this.currentUser.isAuthorOrContributor}}
@@ -134,7 +134,7 @@
     {{!-- Don't show if we have no suspended users or logged in as an author --}}
     {{#if (and this.suspendedUsers (not this.currentUser.isAuthorOrContributor))}}
     <section class="apps-grid-container gh-active-users" data-test-suspended-users>
-        <span class="apps-grid-title">Suspended users</span>
+        <span class="apps-grid-title">已禁用的成员</span>
         <div class="apps-grid">
             {{#each this.sortedSuspendedUsers key="id" as |user|}}
                 <GhUserActive @user={{user}} as |component|>

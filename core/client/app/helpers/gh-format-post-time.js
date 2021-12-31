@@ -1,9 +1,9 @@
 import Helper from '@ember/component/helper';
 import moment from 'moment';
-import {assert} from '@ember/debug';
-import {inject as service} from '@ember/service';
+import { assert } from '@ember/debug';
+import { inject as service } from '@ember/service';
 
-export function formatPostTime(timeago, {timezone = 'ect/UTC', draft, scheduled, published}) {
+export function formatPostTime (timeago, { timezone = 'ect/UTC', draft, scheduled, published }) {
     if (draft) {
         // No special handling for drafts, just use moment.from
         return moment(timeago).from(moment.utc());
@@ -51,9 +51,9 @@ export function formatPostTime(timeago, {timezone = 'ect/UTC', draft, scheduled,
 export default class GhFormatPostTimeHelper extends Helper {
     @service settings;
 
-    compute([timeago], options) {
+    compute ([timeago], options) {
         assert('You must pass a time to the gh-format-post-time helper', timeago);
 
-        return formatPostTime(timeago, Object.assign({}, options, {timezone: this.settings.get('timezone')}));
+        return formatPostTime(timeago, Object.assign({}, options, { timezone: this.settings.get('timezone') }));
     }
 }

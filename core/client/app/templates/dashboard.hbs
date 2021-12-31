@@ -1,7 +1,7 @@
 <section class="gh-canvas" {{scroll-top}}>
     <GhCanvasHeader class="gh-canvas-header">
         <h2 class="gh-canvas-title" data-test-screen-title>
-            Dashboard
+            仪表盘
         </h2>
     </GhCanvasHeader>
 
@@ -10,9 +10,9 @@
         {{#if (and this.session.user.isOwnerOnly (not this.settings.editorIsLaunchComplete))}}
             <section class="gh-dashboard-area lw-banner">
                 <div class="gh-lw-banner" style="background-image:url(assets/img/launch-wizard-bg.png);">
-                    <h1>Select your publication style</h1>
+                    <h1>自定义站点样式</h1>
                     <p>Customize your brand and connect to Stripe to get your membership site ready to be shown to the world.</p>
-                    <LinkTo class="gh-btn gh-btn-green" @route="launch"><span>Start setup guide</span></LinkTo>
+                    <LinkTo class="gh-btn gh-btn-green" @route="launch"><span>安装指南</span></LinkTo>
                     <div class="gh-dashboard-dismiss">
                         <GhDropdownButton @dropdownName="launch-wizard-dismiss"
                             @classNames="gh-btn gh-btn-icon icon-only gh-dashboard-dismissbutton dark">
@@ -31,15 +31,15 @@
                 <div class="gh-dashboard-box mrr">
                     <div class="flex items-center justify-between">
                         <h4 class="gh-dashboard-header">MRR</h4>
-                        <h4 class="gh-dashboard-header secondary">30 days</h4>
+                        <h4 class="gh-dashboard-header secondary">30 天</h4>
                     </div>
                     <div class="gh-dashboard-chart-container">
                         {{#if this.mrrStatsLoading}}
-                            Loading...
+                            加载中...
                         {{else}}
                             {{#if this.mrrStatsError}}
                                 <p class="error">
-                                    There was an error loading MRR
+                                    加载MRR时出错
                                     <code>{{this.mrrStatsError.message}}</code>
                                 </p>
                             {{else}}
@@ -59,16 +59,16 @@
                 <div class="gh-dashboard-box total-members">
                     <div class="gh-dashboard-chart-container">
                         {{#if this.memberCountStatsLoading}}
-                            Loading...
+                            加载中...
                         {{else}}
                             {{#if this.memberCountStatsError}}
                                 <p class="error">
-                                    There was an error loading total members
+                                    加载所有用户时出错
                                     <code>{{this.memberCountStatsData.message}}</code>
                                 </p>
                             {{else}}
                                 <div class="gh-dashboard-summary small">
-                                    <h4 class="gh-dashboard-header">Total members</h4>
+                                    <h4 class="gh-dashboard-header">所有用户</h4>
                                     <div class="data-container">
                                         <div class="data">{{format-number this.memberCountStatsData.all.total}}</div>
                                         <div class="growth {{this.memberCountStatsData.all.percentClass}}">{{this.memberCountStatsData.all.percentGrowth}}%</div>
@@ -84,16 +84,16 @@
                 <div class="gh-dashboard-box paid-members">
                     <div class="gh-dashboard-chart-container">
                         {{#if this.memberCountStatsLoading}}
-                            Loading...
+                            加载中...
                         {{else}}
                             {{#if this.memberCountStatsError}}
                                 <p class="error">
-                                    There was an error loading paid members
+                                    加载付费用户时出错
                                     <code>{{this.memberCountStatsData.message}}</code>
                                 </p>
                             {{else}}
                                 <div class="gh-dashboard-summary small">
-                                    <h4 class="gh-dashboard-header">Paid members</h4>
+                                    <h4 class="gh-dashboard-header">付费用户</h4>
                                     <div class="data-container">
                                         <div class="data">{{format-number this.memberCountStatsData.paid.total}}</div>
                                         <div class="growth {{this.memberCountStatsData.paid.percentClass}}">{{this.memberCountStatsData.paid.percentGrowth}}%</div>
@@ -109,16 +109,16 @@
                 <div class="gh-dashboard-box newsletter-open-rate">
                     <div class="gh-dashboard-chart-container">
                         {{#if this.newsletterOpenRatesLoading}}
-                            Loading...
+                             加载中...
                         {{else}}
                             {{#if this.newsletterOpenRatesError}}
                                 <p class="error">
-                                    There was an error loading newsletter open rates
+                                    加载订阅分析时出错
                                     <code>{{this.memberCountStatsData.message}}</code>
                                 </p>
                             {{else}}
                                 <div class="gh-dashboard-summary small">
-                                    <h4 class="gh-dashboard-header">Email open rate</h4>
+                                    <h4 class="gh-dashboard-header">推送邮件阅读率</h4>
 
                                     <div class="data-container">
                                         <div class="data">{{this.newsletterOpenRatesData.current}}%</div>
@@ -140,21 +140,21 @@
             {{#if (not this.settings.editorIsLaunchComplete)}}
             <div class="gh-dashboard-container start-contents">
                 <div class="gh-dashboard-box blogpost">
-                    <h2>Start creating content</h2>
+                    <h2>开始创建内容</h2>
                     {{#if this.showMembersData}}
                         <LinkTo @route="members">
                             <span class="icon">{{svg-jar "members"}}</span>
                             <div>
-                                <h4>Create your first member</h4>
-                                <p>Add yourself or import members from CSV</p>
+                                <h4>创建您的第一个用户</h4>
+                                <p>添加您自己或从CSV导入成员</p>
                             </div>
                         </LinkTo>
                     {{/if}}
                     <LinkTo @route="editor.new" @model="post">
                         <span class="icon green">{{svg-jar "posts"}}</span>
                         <div>
-                            <h4>Publish a post</h4>
-                            <p>Get familiar with the Ghost editor and start creating</p>
+                            <h4>发表文章</h4>
+                            <p>熟悉Ghost编辑器并开始创建</p>
                         </div>
                     </LinkTo>
                 </div>
@@ -164,7 +164,7 @@
             <div class="gh-dashboard-container col-2">
                 <div class="gh-dashboard-box">
                     <div class="content">
-                        <h2>Customize your site{{unless this.feature.customThemeSettings " design"}}</h2>
+                        <h2>自定义您的站点{{unless this.feature.customThemeSettings " design"}}</h2>
                         <p>Stand out from the crowd. Ghost lets you customize everything so you can create a publication that doesn’t just look the same as what everyone else has.</p>
                     </div>
                     <div class="footer">
@@ -174,8 +174,8 @@
                 </div>
                 <div class="gh-dashboard-box">
                     <div class="content">
-                        <h2>Looking for help with Ghost features?</h2>
-                        <p>Our product knowledgebase is packed full of guides, tutorials, answers to frequently asked questions, tips for dealing with common errors, and much more. </p>
+                        <h2>正在寻找有关Ghost功能的帮助？</h2>
+                        <p>我们的产品知识库里充满了指南， 教程， 常见问题解答， 处理常见错误的提示，以及更多。 </p>
                     </div>
                     <div class="footer">
                         <a class="gh-btn gh-btn-outline mt2" href="https://ghost.org/help/" target="_blank" rel="noopener"><span>Visit the help center &rarr;</span></a>
@@ -186,10 +186,10 @@
             <a class="gh-dashboard-container" href="https://ghost.org/blog/types-of-newsletters/?utm_source=dashboard" target="_blank" rel="noopener noreferrer">
                 <div class="gh-dashboard-box blogpost">
                     <div class="content">
-                        <h2>6 types of newsletters you can start today</h2>
+                        <h2>您可以从今天开始阅读6种类型的订阅</h2>
                         <p>Choosing one of these newsletter types for your publication will help you create better content at a faster pace with less work.</p>
-                        <p class="green">Get some inspiration &rarr;</p>
-                        <div class="read-time">5 MIN READ</div>
+                        <p class="green">获得一些灵感 &rarr;</p>
+                        <div class="read-time">5 分钟 READ</div>
                     </div>
                     <div class="thumbnail" style="background-image: url(assets/img/dashboard/bp1.jpg);"></div>
                 </div>

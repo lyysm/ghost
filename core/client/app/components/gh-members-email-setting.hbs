@@ -4,17 +4,17 @@
         <div class="gh-expandable-block">
             <div class="gh-expandable-header">
                 <div>
-                    <h4 class="gh-expandable-title">Email design</h4>
-                    <p class="gh-expandable-description">Customize the look and feel of email newsletters</p>
+                    <h4 class="gh-expandable-title">电子邮件设计</h4>
+                    <p class="gh-expandable-description">自定义订阅推送的电子邮件的外观</p>
                 </div>
-                <button type="button" class="gh-btn gh-btn-green" {{on "click" @toggleEmailDesignSettings}} data-test-toggle-membersFrom><span> Customize </span></button>
+                <button type="button" class="gh-btn gh-btn-green" {{on "click" @toggleEmailDesignSettings}} data-test-toggle-membersFrom><span> 自定义 </span></button>
             </div>
         </div>
     </section>
 </div>
 
 <div class="gh-main-section">
-    <h4 class="gh-main-section-header small bn">Email</h4>
+    <h4 class="gh-main-section-header small bn">电子邮件</h4>
     <section class="gh-expandable">
         <Settings::EmailDefaultRecipients
             @expanded={{this.emailRecipientsExpanded}}
@@ -24,8 +24,8 @@
         <div class="gh-expandable-block">
             <div class="gh-expandable-header">
                 <div>
-                    <h4 class="gh-expandable-title">Email addresses</h4>
-                    <p class="gh-expandable-description">Contact information used for newsletters and member login emails</p>
+                    <h4 class="gh-expandable-title">电子邮件地址</h4>
+                    <p class="gh-expandable-description">用于订阅和会员登录电子邮件的联系信息</p>
                 </div>
                 <button type="button" class="gh-btn" {{action (toggle "membersFromOpen" this)}} data-test-toggle-membersFrom><span>{{if this.membersFromOpen "Close" "Expand"}}</span></button>
             </div>
@@ -33,7 +33,7 @@
                 {{#liquid-if this.membersFromOpen}}
                     <div>
                         <GhFormGroup>
-                            <label class="fw6 f8">Support email address</label>
+                            <label class="fw6 f8">Support 邮箱地址</label>
                             <div class="flex items-center justify-center mt1">
                                 <GhTextInput
                                     @value={{readonly this.supportAddress}}
@@ -53,18 +53,18 @@
                         </GhFormGroup>
                         <div class="nt5 mb5">
                             <span class="mt1 fw4 f8 midgrey">
-                                How members can reach you for help with their account (public)
+                                会员如何联系您以获得有关其帐户的帮助(公开)
                             </span>
                         </div>
                         {{#if this.showSupportAddressConfirmation}}
                         <div class="flex items-center green-d1 nt3 lh-1">
-                            {{svg-jar "check-circle" class="w4 h4 mr1 stroke-green-d1"}} <span class="nudge-left--2">Check your inbox and confirm before saving your settings</span>
+                            {{svg-jar "check-circle" class="w4 h4 mr1 stroke-green-d1"}} <span class="nudge-left--2">保存设置之前，请检查您的收件箱并确认</span>
                         </div>
                         {{/if}}
                     </div>
                     <div>
                         <GhFormGroup>
-                            <label class="fw6 f8">Newsletter email address</label>
+                            <label class="fw6 f8">推送邮箱地址</label>
                             <div class="flex items-center justify-center mt1">
                                 <GhTextInput
                                     @value={{readonly this.fromAddress}}
@@ -84,18 +84,18 @@
                         </GhFormGroup>
                         <div class="nt5 mb5">
                             <span class="mt1 fw4 f8 midgrey">
-                                The address your newsletter posts are sent from
+                                用于推送文章的邮箱地址
                             </span>
                         </div>
                         {{#if this.showFromAddressConfirmation}}
                         <div class="flex items-center green-d1 nt3 lh-1">
-                            {{svg-jar "check-circle" class="w4 h4 mr1 stroke-green-d1"}} <span class="nudge-left--2">Check your inbox and confirm before saving your settings</span>
+                            {{svg-jar "check-circle" class="w4 h4 mr1 stroke-green-d1"}} <span class="nudge-left--2">保存设置之前，请检查您的收件箱并确认</span>
                         </div>
                         {{/if}}
                     </div>
                     <div class="mt8 mb8">
                         <GhFormGroup @class="for-select gh-labs-members-defaultemaildd">
-                            <label class="fw6 f8" for="reply-address">Newsletter replies go to</label>
+                            <label class="fw6 f8" for="reply-address">推送回复地址为</label>
                             <span class="gh-select mt1">
                                 {{one-way-select this.selectedReplyAddress
                                     id="reply-address"
@@ -110,7 +110,7 @@
                         </GhFormGroup>
                         <div class="nt5 mb5">
                             <span class="mt1 fw4 f8 midgrey">
-                                Where you receive responses to newsletters
+                                在这里您可以收到对推送的回复
                             </span>
                         </div>
                     </div>
@@ -121,8 +121,8 @@
         <div class="gh-expandable-block">
             <div class="gh-expandable-header">
                 <div>
-                    <h4 class="gh-expandable-title">Enable newsletter open-rate analytics</h4>
-                    <p class="gh-expandable-description">Track how many members are reading your emails</p>
+                    <h4 class="gh-expandable-title">启用推送分析</h4>
+                    <p class="gh-expandable-description">跟踪有多少用户阅读您的推送电子邮件</p>
                 </div>
                 <div class="for-switch">
                     <label class="switch" for="email-track-opens" {{on "click" (action "toggleEmailTrackOpens")}}>
@@ -137,7 +137,7 @@
         <div class="gh-expandable-block">
             <div class="gh-expandable-header">
                 <div>
-                    <h4 class="gh-expandable-title">Email newsletter settings</h4>
+                    <h4 class="gh-expandable-title">电子邮件推送设置</h4>
                     <p class="gh-expandable-description">The <a href="https://www.mailgun.com/" target="_blank" rel="nofollow noopener">Mailgun API</a> is used for bulk email newsletter delivery. <a href="https://ghost.org/docs/faq/mailgun-newsletters/" target="_blank" rel="noopener">Why is this required?</a></p>
                 </div>
                 <button type="button" class="gh-btn" {{action (toggle "membersEmailOpen" this)}} data-test-toggle-membersemail>
