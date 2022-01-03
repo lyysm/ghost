@@ -21,8 +21,6 @@
 
         <div class="gh-main-layout content-preview">
             <div class="gh-setting-members-basicsform">
-                <p class="intro">Fund your work with subscription revenue. Connect your Stripe account and offer premium content to your audience. Our creators are already making over $5 million per year, while <strong>Ghost takes 0% payment fees</strong>.</p>
-                <hr>
                 <div>
                     <section class="gh-expandable gh-setting-members-portalcta">
                         <div class="gh-expandable-block">
@@ -84,7 +82,7 @@
                             <h4 class="gh-expandable-title">普通用户</h4>
                             <p class="gh-expandable-description">普通用户注册设置</p>
                         </div>
-                        <button type="button" class="gh-btn" {{on "click" (toggle "freeOpen" this)}} data-test-toggle-pub-info><span>{{if this.freeOpen "Close" "Expand"}}</span></button>
+                        <button type="button" class="gh-btn" {{on "click" (toggle "freeOpen" this)}} data-test-toggle-pub-info><span>{{if this.freeOpen "收起" "展开"}}</span></button>
                     </div>
                     <div class="gh-expandable-content">
                         {{#liquid-if this.freeOpen}}
@@ -119,7 +117,7 @@
                         </div>
 
                         {{#if this.settings.stripeConnectAccountId}}
-                            <button type="button" class="gh-btn" {{on "click" (toggle "paidOpen" this)}} data-test-toggle-pub-info><span>{{if this.paidOpen "Close" "Expand"}}</span></button>
+                            <button type="button" class="gh-btn" {{on "click" (toggle "paidOpen" this)}} data-test-toggle-pub-info><span>{{if this.paidOpen "收起" "展开"}}</span></button>
                         {{else}}
                             <button type="button" class="stripe-connect {{if (or (not this.session.user.isAdmin) this.isConnectDisallowed) "disabled"}}" {{on "click" this.openStripeConnect}}>
                                 <span>Connect with Stripe</span>

@@ -86,9 +86,9 @@
                 <div class="gh-expandable-block">
                     <div class="gh-expandable-header">
                         <div>
-                            <h4 class="gh-expandable-title">Tiers</h4>
+                            <h4 class="gh-expandable-title">用户级别</h4>
                             <p class="gh-expandable-description">
-                                为您的付费会员资设置级别 (e.g. Bronze, Silver, Gold). <a href="http://ghost.org/help/tiers" target="_blank">单击此处了解更多信息</a>
+                                为您的付费用户设置级别 (e.g. Bronze, Silver, Gold). <a href="http://ghost.org/help/tiers" target="_blank">单击此处了解更多信息</a>
                             </p>
                         </div>
                         {{#if (feature "multipleProducts")}}
@@ -133,7 +133,7 @@
                                         {{/if}}
                                     </span>
                                 </button>
-                                <div><a href="#" {{action "downloadFile" "redirects/download"}} data-test-link="download-redirects">Download current redirects</a></div>
+                                <div><a href="#" {{action "downloadFile" "redirects/download"}} data-test-link="download-redirects">下载当前重定向配置</a></div>
                             {{/if}}
 
                             {{#each uploader.errors as |error|}}
@@ -182,7 +182,7 @@
                                         {{/if}}
                                     </span>
                                 </button>
-                                <div><a href="#" {{action "downloadFile" "settings/routes/yaml"}} data-test-link="download-routes">Download current routes.yaml</a></div>
+                                <div><a href="#" {{action "downloadFile" "settings/routes/yaml"}} data-test-link="download-routes">下载当前 routes.yaml</a></div>
                             {{/if}}
 
                             {{#each uploader.errors as |error|}}
@@ -251,7 +251,7 @@
                 <div class="gh-expandable-block">
                     <div class="gh-expandable-header">
                         <div>
-                            <h4 class="gh-expandable-title">Custom theme settings</h4>
+                            <h4 class="gh-expandable-title">自定义主题设置</h4>
                             <p class="gh-expandable-description">
                                Redesign of "Design" settings in Admin and allow themes to specify custom settings.
                             </p>
@@ -264,9 +264,9 @@
                 <div class="gh-expandable-block">
                     <div class="gh-expandable-header">
                         <div>
-                            <h4 class="gh-expandable-title">Members Activity</h4>
+                            <h4 class="gh-expandable-title">用户行为分析</h4>
                             <p class="gh-expandable-description">
-                               Enable recording of member activity for analytics
+                            启用成员活动记录以进行分析
                             </p>
                         </div>
                         <div class="for-switch">

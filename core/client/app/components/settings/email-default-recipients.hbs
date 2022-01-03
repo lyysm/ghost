@@ -4,7 +4,7 @@
             <h4 class="gh-expandable-title">Default newsletter recipients</h4>
             <p class="gh-expandable-description">Who do you usually want to send emails to?</p>
         </div>
-        <button type="button" class="gh-btn" {{on "click" @toggleExpansion}} data-test-toggle="post-access"><span>{{if @expanded "Close" "Expand"}}</span></button>
+        <button type="button" class="gh-btn" {{on "click" @toggleExpansion}} data-test-toggle="post-access"><span>{{if @expanded "收起" "展开"}}</span></button>
     </h4>
     <div class="gh-expandable-content">
         {{#liquid-if @expanded}}

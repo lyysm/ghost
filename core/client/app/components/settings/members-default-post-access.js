@@ -16,13 +16,13 @@ export default class SettingsMembersDefaultPostAccess extends Component {
             icon: 'globe',
             icon_color: 'green'
         }, {
-            name: 'Members only',
-            description: 'All logged-in members',
+            name: '仅注册用户',
+            description: '所有已注册的用户',
             value: 'members',
             icon: 'members-all',
             icon_color: 'blue'
         }, {
-            name: 'Paid-members only',
+            name: '仅付费用户',
             description: 'Only logged-in members with an active Stripe subscription',
             value: 'paid',
             icon: 'members-paid',
