@@ -24,7 +24,13 @@
             {{this.scheduledTime}}
         </time>
     {{else if @post.isNew}}
+        {{#if (eq this.post.displayName "page")}}
         新页面
+        {{else if (eq this.post.displayName "post")}}
+        新文章
+        {{else}}
+        新文章
+    {{/if}}
     {{else}}
         草稿
         {{if (not @hasDirtyAttributes) "- 已保存"}}

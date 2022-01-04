@@ -14,7 +14,7 @@
     </dd.Trigger>
 
     <dd.Content class="gh-member-actions-menu gh-filter-builder gh-members-filter-builder dropdown-menu dropdown-triangle-top-right">
-        <h3>Filter list</h3>
+        <h3>筛选</h3>
         <section class="gh-filters">
             {{#each this.filters as |filter|}}
                 <div class="gh-filter-block">
@@ -54,7 +54,7 @@
                                 title="Delete filter"
                                 {{on "click" (fn this.deleteFilter filter.id)}}
                             >
-                                {{svg-jar "close"}} <span class="hidden">Delete filter</span>
+                                {{svg-jar "close"}} <span class="hidden">删除筛选条件</span>
                             </button>
                         </div>
                     </GhFormGroup>
@@ -65,7 +65,7 @@
                     class="gh-btn gh-btn-text gh-btn-link green gh-btn-icon gh-add-filter"
                     {{on "click" this.addFilter}}
                 >
-                    <span>{{svg-jar "add"}} Add filter</span>
+                    <span>{{svg-jar "add"}} 添加筛选条件</span>
                 </button>
             </div>
         </section>
@@ -74,14 +74,14 @@
                 class="gh-btn"
                 {{on "click" this.resetFilter}}
             >
-                <span>Reset all</span>
+                <span>重置所有</span>
             </button>
             <button
                 class="gh-btn gh-btn-primary"
                 data-test-button="members-apply-filter"
                 {{on "click" this.applyFilter}}
             >
-                <span>Apply filters</span>
+                <span>应用筛选</span>
             </button>
         </div>
     </dd.Content>

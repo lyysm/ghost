@@ -3,15 +3,15 @@ import config from 'ghost-admin/config/environment';
 import fetch from 'fetch';
 import ghostPaths from 'ghost-admin/utils/ghost-paths';
 import moment from 'moment';
-import {A} from '@ember/array';
-import {action} from '@ember/object';
-import {capitalize} from '@ember/string';
-import {ghPluralize} from 'ghost-admin/helpers/gh-pluralize';
-import {resetQueryParams} from 'ghost-admin/helpers/reset-query-params';
-import {inject as service} from '@ember/service';
-import {task} from 'ember-concurrency-decorators';
-import {timeout} from 'ember-concurrency';
-import {tracked} from '@glimmer/tracking';
+import { A } from '@ember/array';
+import { action } from '@ember/object';
+import { capitalize } from '@ember/string';
+import { ghPluralize } from 'ghost-admin/helpers/gh-pluralize';
+import { resetQueryParams } from 'ghost-admin/helpers/reset-query-params';
+import { inject as service } from '@ember/service';
+import { task } from 'ember-concurrency-decorators';
+import { timeout } from 'ember-concurrency';
+import { tracked } from '@glimmer/tracking';
 
 const PAID_PARAMS = [{
     name: 'All members',
@@ -37,10 +37,10 @@ export default class MembersController extends Controller {
 
     queryParams = [
         'label',
-        {paidParam: 'paid'},
-        {searchParam: 'search'},
-        {orderParam: 'order'},
-        {filterParam: 'filter'}
+        { paidParam: 'paid' },
+        { searchParam: 'search' },
+        { orderParam: 'order' },
+        { filterParam: 'filter' }
     ];
 
     @tracked members = A([]);
@@ -75,18 +75,18 @@ export default class MembersController extends Controller {
 
     // Computed properties -----------------------------------------------------
 
-    get listHeader() {
-        let {searchText, selectedLabel, members} = this;
+    get listHeader () {
+        let { searchText, selectedLabel, members } = this;
 
         if (members.loading) {
-            return 'Loading...';
+            return '正在加载...';
         }
 
         if (searchText) {
-            return 'Search result';
+            return '搜索结果';
         }
 
-        let count = ghPluralize(members.length, 'member');
+        let count = ghPluralize(members.length, ' 个用户');
 
         if (selectedLabel && selectedLabel.slug) {
             if (members.length > 1) {
@@ -99,11 +99,11 @@ export default class MembersController extends Controller {
         return count;
     }
 
-    get showingAll() {
+    get showingAll () {
         return !this.searchParam && !this.paidParam && !this.label && !this.filterParam && !this.softFilterParam;
     }
 
-    get availableOrders() {
+    get availableOrders () {
         // don't return anything if email analytics is disabled because
         // we don't want to show an order dropdown with only a single option
 
@@ -120,28 +120,28 @@ export default class MembersController extends Controller {
         return [];
     }
 
-    get selectedOrder() {
+    get selectedOrder () {
         return this.availableOrders.find(order => order.value === this.orderParam);
     }
 
-    get availableLabels() {
+    get availableLabels () {
         let labels = this._availableLabels
             .filter(label => !label.isNew)
             .filter(label => label.id !== null)
-            .sort((labelA, labelB) => labelA.name.localeCompare(labelB.name, undefined, {ignorePunctuation: true}));
+            .sort((labelA, labelB) => labelA.name.localeCompare(labelB.name, undefined, { ignorePunctuation: true }));
         let options = labels.toArray();
 
-        options.unshiftObject({name: 'All labels', slug: null});
+        options.unshiftObject({ name: 'All labels', slug: null });
 
         return options;
     }
 
-    get selectedLabel() {
-        let {label, availableLabels} = this;
+    get selectedLabel () {
+        let { label, availableLabels } = this;
         return availableLabels.findBy('slug', label);
     }
 
-    get labelModalData() {
+    get labelModalData () {
         let label = this.modalLabel;
         let labels = this.availableLabels;
 
@@ -151,15 +151,15 @@ export default class MembersController extends Controller {
         };
     }
 
-    get selectedPaidParam() {
-        return this.paidParams.findBy('value', this.paidParam) || {value: '!unknown'};
+    get selectedPaidParam () {
+        return this.paidParams.findBy('value', this.paidParam) || { value: '!unknown' };
     }
 
-    get isFiltered() {
+    get isFiltered () {
         return !!(this.label || this.paidParam || this.searchParam || this.filterParam);
     }
 
-    get filterColumns() {
+    get filterColumns () {
         const defaultColumns = ['name', 'email'];
         const availableFilters = this.filters.length ? this.filters : this.softFilters;
         return availableFilters.map((filter) => {
@@ -169,7 +169,7 @@ export default class MembersController extends Controller {
         }).filter(d => !defaultColumns.includes(d));
     }
 
-    get filterColumnLabels() {
+    get filterColumnLabels () {
         const filterColumnLabelMap = {
             'subscriptions.plan_interval': 'Billing period',
             subscribed: 'Subscribed to email',
@@ -180,8 +180,8 @@ export default class MembersController extends Controller {
         });
     }
 
-    getApiQueryObject({params, extraFilters = []} = {}) {
-        let {label, paidParam, searchParam, filterParam} = params ? params : this;
+    getApiQueryObject ({ params, extraFilters = [] } = {}) {
+        let { label, paidParam, searchParam, filterParam } = params ? params : this;
 
         let filters = [];
 
@@ -202,15 +202,15 @@ export default class MembersController extends Controller {
             filters.push(filterParam);
         }
 
-        let searchQuery = searchParam ? {search: searchParam} : {};
+        let searchQuery = searchParam ? { search: searchParam } : {};
 
-        return Object.assign({}, {filter: filters.join('+')}, searchQuery);
+        return Object.assign({}, { filter: filters.join('+') }, searchQuery);
     }
 
     // Actions -----------------------------------------------------------------
 
     @action
-    refreshData() {
+    refreshData () {
         this.fetchMembersTask.perform();
         this.fetchLabelsTask.perform();
         this.membersStats.invalidate();
@@ -218,27 +218,27 @@ export default class MembersController extends Controller {
     }
 
     @action
-    changeOrder(order) {
+    changeOrder (order) {
         this.orderParam = order.value;
     }
 
     @action
-    applyFilter(filterStr, filters) {
+    applyFilter (filterStr, filters) {
         this.softFilters = A([]);
         this.filterParam = filterStr || null;
         this.filters = filters;
     }
 
     @action
-    applySoftFilter(filterStr, filters) {
+    applySoftFilter (filterStr, filters) {
         this.softFilters = filters;
         this.softFilterParam = filterStr || null;
-        let {label, paidParam, searchParam, orderParam} = this;
-        this.fetchMembersTask.perform({label, paidParam, searchParam, orderParam, filterParam: filterStr});
+        let { label, paidParam, searchParam, orderParam } = this;
+        this.fetchMembersTask.perform({ label, paidParam, searchParam, orderParam, filterParam: filterStr });
     }
 
     @action
-    resetSoftFilter() {
+    resetSoftFilter () {
         if (this.softFilters.length > 0 || !!this.softFilterParam) {
             this.softFilters = A([]);
             this.softFilterParam = null;
@@ -247,7 +247,7 @@ export default class MembersController extends Controller {
     }
 
     @action
-    resetFilter() {
+    resetFilter () {
         this.softFilters = A([]);
         this.softFilterParam = null;
         this.filters = A([]);
@@ -256,12 +256,12 @@ export default class MembersController extends Controller {
     }
 
     @action
-    search(e) {
+    search (e) {
         this.searchTask.perform(e.target.value);
     }
 
     @action
-    exportData() {
+    exportData () {
         let exportUrl = ghostPaths().url.api('members/upload');
         let downloadParams = new URLSearchParams(this.getApiQueryObject());
         downloadParams.set('limit', 'all');
@@ -270,7 +270,7 @@ export default class MembersController extends Controller {
     }
 
     @action
-    changeLabel(label, e) {
+    changeLabel (label, e) {
         if (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -279,7 +279,7 @@ export default class MembersController extends Controller {
     }
 
     @action
-    addLabel(e) {
+    addLabel (e) {
         if (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -290,7 +290,7 @@ export default class MembersController extends Controller {
     }
 
     @action
-    editLabel(label, e) {
+    editLabel (label, e) {
         if (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -301,72 +301,72 @@ export default class MembersController extends Controller {
     }
 
     @action
-    toggleLabelModal() {
+    toggleLabelModal () {
         this.showLabelModal = !this.showLabelModal;
     }
 
     @action
-    changePaidParam(paid) {
+    changePaidParam (paid) {
         this.paidParam = paid.value;
     }
 
     @action
-    toggleDeleteMembersModal() {
+    toggleDeleteMembersModal () {
         this.showDeleteMembersModal = !this.showDeleteMembersModal;
     }
 
     @action
-    toggleUnsubscribeMembersModal() {
+    toggleUnsubscribeMembersModal () {
         this.showUnsubscribeMembersModal = !this.showUnsubscribeMembersModal;
     }
 
     @action
-    toggleAddMembersLabelModal() {
+    toggleAddMembersLabelModal () {
         this.showAddMembersLabelModal = !this.showAddMembersLabelModal;
     }
 
     @action
-    toggleRemoveMembersLabelModal() {
+    toggleRemoveMembersLabelModal () {
         this.showRemoveMembersLabelModal = !this.showRemoveMembersLabelModal;
     }
 
     @action
-    deleteMembers() {
+    deleteMembers () {
         return this.deleteMembersTask.perform();
     }
 
     @action
-    unsubscribeMembers() {
+    unsubscribeMembers () {
         return this.unsubscribeMembersTask.perform();
     }
 
     @action
-    addLabelToMembers(selectedLabel) {
+    addLabelToMembers (selectedLabel) {
         return this.addLabelToMembersTask.perform(selectedLabel);
     }
 
     @action
-    removeLabelFromMembers(selectedLabel) {
+    removeLabelFromMembers (selectedLabel) {
         return this.removeLabelFromMembersTask.perform(selectedLabel);
     }
 
     // Tasks -------------------------------------------------------------------
 
-    @task({restartable: true})
-    *searchTask(query) {
+    @task({ restartable: true })
+    *searchTask (query) {
         yield timeout(250); // debounce
         this.searchParam = query;
     }
 
     @task
-    *fetchLabelsTask() {
-        yield this.store.query('label', {limit: 'all'});
+    *fetchLabelsTask () {
+        yield this.store.query('label', { limit: 'all' });
     }
 
-    @task({restartable: true})
-    *fetchMembersTask(params) {
+    @task({ restartable: true })
+    *fetchMembersTask (params) {
         // params is undefined when called as a "refresh" of the model
-        let {label, paidParam, searchParam, orderParam, filterParam} = typeof params === 'undefined' ? this : params;
+        let { label, paidParam, searchParam, orderParam, filterParam } = typeof params === 'undefined' ? this : params;
 
         if (!searchParam) {
             this.resetSearch();
@@ -420,8 +420,8 @@ export default class MembersController extends Controller {
         });
     }
 
-    @task({drop: true})
-    *deleteMembersTask() {
+    @task({ drop: true })
+    *deleteMembersTask () {
         const query = new URLSearchParams(this.getApiQueryObject());
 
         // Trigger download before deleting. Uses the CSV export endpoint but
@@ -432,7 +432,7 @@ export default class MembersController extends Controller {
         const exportParams = new URLSearchParams(this.getApiQueryObject());
         exportParams.set('limit', 'all');
 
-        yield fetch(exportUrl, {method: 'GET'})
+        yield fetch(exportUrl, { method: 'GET' })
             .then(res => res.blob())
             .then((blob) => {
                 const blobUrl = window.URL.createObjectURL(blob);
@@ -456,15 +456,15 @@ export default class MembersController extends Controller {
 
         // reset and reload
         this.store.unloadAll('member');
-        this.router.transitionTo('members.index', {queryParams: Object.assign(resetQueryParams('members.index'))});
+        this.router.transitionTo('members.index', { queryParams: Object.assign(resetQueryParams('members.index')) });
         this.membersStats.invalidate();
         this.membersStats.fetchCounts();
 
         return response.meta;
     }
 
-    @task({drop: true})
-    *unsubscribeMembersTask() {
+    @task({ drop: true })
+    *unsubscribeMembersTask () {
         const query = new URLSearchParams(this.getApiQueryObject());
         const unsubscribeUrl = `${this.ghostPaths.url.api('members/bulk')}?${query}`;
         // response contains details of which members failed to be unsubscribe
@@ -487,8 +487,8 @@ export default class MembersController extends Controller {
         return response?.bulk?.meta;
     }
 
-    @task({drop: true})
-    *addLabelToMembersTask(selectedLabel) {
+    @task({ drop: true })
+    *addLabelToMembersTask (selectedLabel) {
         const query = new URLSearchParams(this.getApiQueryObject());
         const addLabelUrl = `${this.ghostPaths.url.api('members/bulk')}?${query}`;
         const response = yield this.ajax.put(addLabelUrl, {
@@ -511,8 +511,8 @@ export default class MembersController extends Controller {
         return response?.bulk?.meta;
     }
 
-    @task({drop: true})
-    *removeLabelFromMembersTask(selectedLabel) {
+    @task({ drop: true })
+    *removeLabelFromMembersTask (selectedLabel) {
         const query = new URLSearchParams(this.getApiQueryObject());
         const removeLabelUrl = `${this.ghostPaths.url.api('members/bulk')}?${query}`;
         const response = yield this.ajax.put(removeLabelUrl, {
@@ -536,11 +536,11 @@ export default class MembersController extends Controller {
     }
     // Internal ----------------------------------------------------------------
 
-    resetSearch() {
+    resetSearch () {
         this.searchText = '';
     }
 
-    resetFilters(params) {
+    resetFilters (params) {
         if (!params?.filterParam) {
             this.filters = A([]);
             this.softFilterParam = null;
@@ -548,7 +548,7 @@ export default class MembersController extends Controller {
         }
     }
 
-    reload(params) {
+    reload (params) {
         this.membersStats.invalidate();
         this.membersStats.fetchCounts();
         this.fetchMembersTask.perform(params);

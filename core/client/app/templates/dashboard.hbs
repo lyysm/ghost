@@ -20,7 +20,7 @@
                             </span>
                         </GhDropdownButton>
                         <GhDropdown @name="launch-wizard-dismiss" @classNames="gh-dashboard-dismiss-dropdown dropdown-menu dropdown-triangle-top-right">
-                            <button class="gh-btn" {{action "dismissLaunchBanner"}}><span>Dismiss</span></button>
+                            <button class="gh-btn" {{action "dismissLaunchBanner"}}><span>不再显示</span></button>
                         </GhDropdown>
                     </div>
                 </div>
@@ -260,7 +260,7 @@
             {{#unless (or  whatsNewEntriesLoading whatsNewEntriesError)}}
             <div class="gh-dashboard-box whats-new {{if this.whatsNew.hasNew "has-new"}}">
                 <div class="gh-dashboard-header-container">
-                    <h4 class="gh-dashboard-header">What's new?</h4>
+                    <h4 class="gh-dashboard-header">最近更新</h4>
                     {{svg-jar "gift"}}
                 </div>
                 <div class="content">
@@ -275,7 +275,7 @@
                     {{/each}}
                 </div>
                 <div class="footer">
-                    <LinkTo @route="whatsnew" @query={{hash entry=null}} class="green">See more &rarr;</LinkTo>
+                    <LinkTo @route="whatsnew" @query={{hash entry=null}} class="green">查看更多 &rarr;</LinkTo>
                 </div>
             </div>
             {{/unless}}
