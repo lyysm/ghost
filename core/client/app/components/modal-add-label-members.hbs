@@ -45,13 +45,13 @@
 
 <div class="modal-footer">
     {{#if (not this.confirmed)}}
-        <button {{action "closeModal"}} class="gh-btn" data-test-button="cancel">
+        <button {{action "closeModal"}} class="gh-btn" data-test-button="取消">
             <span>Cancel</span>
         </button>
 
         <GhTaskButton
             @buttonText="Add Label"
-            @successText="Added"
+            @successText="已添加"
             @disabled={{this.isDisabled}}
             @task={{this.addLabelTask}}
             @class="gh-btn gh-btn-green gh-btn-icon"

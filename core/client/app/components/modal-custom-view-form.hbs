@@ -1,5 +1,5 @@
 <header class="modal-header" data-test-modal="custom-view-form">
-    <h1>{{if this.model.isNew "New view" "Edit view"}}</h1>
+    <h1>{{if this.model.isNew "新建视图" "编辑视图"}}</h1>
 </header>
 {{!-- disable mouseDown so it doesn't trigger focus-out validations --}}
 <button class="close" href title="Close" {{action "closeModal"}} {{action (optional this.noop) on="mouseDown"}}>
@@ -9,7 +9,7 @@
 <div class="modal-body">
     <fieldset>
         <GhFormGroup @errors={{this.model.errors}} @hasValidated={{this.model.hasValidated}} @property="name">
-            <label for="view-name" class="dib fw6">View name</label>
+            <label for="view-name" class="dib fw6">视图名称</label>
             <GhTextInput
                 @id="view-name"
                 @value={{this.model.name}}
@@ -21,13 +21,13 @@
                 <GhErrorMessage @errors={{this.model.errors}} @property="name" data-test-error="custom-view-name" />
             {{else}}
                 {{#if this.model.isNew}}
-                    <p>Saved views appear in the app sidebar.</p>
+                    <p>保存的视图会显示在侧边栏中。</p>
                 {{/if}}
             {{/if}}
         </GhFormGroup>
     </fieldset>
     <div>
-        <label for="view-name" class="dib fw6">Icon color</label>
+        <label for="view-name" class="dib fw6">图标颜色</label>
         <div class="flex justify-between mt3 nl1">
             {{#each this.customViews.availableColors as |color|}}
                 <div class="gh-radio-color">

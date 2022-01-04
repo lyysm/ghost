@@ -70,7 +70,7 @@
                 {{#if this.session.user.isAdmin}}
                 <button type="button" class="gh-btn gh-btn-outline gh-btn-stripe-status {{if this.isConnectDisallowed "disabled"}} {{if this.settings.stripeConnectAccountId "connected" ""}}" {{on "click" this.openStripeConnect}}>
                     <span>
-                        {{if this.settings.stripeConnectAccountId "Connected to Stripe" "Stripe not connected"}}
+                        {{if this.settings.stripeConnectAccountId "Stripe 已连接" "Stripe 未连接"}}
                     </span>
                 </button>
                 {{/if}}

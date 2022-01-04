@@ -1,10 +1,10 @@
 import $ from 'jquery';
 import ModalComponent from 'ghost-admin/components/modal-base';
 import copyTextToClipboard from 'ghost-admin/utils/copy-text-to-clipboard';
-import {action, computed} from '@ember/object';
-import {htmlSafe} from '@ember/template';
-import {inject as service} from '@ember/service';
-import {task, timeout} from 'ember-concurrency';
+import { action, computed } from '@ember/object';
+import { htmlSafe } from '@ember/template';
+import { inject as service } from '@ember/service';
+import { task, timeout } from 'ember-concurrency';
 const ICON_EXTENSIONS = ['gif', 'jpg', 'jpeg', 'png', 'svg'];
 
 export default ModalComponent.extend({
@@ -24,7 +24,7 @@ export default ModalComponent.extend({
     isPreloading: true,
     portalPreviewGuid: 'modal-portal-settings',
 
-    confirm() {},
+    confirm () { },
 
     backgroundStyle: computed('settings.accentColor', function () {
         let color = this.settings.get('accentColor') || '#ffffff';
@@ -90,49 +90,49 @@ export default ModalComponent.extend({
         return this.get('products')?.length > 1 && this.feature.get('multipleProducts');
     }),
 
-    init() {
+    init () {
         this._super(...arguments);
         this.buttonStyleOptions = [
-            {name: 'icon-and-text', label: 'Icon and text'},
-            {name: 'icon-only', label: 'Icon only'},
-            {name: 'text-only', label: 'Text only'}
+            { name: 'icon-and-text', label: '图标和文字' },
+            { name: 'icon-only', label: '仅图标' },
+            { name: 'text-only', label: '仅文字' }
         ];
         this.iconExtensions = ICON_EXTENSIONS;
     },
 
-    didInsertElement() {
+    didInsertElement () {
         this._super(...arguments);
         this.settings.get('errors').clear();
     },
 
     actions: {
-        toggleFreePlan(isChecked) {
+        toggleFreePlan (isChecked) {
             this.updateAllowedPlan('free', isChecked);
         },
-        togglePlan(plan, event) {
+        togglePlan (plan, event) {
             this.updateAllowedPlan(plan, event.target.checked);
         },
-        toggleProduct(productId, event) {
+        toggleProduct (productId, event) {
             this.updateAllowedProduct(productId, event.target.checked);
         },
-        togglePortalButton(showButton) {
+        togglePortalButton (showButton) {
             this.settings.set('portalButton', showButton);
         },
 
-        togglePortalName(showSignupName) {
+        togglePortalName (showSignupName) {
             this.settings.set('portalName', showSignupName);
         },
 
-        confirm() {
+        confirm () {
             return this.saveTask.perform();
         },
 
-        isPlanSelected(plan) {
+        isPlanSelected (plan) {
             const allowedPlans = this.settings.get('portalPlans');
             return allowedPlans.includes(plan);
         },
 
-        switchPreviewPage(page) {
+        switchPreviewPage (page) {
             if (page === 'links') {
                 this.set('showLinksPage', true);
                 this.set('page', '');
@@ -142,17 +142,17 @@ export default ModalComponent.extend({
             }
         },
 
-        switchToSignupPage() {
+        switchToSignupPage () {
             if (this.showLinksPage) {
                 this.set('showLinksPage', false);
                 this.set('page', 'signup');
             }
         },
 
-        setButtonStyle(buttonStyle) {
+        setButtonStyle (buttonStyle) {
             this.settings.set('portalButtonStyle', buttonStyle.name);
         },
-        setSignupButtonText(event) {
+        setSignupButtonText (event) {
             this.settings.set('portalButtonSignupText', event.target.value);
         },
         /**
@@ -161,7 +161,7 @@ export default ModalComponent.extend({
          * @param  {UploadResult[]} results - Array of UploadResult objects
          * @return {string} The URL that was set on `this.settings.property`
          */
-        imageUploaded(property, results) {
+        imageUploaded (property, results) {
             if (results[0]) {
                 this.set('customIcon', results[0].url);
                 this.settings.set('portalButtonIcon', results[0].url);
@@ -173,7 +173,7 @@ export default ModalComponent.extend({
          * containing the clicked button then simulates a click
          * @param  {MouseEvent} event - MouseEvent fired by the button click
          */
-        triggerFileDialog(event) {
+        triggerFileDialog (event) {
             // simulate click to open file dialog
             // using jQuery because IE11 doesn't support MouseEvent
             $(event.target)
@@ -182,38 +182,38 @@ export default ModalComponent.extend({
                 .click();
         },
 
-        deleteCustomIcon() {
+        deleteCustomIcon () {
             this.set('customIcon', null);
             this.settings.set('portalButtonIcon', this.membersUtils.defaultIconKeys[0]);
         },
 
-        selectDefaultIcon(icon) {
+        selectDefaultIcon (icon) {
             this.settings.set('portalButtonIcon', icon);
         },
 
-        closeLeaveSettingsModal() {
+        closeLeaveSettingsModal () {
             this.set('showLeaveSettingsModal', false);
         },
 
-        openStripeSettings() {
+        openStripeSettings () {
             this.isWaitingForStripeConnection = true;
             this.model.openStripeSettings();
         },
 
-        leaveSettings() {
+        leaveSettings () {
             this.closeModal();
         },
 
-        validateFreeSignupRedirect() {
+        validateFreeSignupRedirect () {
             return this._validateSignupRedirect(this.get('freeSignupRedirect'), 'membersFreeSignupRedirect');
         },
 
-        validatePaidSignupRedirect() {
+        validatePaidSignupRedirect () {
             return this._validateSignupRedirect(this.get('paidSignupRedirect'), 'membersPaidSignupRedirect');
         }
     },
 
-    updateAllowedPlan(plan, isChecked) {
+    updateAllowedPlan (plan, isChecked) {
         const portalPlans = this.settings.get('portalPlans') || [];
         const allowedPlans = [...portalPlans];
 
@@ -225,7 +225,7 @@ export default ModalComponent.extend({
         }
     },
 
-    updateAllowedProduct(productId, isChecked) {
+    updateAllowedProduct (productId, isChecked) {
         const portalProducts = this.settings.get('portalProducts') || [];
         const allowedProducts = [...portalProducts];
 
@@ -237,7 +237,7 @@ export default ModalComponent.extend({
         }
     },
 
-    _validateSignupRedirect(url, type) {
+    _validateSignupRedirect (url, type) {
         let errMessage = `Please enter a valid URL`;
         this.settings.get('errors').remove(type);
         this.settings.get('hasValidated').removeObject(type);

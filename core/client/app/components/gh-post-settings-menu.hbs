@@ -6,17 +6,29 @@
     <div id="entry-controls">
         <div class="settings-menu settings-menu-pane settings-menu-pane-main">
             <div class="settings-menu-header">
-                <h4>{{capitalize this.post.displayName}} 设置</h4>
+                {{#if (eq this.post.displayName "page")}}
+                <h4>页面设置</h4>
+                {{else if (eq this.post.displayName  "post")}}
+                <h4>文章设置</h4>
+                {{else}}
+                <h4>文章设置</h4>
+                {{/if}}
             </div>
             <div class="settings-menu-content">
                 <form>
                 <div class="form-group">
-                    <label for="url">{{capitalize this.post.displayName}} URL</label>
+                    {{#if (eq this.post.displayName "page")}}
+                    <h4>页面 URL</h4>
+                    {{else if (eq this.post.displayName "post")}}
+                    <h4>文章 URL</h4>
+                    {{else}}
+                    <h4>文章 URL</h4>
+                    {{/if}}
                     {{!-- new posts don't have a preview link --}}
                     {{#unless this.post.isNew}}
                         {{#if (or this.post.isPublished this.post.isSent)}}
                         <a class="post-view-link" target="_blank" href="{{this.post.url}}">
-                            查看 {{this.post.displayName}} {{svg-jar "external"}}
+                            查看文章 {{svg-jar "external"}}
                         </a>
                         {{else if this.post.isScheduled}}
                         <a class="post-view-link" target="_blank" href="{{this.post.previewUrl}}">
@@ -76,7 +88,7 @@
                 {{#if this.showVisibilityInput}}
                     {{#if (feature "multipleProducts")}}
                         <GhFormGroup @errors={{this.post.errors}} @hasValidated={{this.post.hasValidated}} @property="visibility">
-                            <label for="visibility-input">{{capitalize @post.displayName}} access</label>
+                            <label for="visibility-input">页面访问权限 </label>
                             <GhPsmVisibilityInput @post={{this.post}} @triggerId="visibility-input" />
                         </GhFormGroup>
 
@@ -95,7 +107,13 @@
                         {{/if}}
                     {{else}}
                         <div class="form-group">
+                            {{#if (eq this.post.displayName "page")}}
+                            <label for="visibility-input">页面权限</label>
+                            {{else if (eq this.post.displayName "post")}}
                             <label for="visibility-input">文章权限</label>
+                            {{else}}
+                            <label for="visibility-input">文章权限</label>
+                            {{/if}}
                             <GhPsmVisibilityInput @post={{this.post}} @triggerId="visibility-input" />
                         </div>
                     {{/if}}
@@ -176,7 +194,14 @@
                             data-test-checkbox="featured"
                         >
                         <span class="input-toggle-component"></span>
-                        <p>推荐该 {{this.post.displayName}}</p>
+                        {{#if (eq this.post.displayName "page")}}
+                                                <p>推荐该页面</p>
+                        {{else if (eq this.post.displayName "post")}}
+                                                <p>推荐该文章</p>
+                        {{else}}
+                                                <p>推荐该文章</p>
+                        {{/if}}
+
                     </label>
                 </div>
                 {{/unless}}
@@ -186,7 +211,7 @@
                     @onTemplateSelect={{action (mut this.post.customTemplate)}} />
 
                 {{#unless this.post.isNew}}
-                    <button type="button" class="gh-btn gh-btn-hover-red gh-btn-icon settings-menu-delete-button" {{action "deletePost"}}><span>{{svg-jar "trash"}} Delete {{this.post.displayName}}</span></button>
+                    <button type="button" class="gh-btn gh-btn-hover-red gh-btn-icon settings-menu-delete-button" {{action "deletePost"}}><span>{{svg-jar "trash"}} 删除该文章</span></button>
                 {{/unless}}
 
                 </form>
@@ -199,14 +224,14 @@
                     {{#if (eq this.subview "meta-data")}}
                         <div class="settings-menu-header subview">
                             <button aria-label="Back" {{action "closeSubview"}} class="back settings-menu-header-action" data-test-button="close-psm-subview">{{svg-jar "arrow-left"}}<span class="hidden">Back</span></button>
-                            <h4>Meta data</h4>
+                            <h4>元数据</h4>
                             <div style="width:23px;"></div>
                         </div>
 
                         <div class="settings-menu-content">
                             <form {{action "discardEnter" on="submit"}}>
                                 <GhFormGroup @errors={{this.post.errors}} @hasValidated={{this.post.hasValidated}} @property="metaTitle">
-                                    <label for="meta-title">Meta title</label>
+                                    <label for="meta-title">元标题</label>
                                     <GhTextInput
                                         @class="post-setting-meta-title"
                                         @id="meta-title"
@@ -217,12 +242,12 @@
                                         @focus-out={{action "setMetaTitle" this.metaTitleScratch}}
                                         @stopEnterKeyDownPropagation={{true}}
                                         data-test-field="meta-title" />
-                                    <p>Recommended: <b>60</b> characters. You’ve used {{gh-count-down-characters this.metaTitleScratch 60}}</p>
+                                    <p>推荐: <b>60</b> 字符. 已使用 {{gh-count-down-characters this.metaTitleScratch 60}}</p>
                                     <GhErrorMessage @errors={{this.post.errors}} @property="meta-title" />
                                 </GhFormGroup>
 
                                 <GhFormGroup @errors={{this.post.errors}} @hasValidated={{this.post.hasValidated}} @property="metaDescription">
-                                    <label for="meta-description">Meta description</label>
+                                    <label for="meta-description">元描述</label>
                                     <GhTextarea
                                         @class="post-setting-meta-description"
                                         @id="meta-description"
@@ -233,7 +258,7 @@
                                         @focus-out={{action "setMetaDescription" this.metaDescriptionScratch}}
                                         @stopEnterKeyDownPropagation="true"
                                         data-test-field="meta-description" />
-                                    <p>Recommended: <b>145</b> characters. You’ve used {{gh-count-down-characters this.metaDescriptionScratch 145}}</p>
+                                    <p>推荐: <b>145</b> 字符. 已使用 {{gh-count-down-characters this.metaDescriptionScratch 145}}</p>
                                     <GhErrorMessage @errors={{this.post.errors}} @property="meta-description" />
                                 </GhFormGroup>
 
@@ -423,7 +448,13 @@
                         <div class="settings-menu-content settings-menu-content-codeinjection">
                             <form {{action "discardEnter" on="submit"}}>
                                 <GhFormGroup @errors={{this.post.errors}} @hasValidated={{this.post.hasValidated}} @property="codeinjectionHead">
-                                    <label for="codeinjection-head">{{capitalize this.post.displayName}} header <code>\{{ghost_head}}</code></label>
+                                    {{#if (eq this.post.displayName "page")}}
+                                    <label for="codeinjection-head">页面 header <code>\{{ghost_head}}</code></label>
+                                    {{else if (eq this.post.displayName "post")}}
+                                    <label for="codeinjection-head">文章 header <code>\{{ghost_head}}</code></label>
+                                    {{else}}
+                                    <label for="codeinjection-head">文章 header <code>\{{ghost_head}}</code></label>
+                                    {{/if}}
                                     <GhCmEditor @value={{this.codeinjectionHeadScratch}}
                                         @id="post-setting-codeinjection-head"
                                         @class="post-setting-codeinjection"
@@ -436,7 +467,13 @@
                                 </GhFormGroup>
 
                                 <GhFormGroup @errors={{this.post.errors}} @hasValidated={{this.post.hasValidated}} @property="codeinjectionFoot">
-                                    <label for="codeinjection-foot">{{capitalize this.post.displayName}} footer <code>\{{ghost_foot}}</code></label>
+                                    {{#if (eq this.post.displayName "page")}}
+                                    <label for="codeinjection-head">页面 footer <code>\{{ghost_head}}</code></label>
+                                    {{else if (eq this.post.displayName "post")}}
+                                    <label for="codeinjection-head">文章 footer <code>\{{ghost_head}}</code></label>
+                                    {{else}}
+                                    <label for="codeinjection-head">文章 footer <code>\{{ghost_head}}</code></label>
+                                    {{/if}}
                                     <GhCmEditor @value={{this.codeinjectionFootScratch}}
                                         @id="post-setting-codeinjection-foot"
                                         @class="post-setting-codeinjection"

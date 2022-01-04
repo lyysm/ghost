@@ -1,11 +1,11 @@
 import Component from '@ember/component';
 import EmailFailedError from 'ghost-admin/errors/email-failed-error';
-import {bind} from '@ember/runloop';
-import {computed} from '@ember/object';
-import {or, reads} from '@ember/object/computed';
-import {schedule} from '@ember/runloop';
-import {inject as service} from '@ember/service';
-import {task, timeout} from 'ember-concurrency';
+import { bind } from '@ember/runloop';
+import { computed } from '@ember/object';
+import { or, reads } from '@ember/object/computed';
+import { schedule } from '@ember/runloop';
+import { inject as service } from '@ember/service';
+import { task, timeout } from 'ember-concurrency';
 
 const CONFIRM_EMAIL_POLL_LENGTH = 1000;
 const CONFIRM_EMAIL_MAX_POLL_LENGTH = 15 * 1000;
@@ -37,7 +37,7 @@ export default Component.extend({
 
     isClosing: null,
 
-    onClose() {},
+    onClose () { },
 
     forcePublishedMenu: reads('post.pastScheduledTime'),
 
@@ -72,11 +72,11 @@ export default Component.extend({
         let state = this.postState;
 
         if (state === 'published') {
-            return 'Update';
+            return '更新';
         } else if (state === 'scheduled') {
-            return 'Scheduled';
+            return '已计划的';
         } else {
-            return 'Publish';
+            return '发布';
         }
     }),
 
@@ -108,35 +108,35 @@ export default Component.extend({
 
         if (postState === 'draft') {
             switch (distributionAction) {
-            case 'publish_send':
-                if (saveType === 'publish') {
-                    buttonText = 'Publish';
+                case 'publish_send':
+                    if (saveType === 'publish') {
+                        buttonText = '发布';
 
-                    if (this.canSendEmail && this.sendEmailWhenPublished && this.sendEmailWhenPublished !== 'none') {
-                        buttonText = `${buttonText} & send`;
+                        if (this.canSendEmail && this.sendEmailWhenPublished && this.sendEmailWhenPublished !== 'none') {
+                            buttonText = `${buttonText} & send`;
+                        }
+                    } else {
+                        buttonText = '发布计划';
                     }
-                } else {
-                    buttonText = 'Schedule';
-                }
-                break;
-            case 'publish':
-                buttonText = (saveType === 'publish') ? 'Publish' : 'Schedule';
-                break;
-            case 'send':
-                buttonText = saveType === 'publish' ? 'Send' : 'Schedule';
-                break;
+                    break;
+                case 'publish':
+                    buttonText = (saveType === 'publish') ? '发布' : '发布计划';
+                    break;
+                case 'send':
+                    buttonText = saveType === 'publish' ? '发送' : '发送计划';
+                    break;
             }
         }
 
         if (postState === 'published') {
-            buttonText = saveType === 'publish' ? 'Update' : 'Unpublish';
+            buttonText = saveType === 'publish' ? '更新' : '未发布';
         }
 
         if (postState === 'scheduled') {
-            buttonText = saveType === 'schedule' ? 'Reschedule' : 'Unschedule';
+            buttonText = saveType === 'schedule' ? '重新配置计划' : '未计划';
         }
 
-        return buttonText || 'Publish';
+        return buttonText || '发布';
     }),
 
     successText: computed('_previousStatus', 'postState', function () {
@@ -145,15 +145,15 @@ export default Component.extend({
         let buttonText;
 
         if (previousStatus === 'draft') {
-            buttonText = postState === 'published' ? 'Published' : 'Scheduled';
+            buttonText = postState === 'published' ? '已发布' : '已计划';
         }
 
         if (previousStatus === 'published') {
-            buttonText = postState === 'draft' ? 'Unpublished' : 'Updated';
+            buttonText = postState === 'draft' ? '未发布' : '已更新';
         }
 
         if (previousStatus === 'scheduled') {
-            buttonText = postState === 'draft' ? 'Unscheduled' : 'Rescheduled';
+            buttonText = postState === 'draft' ? '未计划' : '已重新配置计划';
         }
 
         return buttonText;
@@ -189,7 +189,7 @@ export default Component.extend({
         return this.settings.get('editorDefaultEmailRecipientsFilter');
     }),
 
-    didReceiveAttrs() {
+    didReceiveAttrs () {
         this._super(...arguments);
 
         // update the displayState based on the post status but only after a
@@ -218,7 +218,7 @@ export default Component.extend({
     },
 
     actions: {
-        setSaveType(saveType) {
+        setSaveType (saveType) {
             let post = this.post;
 
             this.set('saveType', saveType);
@@ -232,11 +232,11 @@ export default Component.extend({
             }
         },
 
-        setSendEmailWhenPublished(sendEmailWhenPublished) {
+        setSendEmailWhenPublished (sendEmailWhenPublished) {
             this.set('sendEmailWhenPublished', sendEmailWhenPublished);
         },
 
-        setDistributionAction(distributionAction) {
+        setDistributionAction (distributionAction) {
             this.set('distributionAction', distributionAction);
 
             if (distributionAction === 'publish') {
@@ -246,7 +246,7 @@ export default Component.extend({
             }
         },
 
-        open() {
+        open () {
             this._cachePublishedAtBlogTZ();
             this.set('isClosing', false);
             this.get('post.errors').clear();
@@ -258,7 +258,7 @@ export default Component.extend({
             }
         },
 
-        close(dropdown, e) {
+        close (dropdown, e) {
             // don't close the menu if the datepicker popup or confirm modal is clicked
             if (e) {
                 let onDatepicker = !!e.target.closest('.ember-power-datepicker-content');
@@ -280,11 +280,11 @@ export default Component.extend({
             return true;
         },
 
-        updateMemberCount(count) {
+        updateMemberCount (count) {
             this.memberCount = count;
         },
 
-        publishFromShortcut() {
+        publishFromShortcut () {
             // trigger blur for inputs and textareas to trigger any actions
             // before attempting to save so we're saving after the result
             if (document.activeElement?.matches('input[type="text"], textarea')) {
@@ -304,7 +304,7 @@ export default Component.extend({
         }
     },
 
-    setDefaultSendEmailWhenPublished() {
+    setDefaultSendEmailWhenPublished () {
         if (this.get('isSendingEmailLimited')) {
             this.set('sendEmailWhenPublished', false);
         } else if (this.postStatus === 'draft' && this.canSendEmail) {
@@ -342,7 +342,7 @@ export default Component.extend({
     }),
 
     save: task(function* (options = {}) {
-        const {post, saveType} = this;
+        const { post, saveType } = this;
 
         // don't allow save if an invalid schedule date is present
         if (this.typedDateError) {
@@ -352,7 +352,7 @@ export default Component.extend({
         // validate publishedAtBlog to avoid an alert when saving for already displayed errors
         // important to do this before opening email confirmation modal too
         try {
-            yield post.validate({property: 'publishedAtBlog'});
+            yield post.validate({ property: 'publishedAtBlog' });
         } catch (error) {
             // re-throw if we don't have a validation error
             if (error) {
@@ -430,7 +430,7 @@ export default Component.extend({
 
         try {
             // will show alert for non-date related failed validations
-            post = yield this.saveTask.perform({sendEmailWhenPublished, emailOnly});
+            post = yield this.saveTask.perform({ sendEmailWhenPublished, emailOnly });
 
             this._cachePublishedAtBlogTZ();
 
@@ -464,11 +464,11 @@ export default Component.extend({
         }
     }),
 
-    _cachePublishedAtBlogTZ() {
+    _cachePublishedAtBlogTZ () {
         this._publishedAtBlogTZ = this.get('post.publishedAtBlogTZ');
     },
 
-    _cleanup() {
+    _cleanup () {
         this.set('distributionAction', 'publish_send');
 
         // when closing the menu we reset the publishedAtBlogTZ date so that the

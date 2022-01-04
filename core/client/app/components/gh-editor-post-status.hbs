@@ -24,9 +24,9 @@
             {{this.scheduledTime}}
         </time>
     {{else if @post.isNew}}
-        新文章
+        新页面
     {{else}}
         草稿
-        {{if (not @hasDirtyAttributes) "- Saved"}}
+        {{if (not @hasDirtyAttributes) "- 已保存"}}
     {{/if}}
 </div>

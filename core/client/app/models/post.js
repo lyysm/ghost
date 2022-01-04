@@ -1,21 +1,21 @@
 import Ember from 'ember';
-import Model, {attr, belongsTo, hasMany} from '@ember-data/model';
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 import ValidationEngine from 'ghost-admin/mixins/validation-engine';
 import boundOneWay from 'ghost-admin/utils/bound-one-way';
 import moment from 'moment';
-import {compare} from '@ember/utils';
+import { compare } from '@ember/utils';
 // eslint-disable-next-line ghost/ember/no-observers
-import {BLANK_DOC} from 'koenig-editor/components/koenig-editor';
-import {computed, observer} from '@ember/object';
-import {equal, filterBy, reads} from '@ember/object/computed';
-import {isBlank} from '@ember/utils';
-import {on} from '@ember/object/evented';
-import {inject as service} from '@ember/service';
+import { BLANK_DOC } from 'koenig-editor/components/koenig-editor';
+import { computed, observer } from '@ember/object';
+import { equal, filterBy, reads } from '@ember/object/computed';
+import { isBlank } from '@ember/utils';
+import { on } from '@ember/object/evented';
+import { inject as service } from '@ember/service';
 
 // ember-cli-shims doesn't export these so we must get them manually
-const {Comparable} = Ember;
+const { Comparable } = Ember;
 
-function statusCompare(postA, postB) {
+function statusCompare (postA, postB) {
     let status1 = postA.get('status');
     let status2 = postB.get('status');
 
@@ -47,7 +47,7 @@ function statusCompare(postA, postB) {
     return compare(status1.valueOf(), status2.valueOf());
 }
 
-function publishedAtCompare(postA, postB) {
+function publishedAtCompare (postA, postB) {
     let published1 = postA.get('publishedAtUTC');
     let published2 = postB.get('publishedAtUTC');
 
@@ -79,10 +79,10 @@ export default Model.extend(Comparable, ValidationEngine, {
     createdAtUTC: attr('moment-utc'),
     excerpt: attr('string'),
     customExcerpt: attr('string'),
-    featured: attr('boolean', {defaultValue: false}),
+    featured: attr('boolean', { defaultValue: false }),
     canonicalUrl: attr('string'),
-    codeinjectionFoot: attr('string', {defaultValue: ''}),
-    codeinjectionHead: attr('string', {defaultValue: ''}),
+    codeinjectionFoot: attr('string', { defaultValue: '' }),
+    codeinjectionHead: attr('string', { defaultValue: '' }),
     customTemplate: attr('string'),
     ogImage: attr('string'),
     ogTitle: attr('string'),
@@ -96,28 +96,28 @@ export default Model.extend(Comparable, ValidationEngine, {
     visibilityFilter: attr('string'),
     metaDescription: attr('string'),
     metaTitle: attr('string'),
-    mobiledoc: attr('json-string', {defaultValue: () => JSON.parse(JSON.stringify(BLANK_DOC))}),
+    mobiledoc: attr('json-string', { defaultValue: () => JSON.parse(JSON.stringify(BLANK_DOC)) }),
     plaintext: attr('string'),
     publishedAtUTC: attr('moment-utc'),
     slug: attr('string'),
-    status: attr('string', {defaultValue: 'draft'}),
-    title: attr('string', {defaultValue: ''}),
+    status: attr('string', { defaultValue: 'draft' }),
+    title: attr('string', { defaultValue: '' }),
     updatedAtUTC: attr('moment-utc'),
     updatedBy: attr('number'),
     url: attr('string'),
     uuid: attr('string'),
-    emailRecipientFilter: attr('members-segment-string', {defaultValue: null}),
-    emailOnly: attr('boolean', {defaultValue: false}),
+    emailRecipientFilter: attr('members-segment-string', { defaultValue: null }),
+    emailOnly: attr('boolean', { defaultValue: false }),
 
     featureImage: attr('string'),
     featureImageAlt: attr('string'),
     featureImageCaption: attr('string'),
 
-    authors: hasMany('user', {embedded: 'always', async: false}),
-    createdBy: belongsTo('user', {async: true}),
-    email: belongsTo('email', {async: false}),
-    publishedBy: belongsTo('user', {async: true}),
-    tags: hasMany('tag', {embedded: 'always', async: false}),
+    authors: hasMany('user', { embedded: 'always', async: false }),
+    createdBy: belongsTo('user', { async: true }),
+    email: belongsTo('email', { async: false }),
+    publishedBy: belongsTo('user', { async: true }),
+    tags: hasMany('tag', { embedded: 'always', async: false }),
 
     primaryAuthor: reads('authors.firstObject'),
     primaryTag: reads('tags.firstObject'),
@@ -216,17 +216,17 @@ export default Model.extend(Comparable, ValidationEngine, {
     }),
 
     publishedAtBlogTZ: computed('publishedAtBlogDate', 'publishedAtBlogTime', 'settings.timezone', {
-        get() {
+        get () {
             return this._getPublishedAtBlogTZ();
         },
-        set(key, value) {
+        set (key, value) {
             let momentValue = value ? moment(value) : null;
             this._setPublishedAtBlogStrings(momentValue);
             return this._getPublishedAtBlogTZ();
         }
     }),
 
-    _getPublishedAtBlogTZ() {
+    _getPublishedAtBlogTZ () {
         let publishedAtUTC = this.publishedAtUTC;
         let publishedAtBlogDate = this.publishedAtBlogDate;
         let publishedAtBlogTime = this.publishedAtBlogTime;
@@ -269,7 +269,7 @@ export default Model.extend(Comparable, ValidationEngine, {
         this._setPublishedAtBlogStrings(publishedAtUTC);
     })),
 
-    _setPublishedAtBlogStrings(momentDate) {
+    _setPublishedAtBlogStrings (momentDate) {
         if (momentDate) {
             let blogTimezone = this.get('settings.timezone');
             let publishedAtBlog = moment.tz(momentDate, blogTimezone);
@@ -286,7 +286,7 @@ export default Model.extend(Comparable, ValidationEngine, {
     // Ember Data won't recognize/update them automatically
     // when returned from the server with ids.
     // https://github.com/emberjs/data/issues/1829
-    updateTags() {
+    updateTags () {
         let tags = this.tags;
         let oldTags = tags.filterBy('id', null);
 
@@ -294,7 +294,7 @@ export default Model.extend(Comparable, ValidationEngine, {
         oldTags.invoke('deleteRecord');
     },
 
-    isAuthoredByUser(user) {
+    isAuthoredByUser (user) {
         return this.authors.includes(user);
     },
 
@@ -303,7 +303,7 @@ export default Model.extend(Comparable, ValidationEngine, {
     //     publishedAt: DESC
     //     updatedAt: DESC
     //     id: DESC
-    compare(postA, postB) {
+    compare (postA, postB) {
         let updated1 = postA.get('updatedAtUTC');
         let updated2 = postB.get('updatedAtUTC');
         let idResult,
@@ -348,7 +348,7 @@ export default Model.extend(Comparable, ValidationEngine, {
     //
     // the publishedAtBlog{Date/Time} strings are set separately so they can be
     // validated, grab that time if it exists and set the publishedAtUTC
-    beforeSave() {
+    beforeSave () {
         let publishedAtBlogTZ = this.publishedAtBlogTZ;
         let publishedAtUTC = publishedAtBlogTZ ? publishedAtBlogTZ.utc() : null;
         this.set('publishedAtUTC', publishedAtUTC);
