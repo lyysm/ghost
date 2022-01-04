@@ -57,36 +57,36 @@ export const CARD_ICON_MAP = {
 export default [
     createComponentCard('card-markdown'), // backwards-compat with markdown editor
     createComponentCard('code'),
-    createComponentCard('embed', {hasEditMode: false}),
-    createComponentCard('bookmark', {hasEditMode: false}),
-    createComponentCard('hr', {hasEditMode: false, selectAfterInsert: false}),
+    createComponentCard('embed', { hasEditMode: false }),
+    createComponentCard('bookmark', { hasEditMode: false }),
+    createComponentCard('hr', { hasEditMode: false, selectAfterInsert: false }),
     createComponentCard('html'),
-    createComponentCard('image', {hasEditMode: false}),
+    createComponentCard('image', { hasEditMode: false }),
     createComponentCard('markdown'),
-    createComponentCard('gallery', {hasEditMode: false}),
+    createComponentCard('gallery', { hasEditMode: false }),
     createComponentCard('email'),
     createComponentCard('email-cta'),
     createComponentCard('button'),
     createComponentCard('callout'),
-    createComponentCard('nft', {hasEditMode: false}),
+    createComponentCard('nft', { hasEditMode: false }),
     createComponentCard('toggle'),
     createComponentCard('video'),
     createComponentCard('audio'),
     createComponentCard('file'),
     createComponentCard('product'),
-    createComponentCard('paywall', {hasEditMode: false, selectAfterInsert: false}),
+    createComponentCard('paywall', { hasEditMode: false, selectAfterInsert: false }),
     createComponentCard('before-after'),
     createComponentCard('header')
 ];
 
 export const CARD_MENU = [
     {
-        title: 'Primary',
+        title: '常用',
         rowLength: 1,
         items: [{
-            label: 'Image',
+            label: '图片',
             icon: 'koenig/kg-card-type-image',
-            desc: 'Upload, or embed with /image [url]',
+            desc: '上传或嵌入图片, 使用 /image [url]',
             iconClass: 'kg-card-type-native',
             matches: ['image', 'img'],
             type: 'card',
@@ -99,7 +99,7 @@ export const CARD_MENU = [
         {
             label: 'Markdown',
             icon: 'koenig/kg-card-type-markdown',
-            desc: 'Insert a Markdown editor card',
+            desc: '嵌入Markdown',
             iconClass: 'kg-card-type-native',
             matches: ['markdown', 'md'],
             type: 'card',
@@ -108,43 +108,43 @@ export const CARD_MENU = [
         {
             label: 'HTML',
             icon: 'koenig/kg-card-type-html',
-            desc: 'Insert a raw HTML card',
+            desc: '嵌入HTML源代码',
             iconClass: 'kg-card-type-native',
             matches: ['html'],
             type: 'card',
             replaceArg: 'html'
         },
         {
-            label: 'Gallery',
+            label: '图集',
             icon: 'koenig/kg-card-type-gallery',
-            desc: 'Create an image gallery',
+            desc: '插入一组图片',
             iconClass: 'kg-card-type-native',
             matches: ['gallery'],
             type: 'card',
             replaceArg: 'gallery'
         },
         {
-            label: 'Divider',
+            label: '分隔线',
             icon: 'koenig/kg-card-type-divider',
-            desc: 'Insert a dividing line',
+            desc: '插入分隔线',
             iconClass: 'kg-card-type-native',
             matches: ['divider', 'horizontal-rule', 'hr'],
             type: 'card',
             replaceArg: 'hr'
         },
         {
-            label: 'Bookmark',
+            label: '书签',
             icon: 'koenig/kg-card-type-bookmark',
-            desc: 'Embed a link as a visual bookmark',
+            desc: '将链接作为书签嵌入',
             matches: ['bookmark'],
             type: 'card',
             replaceArg: 'bookmark',
             params: ['url']
         },
         {
-            label: 'Email content',
+            label: 'Email 内容',
             icon: 'koenig/kg-card-type-email',
-            desc: 'Only visible when delivered by email',
+            desc: '仅在通过电子邮件传送时可见',
             matches: ['email'],
             type: 'card',
             replaceArg: 'email',
@@ -160,25 +160,25 @@ export const CARD_MENU = [
             postType: 'post'
         },
         {
-            label: 'Public preview',
+            label: '公开内容',
             icon: 'koenig/kg-card-type-paywall',
-            desc: 'Attract signups with a public intro',
+            desc: '通过公开内容吸引用户注册',
             matches: ['public preview', 'preview', 'paywall'],
             type: 'card',
             replaceArg: 'paywall'
         },
         {
-            label: 'Button',
+            label: '按钮',
             icon: 'koenig/kg-card-type-button',
-            desc: 'Add a button to your post',
+            desc: '在您的页面中添加一个按钮',
             matches: ['button'],
             type: 'card',
             replaceArg: 'button'
         },
         {
-            label: 'Callout',
+            label: '强调信息',
             icon: 'koenig/kg-card-type-callout',
-            desc: 'Info boxes that stand out',
+            desc: '突出显示的信息框',
             matches: ['callout'],
             type: 'card',
             replaceArg: 'callout',
@@ -187,7 +187,7 @@ export const CARD_MENU = [
         {
             label: 'GIF',
             icon: 'koenig/kg-card-type-gif',
-            desc: 'Search and embed gifs',
+            desc: '搜索并嵌入gif',
             iconClass: 'kg-card-type-unsplash',
             matches: ['gif', 'giphy', 'tenor'],
             type: 'card',
@@ -199,18 +199,18 @@ export const CARD_MENU = [
             isAvailable: 'config.tenor.publicReadOnlyApiKey'
         },
         {
-            label: 'Toggle',
+            label: '可折叠内容',
             icon: 'koenig/kg-card-type-toggle',
-            desc: 'Add collapsible content',
+            desc: '添加可折叠内容',
             matches: ['toggle'],
             type: 'card',
             replaceArg: 'toggle',
             isAvailable: 'feature.accordionCard'
         },
         {
-            label: 'Video',
+            label: '视频',
             icon: 'koenig/kg-card-type-video',
-            desc: 'Upload and play a video',
+            desc: '上传并播放视频文件',
             matches: ['video'],
             type: 'card',
             replaceArg: 'video',
@@ -220,9 +220,9 @@ export const CARD_MENU = [
             isAvailable: 'feature.videoCard'
         },
         {
-            label: 'Audio',
+            label: '音频',
             icon: 'koenig/kg-card-type-audio',
-            desc: 'Upload and play an audio file',
+            desc: '上传并播放音频文件',
             matches: ['audio'],
             type: 'card',
             replaceArg: 'audio',
@@ -232,9 +232,9 @@ export const CARD_MENU = [
             }
         },
         {
-            label: 'File',
+            label: '文件',
             icon: 'koenig/kg-card-type-file',
-            desc: 'Upload a downloadable file',
+            desc: '上传一个可下载的文件',
             matches: ['file', 'upload'],
             type: 'card',
             replaceArg: 'file',
@@ -244,9 +244,9 @@ export const CARD_MENU = [
             }
         },
         {
-            label: 'Product',
+            label: '产品卡片',
             icon: 'koenig/kg-card-type-product',
-            desc: 'Add a product recommendation',
+            desc: '添加产品推荐卡片',
             matches: ['product'],
             type: 'card',
             replaceArg: 'product',
@@ -255,15 +255,15 @@ export const CARD_MENU = [
         {
             label: 'Before/After',
             icon: 'koenig/kg-card-type-before-after',
-            desc: 'Compare two images',
+            desc: '比较两个图像',
             matches: ['before', 'after', 'compare'],
             type: 'card',
             replaceArg: 'before-after',
             isAvailable: 'feature.beforeAfterCard'
         }, {
-            label: 'Header',
+            label: '页面标题栏',
             icon: 'koenig/kg-card-type-header',
-            desc: 'Add a bold section header',
+            desc: '添加页面粗体标题',
             matches: ['header'],
             type: 'card',
             replaceArg: 'header',
@@ -271,7 +271,7 @@ export const CARD_MENU = [
         }]
     },
     {
-        title: 'Embed',
+        title: '嵌入第三方功能',
         rowLength: 1,
         items: [{
             label: 'YouTube',
