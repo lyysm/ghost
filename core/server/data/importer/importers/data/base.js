@@ -3,7 +3,7 @@ const _ = require('lodash');
 const Promise = require('bluebird');
 const ObjectId = require('bson-objectid');
 const errors = require('@tryghost/errors');
-const {sequence} = require('@tryghost/promise');
+const { sequence } = require('@tryghost/promise');
 const models = require('../../../../models');
 
 class Base {
@@ -56,7 +56,7 @@ class Base {
     /**
      * Strips attributes of the object
      */
-    stripProperties(properties) {
+    stripProperties (properties) {
         _.each(this.dataToImport, (obj) => {
             _.each(properties, (property) => {
                 delete obj[property];
@@ -67,14 +67,14 @@ class Base {
     /**
      * Clean invalid values.
      */
-    sanitizeValues() {
+    sanitizeValues () {
         _.each(this.dataToImport, (obj) => {
             _.each(_.pick(obj, ['updated_at', 'created_at', 'published_at']), (value, key) => {
                 let temporaryDate = new Date(value);
 
                 if (isNaN(temporaryDate)) {
                     this.problems.push({
-                        message: 'Date is in a wrong format and invalid. It was replaced with the current timestamp.',
+                        message: '日期格式错误且无效。它被替换为当前时间。',
                         help: this.modelName,
                         context: JSON.stringify(obj)
                     });
@@ -85,7 +85,7 @@ class Base {
         });
     }
 
-    generateIdentifier() {
+    generateIdentifier () {
         _.each(this.dataToImport, (obj) => {
             const newId = ObjectId().toHexString();
 
@@ -97,17 +97,17 @@ class Base {
         });
     }
 
-    fetchExisting() {
+    fetchExisting () {
         return Promise.resolve();
     }
 
-    beforeImport() {
+    beforeImport () {
         this.sanitizeValues();
         this.generateIdentifier();
         return Promise.resolve();
     }
 
-    handleError(errs, obj) {
+    handleError (errs, obj) {
         let errorsToReject = [];
         let problems = [];
 
@@ -121,7 +121,7 @@ class Base {
                 if (this.errorConfig.allowDuplicates) {
                     if (this.errorConfig.returnDuplicates) {
                         problems.push({
-                            message: 'Entry was not imported and ignored. Detected duplicated entry.',
+                            message: '检测到重复条目,未导入并忽略该条目.',
                             help: this.modelName,
                             context: JSON.stringify(obj),
                             err: err
@@ -129,7 +129,7 @@ class Base {
                     }
                 } else {
                     errorsToReject.push(new errors.DataImportError({
-                        message: 'Detected duplicated entry.',
+                        message: '检测到重复条目.',
                         help: this.modelName,
                         context: JSON.stringify(obj),
                         err: err
@@ -138,7 +138,7 @@ class Base {
             } else if (err instanceof errors.NotFoundError) {
                 if (this.errorConfig.showNotFoundWarning) {
                     problems.push({
-                        message: 'Entry was not imported and ignored. Could not find entry.',
+                        message: '未导入和忽略条目。找不到条目。',
                         help: this.modelName,
                         context: JSON.stringify(obj),
                         err: err
@@ -180,7 +180,7 @@ class Base {
      * `requiredFromFile`: the importer allows you to ask for data from the file
      * `requiredImportedData`: the importer allows you to ask for already imported data
      */
-    replaceIdentifiers() {
+    replaceIdentifiers () {
         const ownerUserId = _.find(this.requiredExistingData.users, (user) => {
             if (user.roles[0].name === 'Owner') {
                 return true;
@@ -202,7 +202,7 @@ class Base {
                 }
 
                 if (!userReferenceProblems[obj.id]) {
-                    userReferenceProblems[obj.id] = {obj: _.cloneDeep(obj), keys: []};
+                    userReferenceProblems[obj.id] = { obj: _.cloneDeep(obj), keys: [] };
                 }
 
                 userReferenceProblems[obj.id].keys.push(key);
@@ -211,16 +211,16 @@ class Base {
             }
 
             // CASE: first match the user reference with in the imported file
-            let userFromFile = _.find(this.requiredFromFile.users, {id: obj[key]});
+            let userFromFile = _.find(this.requiredFromFile.users, { id: obj[key] });
 
             if (!userFromFile) {
                 // CASE: if user does not exist in file, try to lookup the existing db users
-                let existingUser = _.find(this.requiredExistingData.users, {id: obj[key].toString()});
+                let existingUser = _.find(this.requiredExistingData.users, { id: obj[key].toString() });
 
                 // CASE: fallback to owner
                 if (!existingUser) {
                     if (!userReferenceProblems[obj.id]) {
-                        userReferenceProblems[obj.id] = {obj: _.cloneDeep(obj), keys: []};
+                        userReferenceProblems[obj.id] = { obj: _.cloneDeep(obj), keys: [] };
                     }
 
                     userReferenceProblems[obj.id].keys.push(key);
@@ -237,7 +237,7 @@ class Base {
             // Result: `this.requiredImportedData.users` will be empty.
             // We already generate identifiers for each object in the importer layer. Accessible via `dataToImport`.
             if (this.modelName === 'User' && !this.requiredImportedData.users.length) {
-                let userToImport = _.find(this.dataToImport, {slug: userFromFile.slug});
+                let userToImport = _.find(this.dataToImport, { slug: userFromFile.slug });
 
                 if (userToImport) {
                     obj[key] = userToImport.id;
@@ -250,7 +250,7 @@ class Base {
 
             // CASE: user exists in the file, let's find his db id
             // NOTE: lookup by email, because slug can change on insert
-            let importedUser = _.find(this.requiredImportedData.users, {email: userFromFile.email});
+            let importedUser = _.find(this.requiredImportedData.users, { email: userFromFile.email });
 
             // CASE: found. let's assign the new ID
             if (importedUser) {
@@ -259,15 +259,15 @@ class Base {
             }
 
             // CASE: user was not imported, let's figure out if the user exists in the database
-            let existingUser = _.find(this.requiredExistingData.users, {slug: userFromFile.slug});
+            let existingUser = _.find(this.requiredExistingData.users, { slug: userFromFile.slug });
 
             if (!existingUser) {
                 // CASE: let's try by ID
-                existingUser = _.find(this.requiredExistingData.users, {id: userFromFile.id.toString()});
+                existingUser = _.find(this.requiredExistingData.users, { id: userFromFile.id.toString() });
 
                 if (!existingUser) {
                     if (!userReferenceProblems[obj.id]) {
-                        userReferenceProblems[obj.id] = {obj: _.cloneDeep(obj), keys: []};
+                        userReferenceProblems[obj.id] = { obj: _.cloneDeep(obj), keys: [] };
                     }
 
                     userReferenceProblems[obj.id].keys.push(key);
@@ -296,15 +296,15 @@ class Base {
 
         _.each(userReferenceProblems, (entry) => {
             this.problems.push({
-                message: 'Entry was imported, but we were not able to resolve the following user references: ' +
-                entry.keys.join(', ') + '. The user does not exist, fallback to owner user.',
+                message: '条目已导入，但我们无法解析以下用户引用: ' +
+                    entry.keys.join(', ') + '. 用户不存在，关联到admin用户。',
                 help: this.modelName,
                 context: JSON.stringify(entry.obj)
             });
         });
     }
 
-    doImport(options, importOptions) {
+    doImport (options, importOptions) {
         debug('doImport', this.modelName, this.dataToImport.length);
 
         let ops = [];
